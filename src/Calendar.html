@@ -1,0 +1,102 @@
+<div class="header">
+  <span>{{year}} - {{month}}</span>
+  <div class="week">
+    <span class="day day-name">Mo</span>
+    <span class="day day-name">Tu</span>
+    <span class="day day-name">We</span>
+    <span class="day day-name">Th</span>
+    <span class="day day-name">Fr</span>
+    <span class="day day-name">Sa</span>
+    <span class="day day-name">Su</span>
+  </div>
+</div>
+<div class="weeks">
+  {{#each calendarMonth as week}}
+    <div class="week">
+      {{#each week as day}}
+        <span on:click="selectDay(day)" class="{{dayClass(selectedDay, year, month, day)}}">{{day.dayInMonth}}</span>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>
+
+<script>
+  const isCurrentMonth = (day, month) => day.month.month === month
+  const currentMonthClass = (day, month) => isCurrentMonth(day, month) ? ' current-month' : ' other-month'
+  const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0 // TODO: different start of the week, extract
+  const weekendClass = (day) => isWeekend(day) ? ' weekend' : ''
+  const isSelectedClass = (day, selectedDay, selectedMonth, selectedYear) =>
+    selectedDay === day.dayInMonth &&
+    selectedMonth === day.month.month &&
+    selectedYear === day.month.year ? ' selected' : ''
+
+  export default {
+    helpers: {
+      dayClass(selectedDay, currentYear, currentMonth, day) {
+        return `day${isSelectedClass(day, selectedDay, currentMonth, currentYear)}${currentMonthClass(day, currentMonth)}${weekendClass(day)}`
+      }
+    },
+
+    methods: {
+      selectDay(day) {
+        this.set({
+          year: day.month.year,
+          month: day.month.month,
+          selectedDay: day.dayInMonth
+        })
+      }
+    }
+  }
+</script>
+
+<style>
+  :root {
+    --main-color: #e4e7e7;
+    --selected-color: #00a699;
+    --other-day-color: #cacccd;
+    --cell-size: 37px;
+    --border-width: 1px;
+    --other-month-visibility: visible;
+  }
+  .weeks {
+    border-left: var(--border-width) solid var(--main-color);
+    border-right: var(--border-width) solid var(--main-color);
+  }
+  .week {
+    display: flex;
+    border-bottom: var(--border-width) solid var(--main-color);
+  }
+  .day {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    text-align: center;
+    border-right: var(--border-width) solid var(--main-color);
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: column;
+    user-select: none;
+  }
+  .day.day-name {
+    border-right: var(--border-width) solid transparent;
+  }
+  .day:last-child {
+    border-right: var(--border-width) solid transparent;
+  }
+  .day:hover {
+    cursor: default;
+  }
+  .day.current-month:hover {
+    cursor: pointer;
+    background-color: var(--main-color);
+  }
+  .day.current-month.selected {
+    background-color: var(--selected-color);
+    color: white;
+  }
+  .day.other-month {
+    color: var(--other-day-color);
+    visibility: var(--other-month-visibility);
+    pointer-events: none;
+  }
+</style>

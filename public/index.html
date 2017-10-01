@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="bundle.css">
+  <title>Calendar</title>
+  <style>
+    #calendar {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <!-- TODO: wait for this issue to use real custom elements: https://github.com/sveltejs/svelte/issues/875 -->
+  <!-- <cntdys-calendar name="test"></cntdys-calendar> -->
+  <div id="calendar"></div>
+
+  <script type="module" src="bundle.js"></script>
+  <!-- Firefox! Need to build it with iife -->
+  <script nomodule src="bundle.js"></script>
+</body>
+</html>
