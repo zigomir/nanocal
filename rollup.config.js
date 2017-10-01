@@ -8,7 +8,7 @@ export default {
   input: 'src/main.js',
   output: {
     sourcemap: true,
-    format: 'es', // iife for firefox? (iife is even smaller build for now)
+    format: 'iife', // es or iife for firefox? (iife is even smaller build for now)
     file: 'public/bundle.js'
   },
   name: 'app',
@@ -24,6 +24,6 @@ export default {
       cascade: false
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875
     }),
-    production && minify()
+    production && minify({ comments: false })
   ]
 }
