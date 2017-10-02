@@ -7,19 +7,26 @@
 
   <link rel="stylesheet" href="bundle.css">
   <title>Calendar</title>
-  <style>
-    #calendar {
-      display: inline-block;
-    }
-  </style>
 </head>
 <body>
   <!-- TODO: wait for this issue to use real custom elements: https://github.com/sveltejs/svelte/issues/875 -->
   <!-- <cntdys-calendar name="test"></cntdys-calendar> -->
   <div id="calendar"></div>
 
-  <script type="module" src="bundle.js"></script>
+  <!-- <script type="module" src="bundle.js"></script> -->
+  <script type="module">
+    import Calendar from './bundle.js'
+    new Calendar({
+      target: document.getElementById('calendar'),
+      data: {
+        year: 2017,
+        month: 10,
+        day: 1 // optional
+      }
+    })
+  </script>
+  <!-- <script src="bundle.js"></script> -->
   <!-- Firefox! Need to build it with iife -->
-  <script nomodule src="bundle.js"></script>
+  <!-- <script nomodule src="bundle.js"></script> -->
 </body>
 </html>
