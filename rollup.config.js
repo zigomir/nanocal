@@ -7,9 +7,8 @@ const production = !process.env.ROLLUP_WATCH
 export default {
   input: 'src/main.js',
   output: {
-    // sourcemap: true,
-    format: 'es', // es or iife for firefox? (iife is even smaller build for now)
-    file: 'public/bundle.js'
+    sourcemap: true,
+    name: 'Calendar'
   },
   name: 'app',
   plugins: [

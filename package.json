@@ -4,7 +4,9 @@
   "description": "cntdys-ui",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "npm run build:module && npm run build:nomodule",
+    "build:module": "rollup -c -f es -o public/bundle.js",
+    "build:nomodule": "rollup -c -f iife -o public/bundle-nomodule.js",
     "dev": "serve public & rollup -c -w",
     "start": "serve public"
   },

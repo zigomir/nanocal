@@ -13,7 +13,6 @@
   <!-- <cntdys-calendar name="test"></cntdys-calendar> -->
   <div id="calendar"></div>
 
-  <!-- <script type="module" src="bundle.js"></script> -->
   <script type="module">
     import Calendar from './bundle.js'
     new Calendar({
@@ -25,8 +24,18 @@
       }
     })
   </script>
-  <!-- <script src="bundle.js"></script> -->
+
   <!-- Firefox! Need to build it with iife -->
-  <!-- <script nomodule src="bundle.js"></script> -->
+  <script nomodule src="bundle-nomodule.js"></script>
+  <script nomodule>
+    new Calendar({
+      target: document.getElementById('calendar'),
+      data: {
+        year: 2017,
+        month: 10,
+        day: 1 // optional
+      }
+    })
+  </script>
 </body>
 </html>
