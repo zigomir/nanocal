@@ -15,8 +15,9 @@
 
   <script type="module">
     import Calendar from './bundle.js'
+    const el = document.getElementById('calendar')
     const calendar = new Calendar({
-      target: document.getElementById('calendar'),
+      target: el,
       data: {
         year: 2017,
         month: 10,
@@ -25,6 +26,10 @@
     })
 
     calendar.on('selectedDay', (day) => console.log(day))
+
+    // How to override styling
+    // el.style.setProperty('--other-month-visibility', 'hidden')
+    el.style.setProperty('--cell-size', '40px')
   </script>
 
   <!-- Firefox! Need to build it with iife -->
@@ -38,8 +43,6 @@
         day: 1 // optional
       }
     })
-
-    calendar.on('selectedDay', (day) => console.log(day))
   </script>
 </body>
 </html>
