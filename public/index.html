@@ -15,7 +15,7 @@
 
   <script type="module">
     import Calendar from './bundle.js'
-    new Calendar({
+    const calendar = new Calendar({
       target: document.getElementById('calendar'),
       data: {
         year: 2017,
@@ -23,12 +23,14 @@
         day: 1 // optional
       }
     })
+
+    calendar.on('selectedDay', (day) => console.log(day))
   </script>
 
   <!-- Firefox! Need to build it with iife -->
   <script nomodule src="bundle-nomodule.js"></script>
   <script nomodule>
-    new Calendar({
+    const calendar = new Calendar({
       target: document.getElementById('calendar'),
       data: {
         year: 2017,
@@ -36,6 +38,8 @@
         day: 1 // optional
       }
     })
+
+    calendar.on('selectedDay', (day) => console.log(day))
   </script>
 </body>
 </html>

@@ -52,6 +52,8 @@
           month: day.month.month,
           day: day.dayInMonth
         })
+
+        this.fire('selectedDay', day)
       }
     }
   }

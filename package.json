@@ -7,7 +7,7 @@
     "build": "npm run build:module && npm run build:nomodule",
     "build:module": "rollup -c -f es -o public/bundle.js",
     "build:nomodule": "rollup -c -f iife -o public/bundle-nomodule.js",
-    "dev": "serve public & rollup -c -w",
+    "dev": "serve public & rollup -c -w -f es -o public/bundle.js",
     "start": "serve public"
   },
   "keywords": [],
