@@ -1,6 +1,5 @@
 ## todos
 
-- make reusable artifact with minimal configuration
 - starting week with X (UI thing) – http://i.imgur.com/eHtAIwP.png
 - render to custom elements when [issue resolved](https://github.com/sveltejs/svelte/issues/875)
 
