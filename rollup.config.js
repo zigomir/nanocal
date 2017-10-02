@@ -20,7 +20,7 @@ export default {
       // a separate file — better for performance
       css: css => { css.write('public/bundle.css') },
       // this results in smaller CSS files
-      cascade: false
+      // cascade: false
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875
     }),
     production && minify({ comments: false })

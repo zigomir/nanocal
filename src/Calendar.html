@@ -1,16 +1,6 @@
 <div class="wrapper">
-  <div class="header">
-    <span>{{year}} - {{month}}</span>
-    <div class="week">
-      <span class="day day-name">Mo</span>
-      <span class="day day-name">Tu</span>
-      <span class="day day-name">We</span>
-      <span class="day day-name">Th</span>
-      <span class="day day-name">Fr</span>
-      <span class="day day-name">Sa</span>
-      <span class="day day-name">Su</span>
-    </div>
-  </div>
+  <span>{{year}} - {{month}}</span>
+  <Header />
   <div class="weeks">
     {{#each calendarMonth as week}}
       <div class="week">
@@ -24,6 +14,7 @@
 
 <script>
   import { calendarMonth } from 'cntdys' // use "../node_modules/cntdys/dist/main.[min.]js" if rollup-plugin-node-resolve not used
+  import Header from './Header.html'
 
   const isCurrentMonth = (day, month) => day.month.month === month
   const currentMonthClass = (day, month) => isCurrentMonth(day, month) ? ' current-month' : ' other-month'
@@ -55,19 +46,13 @@
 
         this.fire('selectedDay', day)
       }
-    }
+    },
+
+    components: { Header }
   }
 </script>
 
 <style>
-  :root {
-    --main-color: #e4e7e7;
-    --selected-color: #00a699;
-    --other-day-color: #cacccd;
-    --cell-size: 37px;
-    --border-width: 1px;
-    --other-month-visibility: visible;
-  }
   .wrapper {
     display: inline-block;
   }
@@ -89,6 +74,9 @@
     justify-content: center;
     flex-direction: column;
     user-select: none;
+  }
+  .day.weekend {
+    color: var(--weekend-day-color);
   }
   .day.day-name {
     border-right: var(--border-width) solid transparent;

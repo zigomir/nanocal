@@ -7,6 +7,19 @@
 
   <link rel="stylesheet" href="bundle.css">
   <title>Calendar</title>
+
+  <!-- We need to define root variables here if cascade: false is not used in rollup config -->
+  <style>
+    #calendar {
+      --main-color: #e4e7e7;
+      --selected-color: #00a699;
+      --other-day-color: #cacccd;
+      --weekend-day-color: #279fd9;
+      --cell-size: 37px;
+      --border-width: 1px;
+      --other-month-visibility: visible;
+    }
+  </style>
 </head>
 <body>
   <!-- TODO: wait for this issue to use real custom elements: https://github.com/sveltejs/svelte/issues/875 -->
