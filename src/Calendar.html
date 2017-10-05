@@ -1,6 +1,6 @@
 <div class="wrapper">
   <span>{{year}} - {{month}}</span>
-  <Header />
+  <Header startOfTheWeek="{{startOfTheWeek}}" />
   <div class="weeks">
     {{#each calendarMonth as week}}
       <div class="week">
@@ -18,7 +18,7 @@
 
   const isCurrentMonth = (day, month) => day.month.month === month
   const currentMonthClass = (day, month) => isCurrentMonth(day, month) ? ' current-month' : ' other-month'
-  const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0 // TODO: different start of the week, extract
+  const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
   const weekendClass = (day) => isWeekend(day) ? ' weekend' : ''
   const isSelectedClass = (day, selectedDay, selectedMonth, selectedYear) =>
     selectedDay === day.dayInMonth &&
@@ -33,7 +33,7 @@
     },
 
     computed: {
-      calendarMonth: (year, month) => calendarMonth(year, month)
+      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek)
     },
 
     methods: {

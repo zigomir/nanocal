@@ -1,11 +1,36 @@
 <div class="header">
   <div class="week">
-    <span class="day day-name">Mo</span>
-    <span class="day day-name">Tu</span>
-    <span class="day day-name">We</span>
-    <span class="day day-name">Th</span>
-    <span class="day day-name">Fr</span>
-    <span class="day day-name">Sa</span>
-    <span class="day day-name">Su</span>
+    {{#each dayNames as day}}
+      <span class="day day-name">{{ day }}</span>
+    {{/each}}
   </div>
 </div>
+
+<script>
+  const dayNames = [
+    'Su',
+    'Mo',
+    'Tu',
+    'We',
+    'Th',
+    'Fr',
+    'Sa'
+  ]
+
+  export default {
+    props: ['startOfTheWeek'],
+
+    computed: {
+      dayNames: (startOfTheWeek) => {
+        let days = [...dayNames]
+
+        for (let i = 6; i > 6 - startOfTheWeek; i--) {
+          let day = days.shift()
+          days.push(day)
+        }
+
+        return days
+      }
+    }
+  }
+</script>
