@@ -1,11 +1,16 @@
 <div class="wrapper">
-  <span>{{year}} - {{month}}</span>
+  <div class="flex">
+    <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
+    <span>{{ monthName }}</span>
+    <span>{{ year }}</span>
+    <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
+  </div>
   <Header startOfTheWeek="{{startOfTheWeek}}" />
   <div class="weeks">
     {{#each calendarMonth as week}}
       <div class="week">
         {{#each week as weekDay}}
-          <span on:click="selectDay(weekDay)" class="{{dayClass(day, year, month, weekDay)}}">{{weekDay.dayInMonth}}</span>
+          <span on:click="selectDay(weekDay)" class="{{dayClass(selectedDay, weekDay, month)}}">{{weekDay.dayInMonth}}</span>
         {{/each}}
       </div>
     {{/each}}
@@ -13,7 +18,8 @@
 </div>
 
 <script>
-  import { calendarMonth } from 'cntdys' // use "../node_modules/cntdys/dist/main.[min.]js" if rollup-plugin-node-resolve not used
+  // use "../node_modules/cntdys/dist/main.[min.]js" if rollup-plugin-node-resolve not used
+  import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
   import Header from './Header.html'
 
   const isCurrentMonth = (day, month) => day.month.month === month
@@ -27,24 +33,45 @@
 
   export default {
     helpers: {
-      dayClass(day, currentYear, currentMonth, weekDay) {
-        return `day${isSelectedClass(weekDay, day, currentMonth, currentYear)}${currentMonthClass(weekDay, currentMonth)}${weekendClass(weekDay)}`
+      dayClass(selectedDay, weekDay, month) {
+        return `day${isSelectedClass(weekDay, selectedDay.day, selectedDay.month, selectedDay.year)}${currentMonthClass(weekDay, month)}${weekendClass(weekDay)}`
       }
     },
 
     computed: {
-      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek)
+      calendarMonth: (year, month, startOfTheWeek) => {
+        return calendarMonth(year, month, startOfTheWeek)
+      },
+      monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })
     },
 
     methods: {
-      selectDay(day) {
+      selectDay({ month, dayInMonth }) {
         this.set({
-          year: day.month.year,
-          month: day.month.month,
-          day: day.dayInMonth
+          year: month.year,
+          month: month.month,
+          selectedDay: {
+            year: month.year,
+            month: month.month,
+            day: dayInMonth
+          }
         })
 
-        this.fire('selectedDay', day)
+        this.fire('selectedDay', { month, dayInMonth })
+      },
+      back(year, month) {
+        const previousMonth = getPreviousMonth(year, month)
+        this.set({
+          year: previousMonth.year,
+          month: previousMonth.month
+        })
+      },
+      forward(year, month) {
+        const nextMonth = getNextMonth(year, month)
+        this.set({
+          year: nextMonth.year,
+          month: nextMonth.month
+        })
       }
     },
 
@@ -53,6 +80,9 @@
 </script>
 
 <style>
+  .flex { display: flex; }
+  .pointer { cursor: pointer; }
+
   .wrapper {
     display: inline-block;
   }
