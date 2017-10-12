@@ -7,8 +7,8 @@
     "build": "npm run build:module && npm run build:nomodule",
     "build:module": "rollup -c -f es -o public/bundle.js",
     "build:nomodule": "rollup -c -f iife -o public/bundle-nomodule.js",
-    "dev": "serve public & rollup -c -w -f es -o public/bundle.js",
-    "start": "serve public"
+    "dev": "serve  -p 3000 public & rollup -c -w -f es -o public/bundle.js",
+    "start": "serve -p 3000 public"
   },
   "keywords": [],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
