@@ -5,7 +5,13 @@
     <span>{{ year }}</span>
     <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
   </div>
-  <Header startOfTheWeek="{{startOfTheWeek}}" />
+  <div class="header">
+    <div class="week">
+      {{#each dayNames as day}}
+      <span class="day day-name">{{ day }}</span>
+      {{/each}}
+    </div>
+  </div>
   <div class="weeks">
     {{#each calendarMonth as week}}
       <div class="week">
@@ -20,7 +26,6 @@
 <script>
   // use "../node_modules/cntdys/dist/main.[min.]js" if rollup-plugin-node-resolve not used
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
-  import Header from './Header.html'
 
   const isCurrentMonth = (day, month) => day.month.month === month
   const currentMonthClass = (day, month) => isCurrentMonth(day, month) ? ' current-month' : ' other-month'
@@ -30,6 +35,16 @@
     selectedDay === day.dayInMonth &&
     selectedMonth === day.month.month &&
     selectedYear === day.month.year ? ' selected' : ''
+
+  const dayNames = [
+    'Su',
+    'Mo',
+    'Tu',
+    'We',
+    'Th',
+    'Fr',
+    'Sa'
+  ]
 
   export default {
     helpers: {
@@ -42,7 +57,17 @@
       calendarMonth: (year, month, startOfTheWeek) => {
         return calendarMonth(year, month, startOfTheWeek)
       },
-      monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })
+      monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' }),
+      dayNames: (startOfTheWeek) => {
+        let days = [...dayNames]
+
+        for (let i = 6; i > 6 - startOfTheWeek; i--) {
+          let day = days.shift()
+          days.push(day)
+        }
+
+        return days
+      }
     },
 
     methods: {
