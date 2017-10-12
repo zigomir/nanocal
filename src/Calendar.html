@@ -48,17 +48,9 @@
     helpers: {
       dayClass(selectedDay, weekDay, month) {
         let classes = ['day']
-        if (selectedDay && isSelected(weekDay, selectedDay)) {
-          classes.push('selected')
-        }
-        if (isCurrentMonth(weekDay, month)) {
-          classes.push('current-month')
-        } else {
-          classes.push('other-month')
-        }
-        if (isWeekend(weekDay)) {
-          classes.push('weekend')
-        }
+        if (selectedDay && isSelected(weekDay, selectedDay)) classes.push('selected')
+        if (isWeekend(weekDay)) classes.push('weekend')
+        classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
         return classes.join(' ')
       }
     },
