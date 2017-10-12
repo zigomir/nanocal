@@ -8,7 +8,7 @@
   <div class="header">
     <div class="week">
       {{#each dayNames as day}}
-      <span class="day day-name">{{ day }}</span>
+        <span class="day day-name">{{ day }}</span>
       {{/each}}
     </div>
   </div>
@@ -28,13 +28,11 @@
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
 
   const isCurrentMonth = (day, month) => day.month.month === month
-  const currentMonthClass = (day, month) => isCurrentMonth(day, month) ? ' current-month' : ' other-month'
   const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
-  const weekendClass = (day) => isWeekend(day) ? ' weekend' : ''
-  const isSelectedClass = (day, selectedDay, selectedMonth, selectedYear) =>
-    selectedDay === day.dayInMonth &&
-    selectedMonth === day.month.month &&
-    selectedYear === day.month.year ? ' selected' : ''
+  const isSelected = (weekDay, { day, year, month}) =>
+    day === weekDay.dayInMonth &&
+    month === weekDay.month.month &&
+    year === weekDay.month.year
 
   const dayNames = [
     'Su',
@@ -49,7 +47,19 @@
   export default {
     helpers: {
       dayClass(selectedDay, weekDay, month) {
-        return `day${isSelectedClass(weekDay, selectedDay.day, selectedDay.month, selectedDay.year)}${currentMonthClass(weekDay, month)}${weekendClass(weekDay)}`
+        let classes = ['day']
+        if (selectedDay && isSelected(weekDay, selectedDay)) {
+          classes.push('selected')
+        }
+        if (isCurrentMonth(weekDay, month)) {
+          classes.push('current-month')
+        } else {
+          classes.push('other-month')
+        }
+        if (isWeekend(weekDay)) {
+          classes.push('weekend')
+        }
+        return classes.join(' ')
       }
     },
 
