@@ -62,16 +62,18 @@
           //   classes.push('selected')
           // }
 
+          // TODO: get the dates in consistent format!
           if (hoverDay || rangeEndDay) {
-            const weekDayDate = new Date(weekDay.month.year, weekDay.month.month, weekDay.dayInMonth)
-            const rangeStartDayDate = new Date(rangeStartDay.year, rangeStartDay.month, rangeStartDay.day)
-            const hoverOrRangeEndDayDate = rangeEndDay ?
-              new Date(rangeEndDay.year, rangeEndDay.month, rangeEndDay.day) :
-              new Date(hoverDay.month.year, hoverDay.month.month, hoverDay.dayInMonth)
+            const thisDayTs = Date.UTC(weekDay.month.year, weekDay.month.month - 1, weekDay.dayInMonth)
+            const rangeStartTs = Date.UTC(rangeStartDay.year, rangeStartDay.month - 1, rangeStartDay.day)
+            const hoverOrRangeEndTs = rangeEndDay ?
+              Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day) :
+              Date.UTC(hoverDay.month.year, hoverDay.month.month - 1, hoverDay.dayInMonth)
 
             if (
-              weekDayDate >= rangeStartDayDate && weekDayDate <= hoverOrRangeEndDayDate ||
-              weekDayDate <= rangeStartDayDate && weekDayDate >= hoverOrRangeEndDayDate
+              (rangeStartTs && hoverOrRangeEndTs) &&
+              thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs ||
+              thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs
             ) {
               classes.push('farben')
             }
@@ -125,6 +127,8 @@
               },
               hoverDay: null
             })
+
+            this.fire('selectedRange', { start: this.get('rangeStartDay'), end: this.get('rangeEndDay') })
           } else if (this.get('rangeStartDay') && this.get('rangeEndDay')) {
             // reset range and start from scratch
             this.set({

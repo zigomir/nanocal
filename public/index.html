@@ -32,7 +32,7 @@
       data: {
         year: 2017,
         month: 10, // month where calendar is openend
-        startOfTheWeek: 1, // optional
+        startOfTheWeek: 0, // optional
         range: true // optional
         // selectedDay: {
         //   year: 2017,
@@ -43,6 +43,7 @@
     })
 
     calendar.on('selectedDay', (day) => console.log(day))
+    calendar.on('selectedRange', (start, end) => console.log(start, end))
 
     // How to override styling
     // el.style.setProperty('--other-month-visibility', 'hidden')
