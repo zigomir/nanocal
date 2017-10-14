@@ -16,7 +16,10 @@
     {{#each calendarMonth as week}}
       <div class="week">
         {{#each week as weekDay}}
-          <span on:click="selectDay(weekDay)" class="{{dayClass(selectedDay, weekDay, month)}}">{{weekDay.dayInMonth}}</span>
+          <span
+            on:click="selectDay(weekDay, range)"
+            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+            class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</span>
         {{/each}}
       </div>
     {{/each}}
@@ -46,19 +49,49 @@
 
   export default {
     helpers: {
-      dayClass(selectedDay, weekDay, month) {
+      dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay) {
         let classes = ['day']
-        if (selectedDay && isSelected(weekDay, selectedDay)) classes.push('selected')
         if (isWeekend(weekDay)) classes.push('weekend')
         classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
+
+        if (range && rangeStartDay) {
+          if (isSelected(weekDay, rangeStartDay)) {
+            classes.push('selected')
+          }
+          // if (rangeEndDay && isSelected(weekDay, rangeEndDay)) {
+          //   classes.push('selected')
+          // }
+
+          if (hoverDay || rangeEndDay) {
+            const weekDayDate = new Date(weekDay.month.year, weekDay.month.month, weekDay.dayInMonth)
+            const rangeStartDayDate = new Date(rangeStartDay.year, rangeStartDay.month, rangeStartDay.day)
+            const hoverOrRangeEndDayDate = rangeEndDay ?
+              new Date(rangeEndDay.year, rangeEndDay.month, rangeEndDay.day) :
+              new Date(hoverDay.month.year, hoverDay.month.month, hoverDay.dayInMonth)
+
+            if (
+              weekDayDate >= rangeStartDayDate && weekDayDate <= hoverOrRangeEndDayDate ||
+              weekDayDate <= rangeStartDayDate && weekDayDate >= hoverOrRangeEndDayDate
+            ) {
+              classes.push('farben')
+            }
+          }
+        } else if (selectedDay && isSelected(weekDay, selectedDay)) {
+          classes.push('selected')
+        }
+
         return classes.join(' ')
       }
     },
 
+    data() {
+      return {
+        hoverDay: null,
+      }
+    },
+
     computed: {
-      calendarMonth: (year, month, startOfTheWeek) => {
-        return calendarMonth(year, month, startOfTheWeek)
-      },
+      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
       monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' }),
       dayNames: (startOfTheWeek) => {
         let days = [...dayNames]
@@ -73,18 +106,50 @@
     },
 
     methods: {
-      selectDay({ month, dayInMonth }) {
-        this.set({
-          year: month.year,
-          month: month.month,
-          selectedDay: {
+      selectDay({ month, dayInMonth }, range) {
+        if (range) {
+          if (!this.get('rangeStartDay')) {
+            this.set({
+              rangeStartDay: {
+                year: month.year,
+                month: month.month,
+                day: dayInMonth
+              }
+            })
+          } else if (!this.get('rangeEndDay')) {
+            this.set({
+              rangeEndDay: {
+                year: month.year,
+                month: month.month,
+                day: dayInMonth
+              },
+              hoverDay: null
+            })
+          } else if (this.get('rangeStartDay') && this.get('rangeEndDay')) {
+            // reset range and start from scratch
+            this.set({
+              rangeStartDay: {
+                year: month.year,
+                month: month.month,
+                day: dayInMonth
+              },
+              rangeEndDay: null
+            })
+            return
+          }
+        } else {
+          this.set({
             year: month.year,
             month: month.month,
-            day: dayInMonth
-          }
-        })
+            selectedDay: {
+              year: month.year,
+              month: month.month,
+              day: dayInMonth
+            }
+          })
 
-        this.fire('selectedDay', { month, dayInMonth })
+          this.fire('selectedDay', { month, dayInMonth })
+        }
       },
       back(year, month) {
         const previousMonth = getPreviousMonth(year, month)
@@ -99,6 +164,13 @@
           year: nextMonth.year,
           month: nextMonth.month
         })
+      },
+      setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
+        if (rangeStartDay && !rangeEndDay) {
+          this.set({
+            hoverDay
+          })
+        }
       }
     },
 
@@ -151,6 +223,9 @@
   .day.current-month.selected {
     background-color: var(--selected-color);
     color: white;
+  }
+  .day.current-month.farben {
+    background-color: var(--selected-color);
   }
   .day.other-month {
     color: var(--other-day-color);
