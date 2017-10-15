@@ -1,9 +1,13 @@
-import { IDay, Year, MonthNumber } from 'cntdys'
-import { SvelteComponent } from './shim'
+import { IDay, MonthNumber, Year } from 'cntdys'
 
-export const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
-export const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
-export const isSelected = (weekDay: IDay, { day, year, month }: { day: number, year: Year, month: MonthNumber }) =>
+export const isCurrentMonth = (day: IDay, month: number) =>
+  day.month.month === month
+export const isWeekend = (day: IDay) =>
+  day.dayInWeek === 6 || day.dayInWeek === 0
+export const isSelected = (
+  weekDay: IDay,
+  { day, year, month }: { day: number; year: Year; month: MonthNumber }
+) =>
   day === weekDay.dayInMonth &&
   month === weekDay.month.month &&
   year === weekDay.month.year
@@ -14,22 +18,40 @@ interface ICalendarDay {
   year: Year
 }
 
+interface ICalendarState {
+  year: Year
+  month: MonthNumber
+  startOfTheWeek: number
+  range?: boolean
+  hoverDay?: ICalendarDay
+  selectedDay?: ICalendarDay
+  rangeStartDay?: ICalendarDay
+  rangeEndDay?: ICalendarDay
+}
+
+interface IEventPayload {
+  start?: ICalendarDay
+  end?: ICalendarDay
+  selectedDay?: ICalendarDay
+}
+
+type PartialCalendarState = Partial<ICalendarState>
+type Events = 'selectedRange' | 'selectedDay'
+
+interface ISvelteComponent {
+  get(property: keyof ICalendarState): object
+  set(property: PartialCalendarState): void
+  fire(eventName: Events, payload: IEventPayload): void
+}
+
 export const monthName = (year: Year, month: MonthNumber) =>
   new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })
 
 export const dayNames = (startOfTheWeek: number) => {
-  let days = [
-    'Su',
-    'Mo',
-    'Tu',
-    'We',
-    'Th',
-    'Fr',
-    'Sa'
-  ]
+  const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
   for (let i = 6; i > 6 - startOfTheWeek; i--) {
-    let day = days.shift()
+    const day = days.shift()
     if (day) {
       days.push(day)
     }
@@ -38,9 +60,19 @@ export const dayNames = (startOfTheWeek: number) => {
   return days
 }
 
-export const dayClass = (selectedDay: ICalendarDay, weekDay: IDay, month: MonthNumber, hoverDay: IDay, range: boolean, rangeStartDay: ICalendarDay, rangeEndDay: ICalendarDay) => {
-  let classes = ['day']
-  if (isWeekend(weekDay)) classes.push('weekend')
+export const dayClass = (
+  selectedDay: ICalendarDay,
+  weekDay: IDay,
+  month: MonthNumber,
+  hoverDay: IDay,
+  range: boolean,
+  rangeStartDay: ICalendarDay,
+  rangeEndDay: ICalendarDay
+) => {
+  const classes = ['day']
+  if (isWeekend(weekDay)) {
+    classes.push('weekend')
+  }
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
 
   if (range && rangeStartDay) {
@@ -53,16 +85,30 @@ export const dayClass = (selectedDay: ICalendarDay, weekDay: IDay, month: MonthN
 
     // TODO: get the dates in consistent format!
     if (hoverDay || rangeEndDay) {
-      const thisDayTs = Date.UTC(weekDay.month.year, weekDay.month.month - 1, weekDay.dayInMonth)
-      const rangeStartTs = Date.UTC(rangeStartDay.year, rangeStartDay.month - 1, rangeStartDay.day)
-      const hoverOrRangeEndTs = rangeEndDay ?
-        Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day) :
-        Date.UTC(hoverDay.month.year, hoverDay.month.month - 1, hoverDay.dayInMonth)
+      const thisDayTs = Date.UTC(
+        weekDay.month.year,
+        weekDay.month.month - 1,
+        weekDay.dayInMonth
+      )
+      const rangeStartTs = Date.UTC(
+        rangeStartDay.year,
+        rangeStartDay.month - 1,
+        rangeStartDay.day
+      )
+      const hoverOrRangeEndTs = rangeEndDay
+        ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
+        : Date.UTC(
+          hoverDay.month.year,
+          hoverDay.month.month - 1,
+          hoverDay.dayInMonth
+        )
 
       if (
-        (rangeStartTs && hoverOrRangeEndTs) &&
-        thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs ||
-        thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs
+        (rangeStartTs &&
+          hoverOrRangeEndTs &&
+          thisDayTs >= rangeStartTs &&
+          thisDayTs <= hoverOrRangeEndTs) ||
+        (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs)
       ) {
         classes.push('farben')
       }
@@ -74,52 +120,70 @@ export const dayClass = (selectedDay: ICalendarDay, weekDay: IDay, month: MonthN
   return classes.join(' ')
 }
 
-export const selectDay = (component: SvelteComponent, day: IDay, range: boolean) => {
+export const selectDay = (
+  component: ISvelteComponent,
+  day: IDay,
+  range: boolean
+) => {
   const { month, dayInMonth } = day
 
   if (range) {
     if (!component.get('rangeStartDay')) {
       component.set({
         rangeStartDay: {
-          year: month.year,
+          day: dayInMonth,
           month: month.month,
-          day: dayInMonth
+          year: month.year
         }
       })
     } else if (!component.get('rangeEndDay')) {
       component.set({
+        hoverDay: undefined,
         rangeEndDay: {
-          year: month.year,
+          day: dayInMonth,
           month: month.month,
-          day: dayInMonth
-        },
-        hoverDay: null
+          year: month.year
+        }
       })
 
-      component.fire('selectedRange', { start: component.get('rangeStartDay'), end: component.get('rangeEndDay') })
+      const rangeStartDay = component.get('rangeStartDay') as ICalendarDay
+
+      component.fire('selectedRange', {
+        end: {
+          day: dayInMonth,
+          month: month.month,
+          year: month.year
+        },
+        start: {
+          day: rangeStartDay.day,
+          month: rangeStartDay.month,
+          year: rangeStartDay.year
+        }
+      })
     } else if (component.get('rangeStartDay') && component.get('rangeEndDay')) {
       // reset range and start from scratch
       component.set({
+        rangeEndDay: undefined,
         rangeStartDay: {
-          year: month.year,
+          day: dayInMonth,
           month: month.month,
-          day: dayInMonth
-        },
-        rangeEndDay: null
+          year: month.year
+        }
       })
-      return
     }
   } else {
     component.set({
-      year: month.year,
       month: month.month,
       selectedDay: {
-        year: month.year,
+        day: dayInMonth,
         month: month.month,
-        day: dayInMonth
-      }
+        year: month.year
+      },
+      year: month.year
     })
 
-    component.fire('selectedDay', { month, dayInMonth })
+    component.fire('selectedDay', {
+      selectedDay: { year: month.year, month: month.month, day: dayInMonth }
+    })
   }
 }
