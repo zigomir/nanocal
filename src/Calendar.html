@@ -28,7 +28,7 @@
 
 <script>
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
-  import { dayClass, dayNames } from './functions.js'
+  import { dayClass, dayNames, selectDay, monthName } from './functions.js'
 
   export default {
     helpers: {
@@ -43,57 +43,13 @@
 
     computed: {
       calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
-      monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' }),
+      monthName: (year, month) => monthName(year, month),
       dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
     },
 
     methods: {
-      selectDay({ month, dayInMonth }, range) {
-        if (range) {
-          if (!this.get('rangeStartDay')) {
-            this.set({
-              rangeStartDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              }
-            })
-          } else if (!this.get('rangeEndDay')) {
-            this.set({
-              rangeEndDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              },
-              hoverDay: null
-            })
-
-            this.fire('selectedRange', { start: this.get('rangeStartDay'), end: this.get('rangeEndDay') })
-          } else if (this.get('rangeStartDay') && this.get('rangeEndDay')) {
-            // reset range and start from scratch
-            this.set({
-              rangeStartDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              },
-              rangeEndDay: null
-            })
-            return
-          }
-        } else {
-          this.set({
-            year: month.year,
-            month: month.month,
-            selectedDay: {
-              year: month.year,
-              month: month.month,
-              day: dayInMonth
-            }
-          })
-
-          this.fire('selectedDay', { month, dayInMonth })
-        }
+      selectDay(day, range) {
+        selectDay(this, day, range)
       },
       back(year, month) {
         this.set(getPreviousMonth(year, month))

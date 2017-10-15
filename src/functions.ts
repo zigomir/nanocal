@@ -1,4 +1,5 @@
 import { IDay, Year, MonthNumber } from 'cntdys'
+import { SvelteComponent } from './shim'
 
 export const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
 export const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
@@ -12,6 +13,9 @@ interface ICalendarDay {
   month: MonthNumber
   year: Year
 }
+
+export const monthName = (year: Year, month: MonthNumber) =>
+  new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })
 
 export const dayNames = (startOfTheWeek: number) => {
   let days = [
@@ -68,4 +72,54 @@ export const dayClass = (selectedDay: ICalendarDay, weekDay: IDay, month: MonthN
   }
 
   return classes.join(' ')
+}
+
+export const selectDay = (component: SvelteComponent, day: IDay, range: boolean) => {
+  const { month, dayInMonth } = day
+
+  if (range) {
+    if (!component.get('rangeStartDay')) {
+      component.set({
+        rangeStartDay: {
+          year: month.year,
+          month: month.month,
+          day: dayInMonth
+        }
+      })
+    } else if (!component.get('rangeEndDay')) {
+      component.set({
+        rangeEndDay: {
+          year: month.year,
+          month: month.month,
+          day: dayInMonth
+        },
+        hoverDay: null
+      })
+
+      component.fire('selectedRange', { start: component.get('rangeStartDay'), end: component.get('rangeEndDay') })
+    } else if (component.get('rangeStartDay') && component.get('rangeEndDay')) {
+      // reset range and start from scratch
+      component.set({
+        rangeStartDay: {
+          year: month.year,
+          month: month.month,
+          day: dayInMonth
+        },
+        rangeEndDay: null
+      })
+      return
+    }
+  } else {
+    component.set({
+      year: month.year,
+      month: month.month,
+      selectedDay: {
+        year: month.year,
+        month: month.month,
+        day: dayInMonth
+      }
+    })
+
+    component.fire('selectedDay', { month, dayInMonth })
+  }
 }
