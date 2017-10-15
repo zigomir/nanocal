@@ -8,6 +8,8 @@
     "build:module": "tsc && rollup -c -f es -o public/bundle.js",
     "build:nomodule": "tsc && rollup -c -f iife -o public/bundle-nomodule.js",
     "dev": "tsc -w & rollup -c -w -f es -o public/bundle.js & serve  -p 3000 public",
+    "format": "prettier-standard 'src/**/*.ts'",
+    "lint": "tslint --project tsconfig.json --type-check ./src/**/*.ts",
     "start": "serve -p 3000 public"
   },
   "keywords": [],
@@ -17,11 +19,14 @@
     "cntdys": "^0.2.5"
   },
   "devDependencies": {
+    "prettier-standard": "^7.0.1",
     "rollup": "^0.50.0",
     "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^3.1.0",
     "serve": "^6.2.0",
+    "tslint": "^5.7.0",
+    "tslint-config-prettier": "^1.5.0",
     "typescript": "^2.5.3"
   }
 }
