@@ -34,7 +34,6 @@ interface ICalendarState {
 interface IEventPayload {
   start?: ICalendarDay
   end?: ICalendarDay
-  selectedDay?: ICalendarDay
 }
 
 type PartialCalendarState = Partial<ICalendarState>
@@ -43,7 +42,7 @@ type Events = 'selectedRange' | 'selectedDay'
 interface ISvelteComponent {
   get(property: keyof ICalendarState): object
   set(property: PartialCalendarState): void
-  fire(eventName: Events, payload: IEventPayload): void
+  fire(eventName: Events, payload: IEventPayload | ICalendarDay): void
 }
 
 export const monthName = (year: Year, month: MonthNumber) =>
@@ -184,7 +183,9 @@ export const selectDay = (
     })
 
     component.fire('selectedDay', {
-      selectedDay: { year: month.year, month: month.month, day: dayInMonth }
+      day: dayInMonth,
+      month: month.month,
+      year: month.year
     })
   }
 }
