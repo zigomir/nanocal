@@ -2,8 +2,10 @@ import { IDay, MonthNumber, Year } from 'cntdys'
 
 export const isCurrentMonth = (day: IDay, month: number) =>
   day.month.month === month
+
 export const isWeekend = (day: IDay) =>
   day.dayInWeek === 6 || day.dayInWeek === 0
+
 export const isSelected = (
   weekDay: IDay,
   { day, year, month }: { day: number; year: Year; month: MonthNumber }
@@ -104,13 +106,12 @@ export const dayClass = (
         )
 
       if (
-        (rangeStartTs &&
-          hoverOrRangeEndTs &&
-          thisDayTs >= rangeStartTs &&
-          thisDayTs <= hoverOrRangeEndTs) ||
-        (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs)
+        rangeStartTs &&
+        hoverOrRangeEndTs &&
+        ((thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs) ||
+          (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs))
       ) {
-        classes.push('farben')
+        classes.push('in-range')
       }
     }
   } else if (selectedDay && isSelected(weekDay, selectedDay)) {
