@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="flex">
+  <div>
     <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
     <!-- TODO: for range write both months -->
     <span>{{ monthName }}</span>
@@ -13,31 +13,31 @@
       {{/each}}
     </div>
   </div>
-  <div class="weeks">
+  <table class="weeks">
     {{#each calendarMonth as week}}
-      <div class="week">
+      <tr class="week">
         {{#each week as weekDay}}
-          <span
+          <td
             on:click="selectDay(weekDay, range)"
             on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</span>
+            class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
         {{/each}}
-      </div>
+      </tr>
     {{/each}}
 
     {{#if range}}
       {{#each nextCalendarMonth as week}}
-        <div class="week">
+        <tr class="week">
           {{#each week as weekDay}}
-            <span
+            <td
               on:click="selectDay(weekDay, range)"
               on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-              class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</span>
+              class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
           {{/each}}
-        </div>
+        </tr>
       {{/each}}
     {{/if}}
-  </div>
+  </table>
 </div>
 
 <script>
@@ -86,26 +86,19 @@
 </script>
 
 <style>
-  .flex { display: flex; }
   .pointer { cursor: pointer; }
 
   .wrapper {
     display: inline-block;
   }
   .weeks {
-    border-left: var(--border-width) solid var(--main-color);
-    border-right: var(--border-width) solid var(--main-color);
-  }
-  .week {
-    display: flex;
-    border-bottom: var(--border-width) solid var(--main-color);
+    border-collapse: collapse;
   }
   .day {
     width: var(--cell-size);
     height: var(--cell-size);
     text-align: center;
-    border-right: var(--border-width) solid var(--main-color);
-    display: flex;
+    border: var(--border-width) solid var(--main-color);
     align-self: center;
     justify-content: center;
     flex-direction: column;
@@ -113,12 +106,6 @@
   }
   .day.weekend {
     color: var(--weekend-day-color);
-  }
-  .day.day-name {
-    border-right: var(--border-width) solid transparent;
-  }
-  .day:last-child {
-    border-right: var(--border-width) solid transparent;
   }
   .day:hover {
     cursor: default;
