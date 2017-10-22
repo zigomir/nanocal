@@ -1,6 +1,7 @@
 <div class="wrapper">
   <div class="flex">
     <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
+    <!-- TODO: for range write both months -->
     <span>{{ monthName }}</span>
     <span>{{ year }}</span>
     <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
@@ -23,6 +24,19 @@
         {{/each}}
       </div>
     {{/each}}
+
+    {{#if range}}
+      {{#each nextCalendarMonth as week}}
+        <div class="week">
+          {{#each week as weekDay}}
+            <span
+              on:click="selectDay(weekDay, range)"
+              on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+              class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</span>
+          {{/each}}
+        </div>
+      {{/each}}
+    {{/if}}
   </div>
 </div>
 
@@ -42,7 +56,12 @@
     },
 
     computed: {
-      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
+      nextMonth: (year, month) => getNextMonth(year, month),
+      calendarMonth: (year, month, startOfTheWeek, range) => calendarMonth(year, month, startOfTheWeek),
+      nextCalendarMonth: (year, month, startOfTheWeek, range) => {
+        const nextMonth = getNextMonth(year, month)
+        return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
+      },
       monthName: (year, month) => monthName(year, month),
       dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
     },
