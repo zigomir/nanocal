@@ -1,3 +1,5 @@
+<:Window on:keydown="keydown(event)" />
+
 <div class="wrapper">
   <div class="flex between">
     <button class="pointer no-outline" on:click="back(year, month)">&lt;&lt;</button>
@@ -90,6 +92,15 @@
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {
           this.set({ hoverDay })
+        }
+      },
+      keydown(event) {
+        if (event.key === 'Escape') {
+          this.set({
+            rangeStartDay: undefined,
+            rangeEndDay: undefined,
+            hoverDay: undefined
+          })
         }
       }
     }

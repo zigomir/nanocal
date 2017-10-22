@@ -11,7 +11,6 @@ maybe not in vaadin - take a closers look: https://github.com/vaadin/vaadin-date
 ## todos
 
 - end is always past start even if user goes leftwards
-- cancel on ESC
 - headers with nice arrows for going backward and forward
 - cancel and apply buttons
 - disable all before/after (pass function)
