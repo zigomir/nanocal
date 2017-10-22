@@ -1,6 +1,7 @@
 <div class="wrapper">
-  <div class="flex">
+  <div>
     <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
+    <!-- TODO: for range write both months -->
     <span>{{ monthName }}</span>
     <span>{{ year }}</span>
     <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
@@ -12,78 +13,45 @@
       {{/each}}
     </div>
   </div>
-  <div class="weeks">
-    {{#each calendarMonth as week}}
-      <div class="week">
-        {{#each week as weekDay}}
-          <span
-            on:click="selectDay(weekDay, range)"
-            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</span>
+
+  <div class="flex">
+    <table class="weeks">
+      {{#each calendarMonth as week}}
+        <tr class="week">
+          {{#each week as weekDay}}
+            <td
+              on:click="selectDay(weekDay, range)"
+              on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+              class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </table>
+
+    {{#if range}}
+      <table class="weeks">
+        {{#each nextCalendarMonth as week}}
+          <tr class="week">
+            {{#each week as weekDay}}
+              <td
+                on:click="selectDay(weekDay, range)"
+                on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+                class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
+            {{/each}}
+          </tr>
         {{/each}}
-      </div>
-    {{/each}}
+      </table>
+    {{/if}}
   </div>
 </div>
 
 <script>
-  // use "../node_modules/cntdys/dist/main.[min.]js" if rollup-plugin-node-resolve not used
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
-
-  const isCurrentMonth = (day, month) => day.month.month === month
-  const isWeekend = (day) => day.dayInWeek === 6 || day.dayInWeek === 0
-  const isSelected = (weekDay, { day, year, month}) =>
-    day === weekDay.dayInMonth &&
-    month === weekDay.month.month &&
-    year === weekDay.month.year
-
-  const dayNames = [
-    'Su',
-    'Mo',
-    'Tu',
-    'We',
-    'Th',
-    'Fr',
-    'Sa'
-  ]
+  import { dayClass, dayNames, selectDay, monthName } from './functions.js'
 
   export default {
     helpers: {
-      dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay) {
-        let classes = ['day']
-        if (isWeekend(weekDay)) classes.push('weekend')
-        classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
-
-        if (range && rangeStartDay) {
-          if (isSelected(weekDay, rangeStartDay)) {
-            classes.push('selected')
-          }
-          // if (rangeEndDay && isSelected(weekDay, rangeEndDay)) {
-          //   classes.push('selected')
-          // }
-
-          // TODO: get the dates in consistent format!
-          if (hoverDay || rangeEndDay) {
-            const thisDayTs = Date.UTC(weekDay.month.year, weekDay.month.month - 1, weekDay.dayInMonth)
-            const rangeStartTs = Date.UTC(rangeStartDay.year, rangeStartDay.month - 1, rangeStartDay.day)
-            const hoverOrRangeEndTs = rangeEndDay ?
-              Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day) :
-              Date.UTC(hoverDay.month.year, hoverDay.month.month - 1, hoverDay.dayInMonth)
-
-            if (
-              (rangeStartTs && hoverOrRangeEndTs) &&
-              thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs ||
-              thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs
-            ) {
-              classes.push('farben')
-            }
-          }
-        } else if (selectedDay && isSelected(weekDay, selectedDay)) {
-          classes.push('selected')
-        }
-
-        return classes.join(' ')
-      }
+      dayClass
     },
 
     data() {
@@ -93,81 +61,25 @@
     },
 
     computed: {
-      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
-      monthName: (year, month) => new Date(year, month - 1).toLocaleString('en-US', { month: 'long' }),
-      dayNames: (startOfTheWeek) => {
-        let days = [...dayNames]
-
-        for (let i = 6; i > 6 - startOfTheWeek; i--) {
-          let day = days.shift()
-          days.push(day)
-        }
-
-        return days
-      }
+      nextMonth: (year, month) => getNextMonth(year, month),
+      calendarMonth: (year, month, startOfTheWeek, range) => calendarMonth(year, month, startOfTheWeek),
+      nextCalendarMonth: (year, month, startOfTheWeek, range) => {
+        const nextMonth = getNextMonth(year, month)
+        return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
+      },
+      monthName: (year, month) => monthName(year, month),
+      dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
     },
 
     methods: {
-      selectDay({ month, dayInMonth }, range) {
-        if (range) {
-          if (!this.get('rangeStartDay')) {
-            this.set({
-              rangeStartDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              }
-            })
-          } else if (!this.get('rangeEndDay')) {
-            this.set({
-              rangeEndDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              },
-              hoverDay: null
-            })
-
-            this.fire('selectedRange', { start: this.get('rangeStartDay'), end: this.get('rangeEndDay') })
-          } else if (this.get('rangeStartDay') && this.get('rangeEndDay')) {
-            // reset range and start from scratch
-            this.set({
-              rangeStartDay: {
-                year: month.year,
-                month: month.month,
-                day: dayInMonth
-              },
-              rangeEndDay: null
-            })
-            return
-          }
-        } else {
-          this.set({
-            year: month.year,
-            month: month.month,
-            selectedDay: {
-              year: month.year,
-              month: month.month,
-              day: dayInMonth
-            }
-          })
-
-          this.fire('selectedDay', { month, dayInMonth })
-        }
+      selectDay(day, range) {
+        selectDay(this, day, range)
       },
       back(year, month) {
-        const previousMonth = getPreviousMonth(year, month)
-        this.set({
-          year: previousMonth.year,
-          month: previousMonth.month
-        })
+        this.set(getPreviousMonth(year, month))
       },
       forward(year, month) {
-        const nextMonth = getNextMonth(year, month)
-        this.set({
-          year: nextMonth.year,
-          month: nextMonth.month
-        })
+        this.set(getNextMonth(year, month))
       },
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {
@@ -179,26 +91,16 @@
 </script>
 
 <style>
-  .flex { display: flex; }
   .pointer { cursor: pointer; }
-
-  .wrapper {
-    display: inline-block;
-  }
+  .flex { display: flex; }
   .weeks {
-    border-left: var(--border-width) solid var(--main-color);
-    border-right: var(--border-width) solid var(--main-color);
-  }
-  .week {
-    display: flex;
-    border-bottom: var(--border-width) solid var(--main-color);
+    border-collapse: collapse;
   }
   .day {
     width: var(--cell-size);
     height: var(--cell-size);
     text-align: center;
-    border-right: var(--border-width) solid var(--main-color);
-    display: flex;
+    border: var(--border-width) solid var(--main-color);
     align-self: center;
     justify-content: center;
     flex-direction: column;
@@ -206,12 +108,6 @@
   }
   .day.weekend {
     color: var(--weekend-day-color);
-  }
-  .day.day-name {
-    border-right: var(--border-width) solid transparent;
-  }
-  .day:last-child {
-    border-right: var(--border-width) solid transparent;
   }
   .day:hover {
     cursor: default;
@@ -224,7 +120,7 @@
     background-color: var(--selected-color);
     color: white;
   }
-  .day.current-month.farben {
+  .day.current-month.in-range {
     background-color: var(--selected-color);
   }
   .day.other-month {
