@@ -13,31 +13,36 @@
       {{/each}}
     </div>
   </div>
-  <table class="weeks">
-    {{#each calendarMonth as week}}
-      <tr class="week">
-        {{#each week as weekDay}}
-          <td
-            on:click="selectDay(weekDay, range)"
-            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
-        {{/each}}
-      </tr>
-    {{/each}}
 
-    {{#if range}}
-      {{#each nextCalendarMonth as week}}
+  <div class="flex">
+    <table class="weeks">
+      {{#each calendarMonth as week}}
         <tr class="week">
           {{#each week as weekDay}}
             <td
               on:click="selectDay(weekDay, range)"
               on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-              class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
+              class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
           {{/each}}
         </tr>
       {{/each}}
+    </table>
+
+    {{#if range}}
+      <table class="weeks">
+        {{#each nextCalendarMonth as week}}
+          <tr class="week">
+            {{#each week as weekDay}}
+              <td
+                on:click="selectDay(weekDay, range)"
+                on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+                class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </table>
     {{/if}}
-  </table>
+  </div>
 </div>
 
 <script>
@@ -87,10 +92,7 @@
 
 <style>
   .pointer { cursor: pointer; }
-
-  .wrapper {
-    display: inline-block;
-  }
+  .flex { display: flex; }
   .weeks {
     border-collapse: collapse;
   }
