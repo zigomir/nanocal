@@ -1,4 +1,3 @@
 node_modules
-old
 public/bundle*
 src/**/*.js

@@ -1,14 +1,12 @@
 <div class="wrapper">
-  <div>
-    <!-- <span class="pointer" on:click="back(year, month)">&lt;&lt;</span> -->
-    <!-- TODO: for range write both months -->
-    <!-- <span>{{ monthName }}</span>
-    <span>{{ year }}</span> -->
-    <!-- <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span> -->
+  <div class="flex between">
+    <button class="pointer no-outline" on:click="back(year, month)">&lt;&lt;</button>
+    <button class="pointer no-outline" on:click="forward(year, month)">&gt;&gt;</button>
   </div>
 
   <div class="flex">
     <table class="weeks">
+      <caption>{{ monthName }} {{ year }}</caption>
       <tr>
         {{#each dayNames as day}}
           <th class="day-name">{{ day }}</th>
@@ -28,6 +26,7 @@
 
     {{#if range}}
       <table class="weeks weeks-next-month">
+        <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
         <tr>
           {{#each dayNames as day}}
             <th class="day-name">{{ day }}</th>
@@ -71,6 +70,10 @@
         return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
       },
       monthName: (year, month) => monthName(year, month),
+      nextMonthName: (year, month) => {
+        const nextMonth = getNextMonth(year, month)
+        return monthName(nextMonth.year, nextMonth.month)
+      },
       dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
     },
 
@@ -96,12 +99,19 @@
 <style>
   .wrapper {
     font-family: var(--font-family);
+    display: inline-block;
   }
   .pointer {
     cursor: pointer;
   }
+  .no-outline {
+    outline: none;
+  }
   .flex {
     display: flex;
+  }
+  .flex.between {
+    justify-content: space-between;
   }
   .weeks {
     border-collapse: collapse;
