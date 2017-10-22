@@ -11,10 +11,18 @@
   <!-- We need to define root variables here if cascade: false is not used in rollup config -->
   <style>
     #calendar {
-      --main-color: #e4e7e7;
+      --font-family: Arial, Helvetica, sans-serif;
+      --border-color: #e4e7e7;
+      --day-color: #575757;
+      --day-font-size: 14px;
+      --day-name-font-size: 11px;
+      --day-name-color: #9e9c9c;
+      --hover-color: #e4e7e7;
       --selected-color: #00a699;
+      --range-border-color: rgba(255,255,255,.2);
+      --selected-font-color: #ffffff;
       --other-day-color: #cacccd;
-      --weekend-day-color: #279fd9;
+      --weekend-day-color: var(--day-color);
       --cell-size: 37px;
       --border-width: 1px;
       --other-month-visibility: visible;
@@ -47,25 +55,29 @@
 
     // How to override styling
     el.style.setProperty('--other-month-visibility', 'hidden')
-    el.style.setProperty('--cell-size', '40px')
+    // el.style.setProperty('--cell-size', '40px')
   </script>
 
   <!-- Firefox! Need to build it with iife -->
   <script nomodule src="bundle-nomodule.js"></script>
   <script nomodule>
+    const el = document.getElementById('calendar')
     const calendar = new Calendar({
-      target: document.getElementById('calendar'),
+      target: el,
       data: {
         year: 2017,
         month: 10,
-        selectedDay: {
-          year: 2017,
-          month: 10,
-          day: 1
-        }, // optional
-        startOfTheWeek: 0 // optional
+        range: true
+        // selectedDay: {
+        //   year: 2017,
+        //   month: 10,
+        //   day: 1
+        // }, // optional
+        // startOfTheWeek: 0 // optional
       }
     })
+
+    el.style.setProperty('--other-month-visibility', 'hidden')
   </script>
 </body>
 </html>

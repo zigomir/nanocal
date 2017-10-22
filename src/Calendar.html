@@ -1,21 +1,19 @@
 <div class="wrapper">
   <div>
-    <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
+    <!-- <span class="pointer" on:click="back(year, month)">&lt;&lt;</span> -->
     <!-- TODO: for range write both months -->
-    <span>{{ monthName }}</span>
-    <span>{{ year }}</span>
-    <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
-  </div>
-  <div class="header">
-    <div class="week">
-      {{#each dayNames as day}}
-        <span class="day day-name">{{ day }}</span>
-      {{/each}}
-    </div>
+    <!-- <span>{{ monthName }}</span>
+    <span>{{ year }}</span> -->
+    <!-- <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span> -->
   </div>
 
   <div class="flex">
     <table class="weeks">
+      <tr>
+        {{#each dayNames as day}}
+          <th class="day-name">{{ day }}</th>
+        {{/each}}
+      </tr>
       {{#each calendarMonth as week}}
         <tr class="week">
           {{#each week as weekDay}}
@@ -29,7 +27,12 @@
     </table>
 
     {{#if range}}
-      <table class="weeks">
+      <table class="weeks weeks-next-month">
+        <tr>
+          {{#each dayNames as day}}
+            <th class="day-name">{{ day }}</th>
+          {{/each}}
+        </tr>
         {{#each nextCalendarMonth as week}}
           <tr class="week">
             {{#each week as weekDay}}
@@ -91,20 +94,38 @@
 </script>
 
 <style>
-  .pointer { cursor: pointer; }
-  .flex { display: flex; }
+  .wrapper {
+    font-family: var(--font-family);
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .flex {
+    display: flex;
+  }
   .weeks {
     border-collapse: collapse;
   }
+  .weeks-next-month {
+    margin-left: 20px;
+  }
   .day {
+    font-size: var(--day-font-size);
+    color: var(--day-color);
     width: var(--cell-size);
     height: var(--cell-size);
     text-align: center;
-    border: var(--border-width) solid var(--main-color);
+    border: var(--border-width) solid var(--border-color);
     align-self: center;
     justify-content: center;
     flex-direction: column;
+    -webkit-user-select: none;
     user-select: none;
+  }
+  .day-name {
+    font-weight: normal;
+    font-size: var(--day-name-font-size);
+    color: var(--day-name-color);
   }
   .day.weekend {
     color: var(--weekend-day-color);
@@ -114,18 +135,22 @@
   }
   .day.current-month:hover {
     cursor: pointer;
-    background-color: var(--main-color);
+    background-color: var(--hover-color);
   }
   .day.current-month.selected {
     background-color: var(--selected-color);
-    color: white;
+    color: var(--selected-font-color);
+    border: var(--border-width) double var(--selected-color);
   }
   .day.current-month.in-range {
     background-color: var(--selected-color);
+    border-style: double;
+    border-color: var(--range-border-color);
   }
   .day.other-month {
     color: var(--other-day-color);
     visibility: var(--other-month-visibility);
+    border: none;
     pointer-events: none;
   }
 </style>

@@ -77,14 +77,10 @@ export const dayClass = (
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
 
   if (range && rangeStartDay) {
-    if (isSelected(weekDay, rangeStartDay)) {
+    if (isSelected(weekDay, rangeStartDay) || (rangeEndDay && isSelected(weekDay, rangeEndDay))) {
       classes.push('selected')
     }
-    // if (rangeEndDay && isSelected(weekDay, rangeEndDay)) {
-    //   classes.push('selected')
-    // }
 
-    // TODO: get the dates in consistent format!
     if (hoverDay || rangeEndDay) {
       const thisDayTs = Date.UTC(
         weekDay.month.year,
