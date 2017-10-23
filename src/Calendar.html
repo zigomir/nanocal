@@ -1,21 +1,27 @@
+<:Window on:keydown="keydown(event)" />
+
 <div class="wrapper">
-  <div>
-    <span class="pointer" on:click="back(year, month)">&lt;&lt;</span>
-    <!-- TODO: for range write both months -->
-    <span>{{ monthName }}</span>
-    <span>{{ year }}</span>
-    <span class="pointer" on:click="forward(year, month)">&gt;&gt;</span>
-  </div>
-  <div class="header">
-    <div class="week">
-      {{#each dayNames as day}}
-        <span class="day day-name">{{ day }}</span>
-      {{/each}}
-    </div>
+  <div class="flex between">
+    <button class="pointer reset-button" on:click="back(year, month)">
+      <svg viewBox="0 0 1000 1000">
+        <path d="M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z"></path>
+      </svg>
+    </button>
+    <button class="pointer reset-button" on:click="forward(year, month)">
+      <svg viewBox="0 0 1000 1000">
+        <path d="M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"></path>
+      </svg>
+    </button>
   </div>
 
   <div class="flex">
     <table class="weeks">
+      <caption>{{ monthName }} {{ year }}</caption>
+      <tr class="header">
+        {{#each dayNames as day}}
+          <th class="day-name">{{ day }}</th>
+        {{/each}}
+      </tr>
       {{#each calendarMonth as week}}
         <tr class="week">
           {{#each week as weekDay}}
@@ -29,7 +35,13 @@
     </table>
 
     {{#if range}}
-      <table class="weeks">
+      <table class="weeks weeks-next-month">
+        <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
+        <tr class="header">
+          {{#each dayNames as day}}
+            <th class="day-name">{{ day }}</th>
+          {{/each}}
+        </tr>
         {{#each nextCalendarMonth as week}}
           <tr class="week">
             {{#each week as weekDay}}
@@ -48,6 +60,13 @@
 <script>
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
   import { dayClass, dayNames, selectDay, monthName } from './functions.js'
+
+  // Issue in Chrome 62. Test if needed for newer versions too
+  const chromeBordersFix = (tables) => {
+    for (let table of tables) {
+      table.style.borderSpacing = table.style.borderSpacing === '0px' ? '' : '0px'
+    }
+  }
 
   export default {
     helpers: {
@@ -68,6 +87,10 @@
         return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
       },
       monthName: (year, month) => monthName(year, month),
+      nextMonthName: (year, month) => {
+        const nextMonth = getNextMonth(year, month)
+        return monthName(nextMonth.year, nextMonth.month)
+      },
       dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
     },
 
@@ -77,13 +100,24 @@
       },
       back(year, month) {
         this.set(getPreviousMonth(year, month))
+        chromeBordersFix(this.options.target.getElementsByClassName('weeks'))
       },
       forward(year, month) {
         this.set(getNextMonth(year, month))
+        chromeBordersFix(this.options.target.getElementsByClassName('weeks'))
       },
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {
           this.set({ hoverDay })
+        }
+      },
+      keydown(event) {
+        if (event.key === 'Escape') {
+          this.set({
+            rangeStartDay: undefined,
+            rangeEndDay: undefined,
+            hoverDay: undefined
+          })
         }
       }
     }
@@ -91,41 +125,81 @@
 </script>
 
 <style>
-  .pointer { cursor: pointer; }
-  .flex { display: flex; }
+  .wrapper {
+    font-family: var(--font-family);
+    display: inline-block;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .reset-button {
+    outline: none;
+    color: transparent;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: unset;
+  }
+  .reset-button:active {
+    border-style: inset;
+  }
+  svg {
+    height: 19px;
+    width: 19px;
+    fill: var(--day-color);
+  }
+  .flex {
+    display: flex;
+  }
+  .flex.between {
+    justify-content: space-between;
+  }
+  .header {
+    height: 1.5em;
+  }
   .weeks {
     border-collapse: collapse;
   }
+  .weeks-next-month {
+    margin-left: 1.5em;
+  }
   .day {
+    font-size: var(--day-font-size);
+    color: var(--day-color);
     width: var(--cell-size);
     height: var(--cell-size);
     text-align: center;
-    border: var(--border-width) solid var(--main-color);
-    align-self: center;
-    justify-content: center;
-    flex-direction: column;
+    border: var(--border-width) solid var(--border-color);
+    -webkit-user-select: none;
     user-select: none;
+  }
+  .day-name {
+    font-weight: normal;
+    font-size: var(--day-name-font-size);
+    color: var(--day-name-color);
   }
   .day.weekend {
     color: var(--weekend-day-color);
   }
-  .day:hover {
-    cursor: default;
-  }
   .day.current-month:hover {
     cursor: pointer;
-    background-color: var(--main-color);
+    background-color: var(--hover-color);
+  }
+  .day.current-month.in-range {
+    background-color: var(--range-background-color);
+    border-style: double;
+    border-color: var(--range-border-color);
+    color: var(--range-color);
   }
   .day.current-month.selected {
     background-color: var(--selected-color);
-    color: white;
-  }
-  .day.current-month.in-range {
-    background-color: var(--selected-color);
+    color: var(--selected-font-color);
+    border-style: double;
+    border-color: var(--range-border-color);
   }
   .day.other-month {
     color: var(--other-day-color);
     visibility: var(--other-month-visibility);
+    border: none;
     pointer-events: none;
   }
 </style>
