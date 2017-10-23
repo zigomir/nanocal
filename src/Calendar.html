@@ -53,6 +53,13 @@
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
   import { dayClass, dayNames, selectDay, monthName } from './functions.js'
 
+  // Issue in Chrome 62. Test if needed for newer versions too
+  const chromeBordersFix = (tables) => {
+    for (let table of tables) {
+      table.style.borderSpacing = table.style.borderSpacing === '0px' ? '' : '0px'
+    }
+  }
+
   export default {
     helpers: {
       dayClass
@@ -85,9 +92,11 @@
       },
       back(year, month) {
         this.set(getPreviousMonth(year, month))
+        chromeBordersFix(this.options.target.getElementsByClassName('weeks'))
       },
       forward(year, month) {
         this.set(getNextMonth(year, month))
+        chromeBordersFix(this.options.target.getElementsByClassName('weeks'))
       },
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {
@@ -137,9 +146,6 @@
     height: var(--cell-size);
     text-align: center;
     border: var(--border-width) solid var(--border-color);
-    align-self: center;
-    justify-content: center;
-    flex-direction: column;
     -webkit-user-select: none;
     user-select: none;
   }
