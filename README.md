@@ -10,8 +10,7 @@ maybe not in vaadin - take a closers look: https://github.com/vaadin/vaadin-date
 
 ## todos
 
-- headers with nice arrows for going backward and forward
-- cancel and apply buttons
+- transition animation
 - disable all before/after (pass function)
 - responsive: `flex-direction: column;`
 

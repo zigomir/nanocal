@@ -2,14 +2,22 @@
 
 <div class="wrapper">
   <div class="flex between">
-    <button class="pointer no-outline" on:click="back(year, month)">&lt;&lt;</button>
-    <button class="pointer no-outline" on:click="forward(year, month)">&gt;&gt;</button>
+    <button class="pointer reset-button" on:click="back(year, month)">
+      <svg viewBox="0 0 1000 1000">
+        <path d="M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z"></path>
+      </svg>
+    </button>
+    <button class="pointer reset-button" on:click="forward(year, month)">
+      <svg viewBox="0 0 1000 1000">
+        <path d="M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z"></path>
+      </svg>
+    </button>
   </div>
 
   <div class="flex">
     <table class="weeks">
       <caption>{{ monthName }} {{ year }}</caption>
-      <tr>
+      <tr class="header">
         {{#each dayNames as day}}
           <th class="day-name">{{ day }}</th>
         {{/each}}
@@ -29,7 +37,7 @@
     {{#if range}}
       <table class="weeks weeks-next-month">
         <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
-        <tr>
+        <tr class="header">
           {{#each dayNames as day}}
             <th class="day-name">{{ day }}</th>
           {{/each}}
@@ -124,8 +132,20 @@
   .pointer {
     cursor: pointer;
   }
-  .no-outline {
+  .reset-button {
     outline: none;
+    color: transparent;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: unset;
+  }
+  .reset-button:active {
+    border-style: inset;
+  }
+  svg {
+    height: 19px;
+    width: 19px;
+    fill: var(--day-color);
   }
   .flex {
     display: flex;
@@ -133,11 +153,14 @@
   .flex.between {
     justify-content: space-between;
   }
+  .header {
+    height: 1.5em;
+  }
   .weeks {
     border-collapse: collapse;
   }
   .weeks-next-month {
-    margin-left: 20px;
+    margin-left: 1.5em;
   }
   .day {
     font-size: var(--day-font-size);
@@ -157,20 +180,19 @@
   .day.weekend {
     color: var(--weekend-day-color);
   }
-  .day:hover {
-    cursor: default;
-  }
   .day.current-month:hover {
     cursor: pointer;
     background-color: var(--hover-color);
   }
+  .day.current-month.in-range {
+    background-color: var(--range-background-color);
+    border-style: double;
+    border-color: var(--range-border-color);
+    color: var(--range-color);
+  }
   .day.current-month.selected {
     background-color: var(--selected-color);
     color: var(--selected-font-color);
-    border: var(--border-width) double var(--selected-color);
-  }
-  .day.current-month.in-range {
-    background-color: var(--selected-color);
     border-style: double;
     border-color: var(--range-border-color);
   }
