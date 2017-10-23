@@ -13,6 +13,13 @@ maybe not in vaadin - take a closers look: https://github.com/vaadin/vaadin-date
 - transition animation
 - disable all before/after (pass function)
 - responsive: `flex-direction: column;`
+- research
+  - how good this is to customize
+  - two builds: one with range and one without?
+- cleanup
+  - add tests
+  - all variables should have good names
+  - better method names
 
 ## good to haves
 
