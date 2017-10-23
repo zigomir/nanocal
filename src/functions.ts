@@ -143,19 +143,24 @@ export const selectDay = (
       })
 
       const rangeStartDay = component.get('rangeStartDay') as ICalendarDay
+      const start = {
+        day: rangeStartDay.day,
+        month: rangeStartDay.month,
+        year: rangeStartDay.year
+      }
+      const end = {
+        day: dayInMonth,
+        month: month.month,
+        year: month.year
+      }
+      const startTs = Date.UTC(start.year, start.month - 1, start.day)
+      const endTs = Date.UTC(end.year, end.month - 1, end.day)
 
-      component.fire('selectedRange', {
-        end: {
-          day: dayInMonth,
-          month: month.month,
-          year: month.year
-        },
-        start: {
-          day: rangeStartDay.day,
-          month: rangeStartDay.month,
-          year: rangeStartDay.year
-        }
-      })
+      if (startTs < endTs) {
+        component.fire('selectedRange', { end, start })
+      } else {
+        component.fire('selectedRange', { end: start, start: end })
+      }
     } else if (component.get('rangeStartDay') && component.get('rangeEndDay')) {
       // reset range and start from scratch
       component.set({
