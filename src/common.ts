@@ -56,7 +56,9 @@ export const monthName = (year: Year, month: MonthNumber) =>
 // TODO: let user pass locale
 export const dayNames = (startOfTheWeek: number) => {
   const days = [...Array(7).keys()].map(d =>
-    new Date(2000, 9, d + 1).toLocaleString('en-US', { weekday: 'long' }).slice(0, 2)
+    new Date(2000, 9, d + 1)
+      .toLocaleString('en-US', { weekday: 'long' })
+      .slice(0, 2)
   )
 
   for (let i = 6; i > 6 - startOfTheWeek; i--) {
