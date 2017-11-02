@@ -1,13 +1,17 @@
 {
   "name": "cntdys-ui",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "description": "cntdys-ui",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:module && npm run build:nomodule",
-    "build:module": "tsc && rollup -c -f es -o public/bundle.js",
-    "build:nomodule": "tsc && rollup -c -f iife -o public/bundle-nomodule.js",
-    "dev": "tsc -w & rollup -c -w -f es -o public/bundle.js & serve  -p 3000 public",
+    "build:dp": "npm run build:dp:module && npm run build:dp:nomodule",
+    "build:dp:module": "tsc && rollup -c rollup.dp.config.js -f es -o public/date_picker.js",
+    "build:dp:nomodule": "tsc && rollup -c rollup.dp.config.js -f iife -o public/date_picker-nomodule.js",
+    "dev:dp": "tsc -w & rollup -c rollup.dp.config.js -w -f es -o public/date_picker.js & serve  -p 3000 public",
+    "build:rp": "npm run build:rp:module && npm run build:rp:nomodule",
+    "build:rp:module": "tsc && rollup -c rollup.rp.config.js -f es -o public/range_picker.js",
+    "build:rp:nomodule": "tsc && rollup -c rollup.rp.config.js -f iife -o public/range_picker-nomodule.js",
+    "dev:rp": "tsc -w & rollup -c rollup.rp.config.js -w -f es -o public/range_picker.js & serve  -p 4000 public",
     "format": "prettier-standard 'src/**/*.ts'",
     "test": "npm run lint && bundlesize",
     "lint": "tslint --project tsconfig.json",
@@ -18,11 +22,19 @@
   "license": "MIT",
   "bundlesize": [
     {
-      "path": "./public/bundle.js",
+      "path": "./public/date_picker.js",
+      "maxSize": "4 kB"
+    },
+    {
+      "path": "./public/date_picker-nomodule.js",
+      "maxSize": "4 kB"
+    },
+    {
+      "path": "./public/range_picker.js",
       "maxSize": "5 kB"
     },
     {
-      "path": "./public/bundle-nomodule.js",
+      "path": "./public/range_picker-nomodule.js",
       "maxSize": "5 kB"
     }
   ],

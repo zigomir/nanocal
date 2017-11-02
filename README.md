@@ -8,17 +8,18 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todos
 
+- split range picking build?
+- disable all before/after (pass function)
+- today
 - do more research on other pickers - measure sizes
   - https://www.webcomponents.org/search/date
   - https://roxus.github.io/range-datepicker/components/range-datepicker/demo/ -> nice but huge
 - transition animation
-- disable all before/after (pass function)
 - responsive: `flex-direction: column;`
 - research
   - how good this is to customize
   - two builds: one with range and one without?
 - cleanup
-  - split range picking build?
   - add tests
   - all variables should have good names
   - better method names

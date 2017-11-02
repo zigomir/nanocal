@@ -26,40 +26,39 @@
         <tr class="week">
           {{#each week as weekDay}}
             <td
-              on:click="selectDay(weekDay, range)"
+              on:click="selectDay(weekDay)"
               on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-              class="{{dayClass(selectedDay, weekDay, month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
+              class="{{dayClass(weekDay, month, hoverDay, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
           {{/each}}
         </tr>
       {{/each}}
     </table>
 
-    {{#if range}}
-      <table class="weeks weeks-next-month">
-        <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
-        <tr class="header">
-          {{#each dayNames as day}}
-            <th class="day-name">{{ day }}</th>
+    <table class="weeks weeks-next-month">
+      <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
+      <tr class="header">
+        {{#each dayNames as day}}
+          <th class="day-name">{{ day }}</th>
+        {{/each}}
+      </tr>
+      {{#each nextCalendarMonth as week}}
+        <tr class="week">
+          {{#each week as weekDay}}
+            <td
+              on:click="selectDay(weekDay)"
+              on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+              class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
           {{/each}}
         </tr>
-        {{#each nextCalendarMonth as week}}
-          <tr class="week">
-            {{#each week as weekDay}}
-              <td
-                on:click="selectDay(weekDay, range)"
-                on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-                class="{{dayClass(selectedDay, weekDay, nextMonth.month, hoverDay, range, rangeStartDay, rangeEndDay)}}">{{weekDay.dayInMonth}}</td>
-            {{/each}}
-          </tr>
-        {{/each}}
-      </table>
-    {{/if}}
+      {{/each}}
+    </table>
   </div>
 </div>
 
 <script>
   import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
-  import { dayClass, dayNames, selectDay, monthName } from './functions.js'
+  import { dayClass, selectDay } from './functions.js'
+  import { monthName, dayNames } from '../common.js'
 
   // Issue in Chrome 62. Test if needed for newer versions too
   const chromeBordersFix = (tables) => {
