@@ -19,7 +19,7 @@ export const dayClass = (
   weekDay: IDay,
   month: MonthNumber
 ) => {
-  let classes = ['day']
+  const classes = ['day']
   if (isWeekend(weekDay)) {
     classes.push('weekend')
   }

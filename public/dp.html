@@ -7,32 +7,6 @@
 
   <link rel="stylesheet" href="date_picker.css">
   <title>Date Picker</title>
-
-  <!-- We need to define root variables here if cascade: false is not used in rollup config -->
-  <style>
-    #dp {
-      --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-
-      --border-color: #e4e7e7;
-      --day-color: #575757;
-
-      --day-font-size: 14px;
-      --day-name-font-size: 11px;
-      --day-name-color: #9e9c9c;
-
-      --hover-color: #e4e7e7;
-
-      --selected-color: #00a699;
-      --selected-font-color: #ffffff;
-
-      --other-day-color: #cacccd;
-      --weekend-day-color: var(--day-color);
-
-      --cell-size: 37px;
-      --border-width: 1px;
-      --other-month-visibility: visible;
-    }
-  </style>
 </head>
 <body>
   <div id="dp"></div>
@@ -58,7 +32,8 @@
 
     // How to override styling
     el.style.setProperty('--other-month-visibility', 'hidden')
-    // el.style.setProperty('--cell-size', '40px')
+    // el.style.setProperty('--cell-size', '50px')
+    // el.style.setProperty('--day-name-font-size', '15px')
   </script>
 </body>
 </html>

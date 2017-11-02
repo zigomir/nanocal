@@ -13,7 +13,7 @@ export const dayClass = (
   rangeStartDay: ICalendarDay,
   rangeEndDay: ICalendarDay
 ) => {
-  let classes = datePickerDayClass(undefined, weekDay, month)
+  const classes = datePickerDayClass(undefined, weekDay, month)
 
   if (!rangeStartDay) {
     return classes

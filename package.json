@@ -2,7 +2,6 @@
   "name": "cntdys-ui",
   "version": "0.1.0",
   "description": "cntdys-ui",
-  "main": "index.js",
   "scripts": {
     "build:dp": "npm run build:dp:module && npm run build:dp:nomodule",
     "build:dp:module": "tsc && rollup -c rollup.dp.config.js -f es -o public/date_picker.js",
@@ -31,7 +30,7 @@
     },
     {
       "path": "./public/range_picker.js",
-      "maxSize": "5 kB"
+      "maxSize": "5.5 kB"
     },
     {
       "path": "./public/range_picker-nomodule.js",
