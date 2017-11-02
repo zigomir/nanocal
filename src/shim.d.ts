@@ -1,3 +1,4 @@
 declare module '*.html' {
-  export default {}
+  const _default: object
+  export default _default
 }
