@@ -9,16 +9,28 @@
     "build:nomodule": "tsc && rollup -c -f iife -o public/bundle-nomodule.js",
     "dev": "tsc -w & rollup -c -w -f es -o public/bundle.js & serve  -p 3000 public",
     "format": "prettier-standard 'src/**/*.ts'",
+    "test": "npm run lint && bundlesize",
     "lint": "tslint --project tsconfig.json",
     "start": "serve -p 3000 public"
   },
   "keywords": [],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
+  "bundlesize": [
+    {
+      "path": "./public/bundle.js",
+      "maxSize": "5 kB"
+    },
+    {
+      "path": "./public/bundle-nomodule.js",
+      "maxSize": "5 kB"
+    }
+  ],
   "dependencies": {
     "cntdys": "^0.2.5"
   },
   "devDependencies": {
+    "bundlesize": "^0.15.3",
     "prettier-standard": "^7.0.3",
     "rollup": "^0.50.0",
     "rollup-plugin-babel-minify": "^3.1.2",
