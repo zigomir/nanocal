@@ -9,7 +9,7 @@
     {{#each calendarMonth as week}}
     <tr class="week">
       {{#each week as weekDay}}
-        <td on:click="selectDay(weekDay, range)" class="{{dayClass(selectedDay, weekDay, month)}}">{{weekDay.dayInMonth}}</td>
+        <td on:click="selectDay(weekDay, range)" class="{{dayClass(selectedDay, weekDay, month).join(' ')}}">{{weekDay.dayInMonth}}</td>
       {{/each}}
     </tr>
     {{/each}}
@@ -18,8 +18,8 @@
 
 <script>
   import { calendarMonth } from 'cntdys'
-  import { dayClass, selectDay } from './functions.js'
-  import { monthName, dayNames } from '../common.js'
+  import { selectDay } from './functions.js'
+  import { dayClass, monthName, dayNames } from '../common.js'
   import Common from '../Common.html'
 
   export default {

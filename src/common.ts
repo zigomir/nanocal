@@ -14,23 +14,41 @@ export const isSelected = (
   month === weekDay.month.month &&
   year === weekDay.month.year
 
+export const dayClass = (
+  selectedDay: ICalendarDay | undefined,
+  weekDay: IDay,
+  month: MonthNumber
+) => {
+  let classes = ['day']
+  if (isWeekend(weekDay)) {
+    classes.push('weekend')
+  }
+  classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
+  if (selectedDay && isSelected(weekDay, selectedDay)) {
+    classes.push('selected')
+  }
+
+  return classes // .join(' ')
+}
+
 export interface ICalendarDay {
   day: number
   month: MonthNumber
   year: Year
 }
 
-interface ICalendarState {
+interface IDatePickerState {
   year: Year
   month: MonthNumber
   startOfTheWeek: number
   selectedDay?: ICalendarDay
 }
 
-export interface IRangePickerState extends ICalendarState {
+export interface IRangePickerState extends IDatePickerState {
   hoverDay?: ICalendarDay
   rangeStartDay?: ICalendarDay
   rangeEndDay?: ICalendarDay
+  // selectedRange?: // TODO
 }
 
 interface IEventPayload {
@@ -39,8 +57,8 @@ interface IEventPayload {
 }
 
 export interface ISvelteComponent {
-  get(property: keyof ICalendarState): object
-  set(property: Partial<ICalendarState>): void
+  get(property: keyof IDatePickerState): object
+  set(property: Partial<IDatePickerState>): void
   fire(eventName: string, payload: IEventPayload | ICalendarDay): void
 }
 

@@ -1,28 +1,5 @@
-import { IDay, MonthNumber } from 'cntdys'
-import {
-  ICalendarDay,
-  isCurrentMonth,
-  isSelected,
-  ISvelteComponent,
-  isWeekend
-} from '../common'
-
-export const dayClass = (
-  selectedDay: ICalendarDay,
-  weekDay: IDay,
-  month: MonthNumber
-) => {
-  const classes = ['day']
-  if (isWeekend(weekDay)) {
-    classes.push('weekend')
-  }
-  classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
-  if (selectedDay && isSelected(weekDay, selectedDay)) {
-    classes.push('selected')
-  }
-
-  return classes.join(' ')
-}
+import { IDay } from 'cntdys'
+import { ISvelteComponent } from '../common'
 
 export const selectDay = (component: ISvelteComponent, day: IDay) => {
   const { month, dayInMonth } = day

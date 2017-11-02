@@ -1,10 +1,9 @@
 import { IDay, MonthNumber } from 'cntdys'
 import {
+  dayClass as datePickerDayClass,
   ICalendarDay,
   IRPSvelteComponent,
-  isCurrentMonth,
-  isSelected,
-  isWeekend
+  isSelected
 } from '../common'
 
 export const dayClass = (
@@ -14,51 +13,49 @@ export const dayClass = (
   rangeStartDay: ICalendarDay,
   rangeEndDay: ICalendarDay
 ) => {
-  const classes = ['day']
-  if (isWeekend(weekDay)) {
-    classes.push('weekend')
-  }
-  classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
+  let classes = datePickerDayClass(undefined, weekDay, month)
 
-  if (rangeStartDay) {
+  if (!rangeStartDay) {
+    return classes
+  }
+
+  if (
+    isSelected(weekDay, rangeStartDay) ||
+    (rangeEndDay && isSelected(weekDay, rangeEndDay))
+  ) {
+    classes.push('selected')
+  }
+
+  if (hoverDay || rangeEndDay) {
+    const thisDayTs = Date.UTC(
+      weekDay.month.year,
+      weekDay.month.month - 1,
+      weekDay.dayInMonth
+    )
+    const rangeStartTs = Date.UTC(
+      rangeStartDay.year,
+      rangeStartDay.month - 1,
+      rangeStartDay.day
+    )
+    const hoverOrRangeEndTs = rangeEndDay
+      ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
+      : Date.UTC(
+        hoverDay.month.year,
+        hoverDay.month.month - 1,
+        hoverDay.dayInMonth
+      )
+
     if (
-      isSelected(weekDay, rangeStartDay) ||
-      (rangeEndDay && isSelected(weekDay, rangeEndDay))
+      rangeStartTs &&
+      hoverOrRangeEndTs &&
+      ((thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs) ||
+        (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs))
     ) {
-      classes.push('selected')
-    }
-
-    if (hoverDay || rangeEndDay) {
-      const thisDayTs = Date.UTC(
-        weekDay.month.year,
-        weekDay.month.month - 1,
-        weekDay.dayInMonth
-      )
-      const rangeStartTs = Date.UTC(
-        rangeStartDay.year,
-        rangeStartDay.month - 1,
-        rangeStartDay.day
-      )
-      const hoverOrRangeEndTs = rangeEndDay
-        ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
-        : Date.UTC(
-          hoverDay.month.year,
-          hoverDay.month.month - 1,
-          hoverDay.dayInMonth
-        )
-
-      if (
-        rangeStartTs &&
-        hoverOrRangeEndTs &&
-        ((thisDayTs >= rangeStartTs && thisDayTs <= hoverOrRangeEndTs) ||
-          (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs))
-      ) {
-        classes.push('in-range')
-      }
+      classes.push('in-range')
     }
   }
 
-  return classes.join(' ')
+  return classes
 }
 
 export const selectDay = (component: IRPSvelteComponent, day: IDay) => {
