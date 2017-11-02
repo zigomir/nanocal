@@ -1,6 +1,6 @@
 <:Window on:keydown="keydown(event)" />
 
-<Common bind:year="year" bind:month="month">
+<Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
     <caption>{{ monthName }} {{ year }}</caption>
     <tr class="header">
@@ -38,20 +38,20 @@
       </tr>
     {{/each}}
   </table>
-</Common>
+</Wrapper>
 
 <script>
   import { calendarMonth, getNextMonth } from 'cntdys'
   import { dayClass, selectDay } from './functions.js'
   import { monthName, dayNames } from '../common.js'
-  import Common from '../Common.html'
+  import Wrapper from '../Wrapper.html'
 
   export default {
     helpers: {
       dayClass
     },
 
-    components: { Common },
+    components: { Wrapper },
 
     data() {
       return {
