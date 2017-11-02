@@ -23,7 +23,7 @@
   "bundlesize": [
     {
       "path": "./public/date_picker.js",
-      "maxSize": "4 kB"
+      "maxSize": "4.5 kB"
     },
     {
       "path": "./public/date_picker-nomodule.js",
