@@ -5,12 +5,11 @@ import minify from 'rollup-plugin-babel-minify'
 const production = !process.env.ROLLUP_WATCH
 
 export default {
-  input: 'src/main.js',
+  input: 'src/range_picker/main.js',
   output: {
     sourcemap: true,
-    name: 'Calendar'
+    name: 'CDRangePicker'
   },
-  name: 'app',
   plugins: [
     resolve(),
     svelte({
@@ -18,7 +17,7 @@ export default {
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file — better for performance
-      css: css => { css.write('public/bundle.css') },
+      css: css => { css.write('public/range_picker.css') },
       // this results in smaller CSS files
       // cascade: false
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875

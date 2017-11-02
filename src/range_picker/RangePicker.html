@@ -1,0 +1,97 @@
+<:Window on:keydown="keydown(event)" />
+
+<Wrapper bind:year="year" bind:month="month">
+  <table class="weeks">
+    <caption>{{ monthName }} {{ year }}</caption>
+    <tr class="header">
+      {{#each dayNames as day}}
+        <th class="day-name">{{ day }}</th>
+      {{/each}}
+    </tr>
+    {{#each calendarMonth as week}}
+      <tr class="week">
+        {{#each week as weekDay}}
+          <td
+            on:click="selectDay(weekDay)"
+            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+            class="{{dayClass(weekDay, month, hoverDay, rangeStartDay, rangeEndDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </table>
+
+  <table class="weeks weeks-next-month">
+    <caption>{{ nextMonthName }} {{ nextMonth.year }}</caption>
+    <tr class="header">
+      {{#each dayNames as day}}
+        <th class="day-name">{{ day }}</th>
+      {{/each}}
+    </tr>
+    {{#each nextCalendarMonth as week}}
+      <tr class="week">
+        {{#each week as weekDay}}
+          <td
+            on:click="selectDay(weekDay)"
+            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
+            class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStartDay, rangeEndDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </table>
+</Wrapper>
+
+<script>
+  import { calendarMonth, getNextMonth } from 'cntdys'
+  import { dayClass, selectDay } from './functions.js'
+  import { monthName, dayNames } from '../common.js'
+  import Wrapper from '../Wrapper.html'
+
+  export default {
+    helpers: {
+      dayClass
+    },
+
+    components: { Wrapper },
+
+    data() {
+      return {
+        hoverDay: null,
+      }
+    },
+
+    computed: {
+      nextMonth: (year, month) => getNextMonth(year, month),
+      calendarMonth: (year, month, startOfTheWeek, range) => calendarMonth(year, month, startOfTheWeek),
+      nextCalendarMonth: (year, month, startOfTheWeek, range) => {
+        const nextMonth = getNextMonth(year, month)
+        return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
+      },
+      monthName: (year, month) => monthName(year, month),
+      nextMonthName: (year, month) => {
+        const nextMonth = getNextMonth(year, month)
+        return monthName(nextMonth.year, nextMonth.month)
+      },
+      dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
+    },
+
+    methods: {
+      selectDay(day, range) {
+        selectDay(this, day, range)
+      },
+      setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
+        if (rangeStartDay && !rangeEndDay) {
+          this.set({ hoverDay })
+        }
+      },
+      keydown(event) {
+        if (event.key === 'Escape') {
+          this.set({
+            rangeStartDay: undefined,
+            rangeEndDay: undefined,
+            hoverDay: undefined
+          })
+        }
+      }
+    }
+  }
+</script>
