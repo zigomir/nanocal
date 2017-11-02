@@ -77,7 +77,10 @@ export const dayClass = (
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
 
   if (range && rangeStartDay) {
-    if (isSelected(weekDay, rangeStartDay) || (rangeEndDay && isSelected(weekDay, rangeEndDay))) {
+    if (
+      isSelected(weekDay, rangeStartDay) ||
+      (rangeEndDay && isSelected(weekDay, rangeEndDay))
+    ) {
       classes.push('selected')
     }
 
