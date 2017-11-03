@@ -61,8 +61,8 @@
 
     computed: {
       nextMonth: (year, month) => getNextMonth(year, month),
-      calendarMonth: (year, month, startOfTheWeek, range) => calendarMonth(year, month, startOfTheWeek),
-      nextCalendarMonth: (year, month, startOfTheWeek, range) => {
+      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
+      nextCalendarMonth: (year, month, startOfTheWeek) => {
         const nextMonth = getNextMonth(year, month)
         return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
       },
@@ -75,8 +75,8 @@
     },
 
     methods: {
-      selectDay(day, range) {
-        selectDay(this, day, range)
+      selectDay(day) {
+        selectDay(this, day)
       },
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {

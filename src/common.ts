@@ -28,7 +28,7 @@ export const dayClass = (
     classes.push('selected')
   }
 
-  return classes // .join(' ')
+  return classes
 }
 
 export interface ICalendarDay {
