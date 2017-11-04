@@ -31,8 +31,18 @@
         disableOnDay: (dayTimestamp) => {
           return dayTimestamp < new Date(2017, 10 - 1, 14).getTime() || dayTimestamp > new Date(2017, 11 - 1, 23).getTime()
         },
+        // optionally pass rangeStartDay and rangeEndDay
+        rangeStartDay: {
+          day: 10,
+          month: 11,
+          year: 2017
+        },
+        rangeEndDay: {
+          day: 17,
+          month: 11,
+          year: 2017
+        }
       }
-      // TODO: selected range optional
     })
 
     ctRangePicker.on('selectedRange', (start, end) => console.log(start, end))

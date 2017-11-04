@@ -8,9 +8,8 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todo
 
-- add (pre)selectedRange
-- think about mixing of UTC and non-UTC dates
 - add tests
+- think about mixing of UTC and non-UTC dates
 - study defaults
   - is today best as is or better not to highlight it at all?
 - do more research on other pickers - measure sizes

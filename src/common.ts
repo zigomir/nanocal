@@ -57,7 +57,6 @@ export interface IRangePickerState extends IDatePickerState {
   hoverDay?: ICalendarDay
   rangeStartDay?: ICalendarDay
   rangeEndDay?: ICalendarDay
-  // selectedRange?: // TODO
 }
 
 interface IEventPayload {
