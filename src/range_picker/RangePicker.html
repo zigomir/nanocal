@@ -2,7 +2,7 @@
 
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <caption>{{ monthName }} {{ year }}</caption>
+    <caption class="caption">{{ monthName }} {{ year }}</caption>
     <tr class="header">
       {{#each dayNames as day}}
         <th class="day-name">{{ day }}</th>
@@ -100,5 +100,8 @@
   .wrapper {
     --range-border-color: rgba(255,255,255,.2);
     --range-background-color: #00a69862;
+  }
+  .weeks-next-month {
+    margin-left: 1.5em;
   }
 </style>

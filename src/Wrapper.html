@@ -46,10 +46,13 @@
     --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 
     --border-color: #e4e7e7;
+    --border-width: 1px;
     --day-color: #575757;
 
-    --day-font-size: 14px;
-    --day-name-font-size: 11px;
+    --cell-size: 37px;
+    --caption-font-size: 1em;
+    --day-font-size: .9em;
+    --day-name-font-size: .7em;
     --day-name-color: #9e9c9c;
 
     --hover-color: #e4e7e7;
@@ -59,10 +62,8 @@
 
     --other-day-color: #cacccd;
     --weekend-day-color: var(--day-color);
-    --today-box-shadow: 0px 0px 3px rgba(0, 0, 0, .5);
+    --today-box-shadow: 0 0 .2em rgba(0, 0, 0, .5);
 
-    --cell-size: 37px;
-    --border-width: 1px;
     --other-month-visibility: hidden;
 
     font-family: var(--font-family);
@@ -75,15 +76,16 @@
     outline: none;
     color: transparent;
     background-color: transparent;
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
     border-radius: unset;
+    padding: 0 0.5em;
+    height: var(--cell-size);
+    width: var(--cell-size);
   }
   .button:active {
     border-style: inset;
   }
   svg {
-    height: 19px;
-    width: 19px;
     fill: var(--day-color);
   }
   .flex {
@@ -98,8 +100,8 @@
   .weeks {
     border-collapse: collapse;
   }
-  .weeks-next-month {
-    margin-left: 1.5em;
+  .weeks .caption {
+    font-size: var(--caption-font-size);
   }
   .day {
     font-size: var(--day-font-size);

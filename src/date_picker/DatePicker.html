@@ -1,6 +1,6 @@
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <caption>{{ monthName }} {{ year }}</caption>
+    <caption class="caption">{{ monthName }} {{ year }}</caption>
     <tr class="header">
       {{#each dayNames as day}}
         <th class="day-name">{{ day }}</th>
