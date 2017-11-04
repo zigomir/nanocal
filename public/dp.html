@@ -14,6 +14,7 @@
   <script type="module">
     import CTDatePicker from './date_picker.js'
     const el = document.getElementById('dp')
+    const dayInMilliseconds = 24 * 60 * 60 * 1000
     const ctDatePicker = new CTDatePicker({
       target: el,
       data: {
@@ -21,6 +22,9 @@
         month: 11, // month where calendar is openend
         locale: 'en-US', // optional, defaults to en-US
         startOfTheWeek: 0, // optional, defaults to 0 which is Sunday
+        disableOnDay: (dayTimestamp) => {
+          return dayTimestamp < new Date().getTime() - dayInMilliseconds || dayTimestamp > new Date(2017, 11 - 1, 23).getTime()
+        },
         selectedDay: {
           year: 2017,
           month: 11,

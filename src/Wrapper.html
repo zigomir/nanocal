@@ -64,6 +64,7 @@
     --other-day-color: #cacccd;
     --weekend-day-color: var(--day-color);
     --today-box-shadow: 0 0 .2em rgba(0, 0, 0, .5);
+    --disabled-day-color: var(--other-day-color);
 
     --other-month-visibility: hidden;
 
@@ -142,6 +143,10 @@
     color: var(--other-day-color);
     visibility: var(--other-month-visibility);
     border: none;
+    pointer-events: none;
+  }
+  .day.disabled {
+    color: var(--disabled-day-color);
     pointer-events: none;
   }
 </style>

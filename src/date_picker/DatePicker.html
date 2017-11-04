@@ -4,7 +4,7 @@
     {{#each calendarMonth as week}}
     <tr class="week">
       {{#each week as weekDay}}
-        <td on:click="selectDay(weekDay)" class="{{dayClass(selectedDay, weekDay, month).join(' ')}}">{{weekDay.dayInMonth}}</td>
+        <td on:click="selectDay(weekDay)" class="{{dayClass(selectedDay, weekDay, month, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
       {{/each}}
     </tr>
     {{/each}}

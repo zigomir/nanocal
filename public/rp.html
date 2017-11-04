@@ -28,6 +28,9 @@
         month: 10, // month where calendar is openend
         locale: 'en-US', // optional, defaults to en-US
         startOfTheWeek: 0, // optional
+        disableOnDay: (dayTimestamp) => {
+          return dayTimestamp < new Date(2017, 10 - 1, 14).getTime() || dayTimestamp > new Date(2017, 11 - 1, 23).getTime()
+        },
       }
       // TODO: selected range optional
     })

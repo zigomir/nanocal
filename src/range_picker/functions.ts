@@ -9,11 +9,12 @@ import {
 export const dayClass = (
   weekDay: IDay,
   month: MonthNumber,
+  disableOnDay: (timestamp: number) => boolean | undefined,
   hoverDay: IDay,
   rangeStartDay: ICalendarDay,
   rangeEndDay: ICalendarDay
 ) => {
-  const classes = datePickerDayClass(undefined, weekDay, month)
+  const classes = datePickerDayClass(undefined, weekDay, month, disableOnDay)
 
   if (!rangeStartDay) {
     return classes
