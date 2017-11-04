@@ -8,8 +8,8 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todos
 
+- only use ems, no pxs
 - disable all before/after (pass function)
-- today
 - add tests
 - do more research on other pickers - measure sizes
   - https://www.webcomponents.org/search/date

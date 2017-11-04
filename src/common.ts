@@ -1,10 +1,13 @@
 import { IDay, MonthNumber, Year } from 'cntdys'
 
-export const isCurrentMonth = (day: IDay, month: number) =>
-  day.month.month === month
+const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
 
-export const isWeekend = (day: IDay) =>
-  day.dayInWeek === 6 || day.dayInWeek === 0
+const isWeekend = (day: IDay) => day.dayInWeek === 6 || day.dayInWeek === 0
+
+const isToday = (day: IDay, today: Date) =>
+  day.dayInMonth === today.getDate() &&
+  day.month.month === today.getMonth() + 1 &&
+  day.month.year === today.getFullYear()
 
 export const isSelected = (
   weekDay: IDay,
@@ -23,11 +26,13 @@ export const dayClass = (
   if (isWeekend(weekDay)) {
     classes.push('weekend')
   }
+  if (isToday(weekDay, new Date())) {
+    classes.push('today')
+  }
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
   if (selectedDay && isSelected(weekDay, selectedDay)) {
     classes.push('selected')
   }
-
   return classes
 }
 
