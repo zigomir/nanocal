@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "module": "commonjs",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -10,7 +9,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts"
+    "./**/*.ts"
   ]
 }
