@@ -34,7 +34,16 @@ export const dayClass = (
   if (selectedDay && isSelected(weekDay, selectedDay)) {
     classes.push('selected')
   }
-  if (disableOnDay && disableOnDay(new Date(weekDay.month.year, weekDay.month.month - 1, weekDay.dayInMonth).getTime())) {
+  if (
+    disableOnDay &&
+    disableOnDay(
+      new Date(
+        weekDay.month.year,
+        weekDay.month.month - 1,
+        weekDay.dayInMonth
+      ).getTime()
+    )
+  ) {
     classes.push('disabled')
   }
   return classes
