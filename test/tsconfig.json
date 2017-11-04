@@ -1,12 +1,7 @@
 {
+  "extends": "../tsconfig",
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "module": "commonjs"
   },
   "include": [
     "./**/*.ts"

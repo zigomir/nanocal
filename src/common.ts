@@ -68,20 +68,16 @@ export interface IRangePickerState extends IDatePickerState {
   rangeEndDay?: ICalendarDay
 }
 
-interface IEventPayload {
-  start?: ICalendarDay
-  end?: ICalendarDay
-}
-
-export interface ISvelteComponent {
+export interface IDatePickerComponent {
   get(property: keyof IDatePickerState): object
   set(property: Partial<IDatePickerState>): void
-  fire(eventName: string, payload: IEventPayload | ICalendarDay): void
+  fire(eventName: string, payload: ICalendarDay): void
 }
 
-export interface IRPSvelteComponent extends ISvelteComponent {
+export interface IRangePickerComponent {
   get(property: keyof IRangePickerState): object
   set(property: Partial<IRangePickerState>): void
+  fire(eventName: string, payload: [ICalendarDay, ICalendarDay]): void
 }
 
 export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>

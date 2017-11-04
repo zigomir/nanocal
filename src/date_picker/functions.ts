@@ -1,7 +1,7 @@
 import { IDay } from 'cntdys'
-import { ISvelteComponent } from '../common'
+import { IDatePickerComponent } from '../common'
 
-export const selectDay = (component: ISvelteComponent, day: IDay) => {
+export const selectDay = (component: IDatePickerComponent, day: IDay) => {
   const { month, dayInMonth } = day
 
   component.set({

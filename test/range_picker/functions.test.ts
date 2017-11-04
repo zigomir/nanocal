@@ -1,7 +1,7 @@
 import * as test from 'tape'
-import { dayClass } from '../../src/range_picker/functions'
+import { dayClass, selectDay } from '../../src/range_picker/functions'
 import { IDay } from 'cntdys'
-import { ICalendarDay } from '../../src/common'
+import { ICalendarDay, IRangePickerComponent, IRangePickerState } from '../../src/common'
 
 test('dayClass', assert => {
   let weekDay: IDay = {
@@ -58,10 +58,24 @@ test('dayClass', assert => {
   assert.end()
 })
 
-// test('selectDay', assert => {
-//   const s: IRPSvelteComponent = {
-
-//   }
-//   assert.deepEqual(selectDay(, [])
-//   assert.end()
-// })
+test('selectDay', assert => {
+  const component: IRangePickerComponent = {
+    get(property: keyof IRangePickerState) {
+      console.log(property)
+      return {}
+    },
+    set(property: Partial<IRangePickerState>) {
+      console.log(property)
+    },
+    fire(eventName, payload: [ICalendarDay, ICalendarDay]) {
+      console.log(eventName, payload)
+    }
+  }
+  const day: IDay = {
+    dayInWeek: 0,
+    dayInMonth: 1,
+    month: { month: 10, year: 2017 }
+  }
+  // assert.deepEqual(selectDay(component, day), [])
+  assert.end()
+})

@@ -2,7 +2,7 @@ import { IDay, MonthNumber } from 'cntdys'
 import {
   dayClass as datePickerDayClass,
   ICalendarDay,
-  IRPSvelteComponent,
+  IRangePickerComponent,
   isSelected
 } from '../common'
 
@@ -59,7 +59,7 @@ export const dayClass = (
   return classes
 }
 
-export const selectDay = (component: IRPSvelteComponent, day: IDay) => {
+export const selectDay = (component: IRangePickerComponent, day: IDay) => {
   const { month, dayInMonth } = day
 
   if (!component.get('rangeStartDay')) {
@@ -95,9 +95,9 @@ export const selectDay = (component: IRPSvelteComponent, day: IDay) => {
     const endTs = Date.UTC(end.year, end.month - 1, end.day)
 
     if (startTs < endTs) {
-      component.fire('selectedRange', { end, start })
+      component.fire('selectedRange', [start, end])
     } else {
-      component.fire('selectedRange', { end: start, start: end })
+      component.fire('selectedRange', [end, start])
     }
   } else if (component.get('rangeStartDay') && component.get('rangeEndDay')) {
     // reset range and start from scratch
