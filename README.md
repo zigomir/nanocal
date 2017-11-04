@@ -29,6 +29,7 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 <cntdys-calendar year="2017" month="10" day="01"></cntdys-calendar>
 ```
 
-## usage
+## decisions
 
-Don't use `bundle.css` and define all styles yourself!
+use `tape` and `browserify` to test in actual browsers - because this lib is meant for them.
+node doesn't ship with internationalization modules so you can't simply pass locales.
