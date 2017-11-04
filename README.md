@@ -10,6 +10,8 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 - disable all before/after (pass function)
 - add tests
+- study defaults
+  - is today best as is or better not to highlight it at all?
 - do more research on other pickers - measure sizes
   - https://www.webcomponents.org/search/date
   - https://roxus.github.io/range-datepicker/components/range-datepicker/demo/ -> nice but huge
