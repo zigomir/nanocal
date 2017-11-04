@@ -1,6 +1,6 @@
-# count them days
+# count'em days UI
 
-> 5 kB calendar UI
+> 4 kB date picker & 5 kB range picker
 
 ## why
 
