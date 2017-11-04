@@ -11,15 +11,15 @@
 
   export default {
     computed: {
-      monthName: (year, month, nextMonth) => {
+      monthName: (year, month, locale, nextMonth) => {
         if (nextMonth) {
           const nextMonth = getNextMonth(year, month)
-          return monthName(nextMonth.year, nextMonth.month)
+          return monthName(nextMonth.year, nextMonth.month, locale)
         } else {
-          return monthName(year, month)
+          return monthName(year, month, locale)
         }
       },
-      dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
+      dayNames: (startOfTheWeek, locale) => dayNames(startOfTheWeek, locale)
     }
   }
 </script>

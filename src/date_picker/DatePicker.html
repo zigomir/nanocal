@@ -1,6 +1,6 @@
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <Header year="{{ year }}" month="{{ month }}"></Header>
+    <Header year="{{ year }}" month="{{ month }}" locale="{{ locale }}"></Header>
     {{#each calendarMonth as week}}
     <tr class="week">
       {{#each week as weekDay}}

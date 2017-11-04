@@ -72,15 +72,13 @@ export interface IRPSvelteComponent extends ISvelteComponent {
   set(property: Partial<IRangePickerState>): void
 }
 
-// TODO: let user pass locale
-export const monthName = (year: Year, month: MonthNumber) =>
-  new Date(year, month - 1).toLocaleString('en-US', { month: 'long' })
+export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>
+  new Date(year, month - 1).toLocaleString(locale, { month: 'long' })
 
-// TODO: let user pass locale
-export const dayNames = (startOfTheWeek: number) => {
+export const dayNames = (startOfTheWeek: number, locale = 'en-US') => {
   const days = [...Array(7).keys()].map(d =>
     new Date(2000, 9, d + 1)
-      .toLocaleString('en-US', { weekday: 'long' })
+      .toLocaleString(locale, { weekday: 'long' })
       .slice(0, 2)
   )
 
