@@ -20,7 +20,8 @@ export const isSelected = (
 export const dayClass = (
   selectedDay: ICalendarDay | undefined,
   weekDay: IDay,
-  month: MonthNumber
+  month: MonthNumber,
+  disableOnDay: (timestamp: number) => boolean | undefined
 ) => {
   const classes = ['day']
   if (isWeekend(weekDay)) {
@@ -32,6 +33,9 @@ export const dayClass = (
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
   if (selectedDay && isSelected(weekDay, selectedDay)) {
     classes.push('selected')
+  }
+  if (disableOnDay && disableOnDay(new Date(weekDay.month.year, weekDay.month.month - 1, weekDay.dayInMonth).getTime())) {
+    classes.push('disabled')
   }
   return classes
 }

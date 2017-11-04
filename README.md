@@ -6,9 +6,10 @@
 
 do not be satisfied with `moment.js` + `jquery` combo to have a simple date picker
 
-## todos
+## todo
 
-- disable all before/after (pass function)
+- add (pre)selectedRange
+- think about mixing of UTC and non-UTC dates
 - add tests
 - study defaults
   - is today best as is or better not to highlight it at all?
