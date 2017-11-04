@@ -1,0 +1,31 @@
+<caption class="caption">{{ monthName }} {{ year }}</caption>
+<tr class="header">
+  {{#each dayNames as day}}
+    <th class="day-name">{{ day }}</th>
+  {{/each}}
+</tr>
+
+<script>
+  import { monthName, dayNames } from './common.js'
+  import { getNextMonth } from 'cntdys'
+
+  export default {
+    computed: {
+      monthName: (year, month, nextMonth) => {
+        if (nextMonth) {
+          const nextMonth = getNextMonth(year, month)
+          return monthName(nextMonth.year, nextMonth.month)
+        } else {
+          return monthName(year, month)
+        }
+      },
+      dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
+    }
+  }
+</script>
+
+<style>
+  .caption {
+    font-size: var(--caption-font-size);
+  }
+</style>

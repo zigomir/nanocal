@@ -1,11 +1,6 @@
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <caption class="caption">{{ monthName }} {{ year }}</caption>
-    <tr class="header">
-      {{#each dayNames as day}}
-        <th class="day-name">{{ day }}</th>
-      {{/each}}
-    </tr>
+    <Header year="{{ year }}" month="{{ month }}"></Header>
     {{#each calendarMonth as week}}
     <tr class="week">
       {{#each week as weekDay}}
@@ -19,20 +14,19 @@
 <script>
   import { calendarMonth } from 'cntdys'
   import { selectDay } from './functions.js'
-  import { dayClass, monthName, dayNames } from '../common.js'
+  import { dayClass } from '../common.js'
   import Wrapper from '../Wrapper.html'
+  import Header from '../Header.html'
 
   export default {
     helpers: {
       dayClass
     },
 
-    components: { Wrapper },
+    components: { Wrapper, Header },
 
     computed: {
-      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
-      monthName: (year, month) => monthName(year, month),
-      dayNames: (startOfTheWeek) => dayNames(startOfTheWeek)
+      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek)
     },
 
     methods: {

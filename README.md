@@ -8,6 +8,7 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todos
 
+- pass locale for month and day names
 - disable all before/after (pass function)
 - add tests
 - do more research on other pickers - measure sizes
