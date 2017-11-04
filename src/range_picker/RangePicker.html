@@ -9,7 +9,7 @@
           <td
             on:click="selectDay(weekDay)"
             on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(weekDay, month, disableOnDay, hoverDay, rangeStartDay, rangeEndDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+            class="{{dayClass(weekDay, month, hoverDay, rangeStartDay, rangeEndDay, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
         {{/each}}
       </tr>
     {{/each}}
@@ -23,7 +23,7 @@
           <td
             on:click="selectDay(weekDay)"
             on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(weekDay, nextMonth.month, disableOnDay, hoverDay, rangeStartDay, rangeEndDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+            class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStartDay, rangeEndDay, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
         {{/each}}
       </tr>
     {{/each}}
