@@ -9,9 +9,9 @@ import {
 export const dayClass = (
   weekDay: IDay,
   month: MonthNumber,
-  hoverDay: IDay,
-  rangeStartDay: ICalendarDay,
-  rangeEndDay: ICalendarDay,
+  hoverDay?: IDay,
+  rangeStartDay?: ICalendarDay,
+  rangeEndDay?: ICalendarDay,
   disableOnDay?: (timestamp: number) => boolean
 ) => {
   const classes = datePickerDayClass(undefined, weekDay, month, disableOnDay)
@@ -40,11 +40,11 @@ export const dayClass = (
     )
     const hoverOrRangeEndTs = rangeEndDay
       ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
-      : Date.UTC(
+      : hoverDay ? Date.UTC(
           hoverDay.month.year,
           hoverDay.month.month - 1,
           hoverDay.dayInMonth
-        )
+        ) : undefined
 
     if (
       rangeStartTs &&
