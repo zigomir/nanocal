@@ -21,7 +21,7 @@ export const dayClass = (
   selectedDay: ICalendarDay | undefined,
   weekDay: IDay,
   month: MonthNumber,
-  disableOnDay: (timestamp: number) => boolean | undefined
+  disableOnDay?: (timestamp: number) => boolean
 ) => {
   const classes = ['day']
   if (isWeekend(weekDay)) {

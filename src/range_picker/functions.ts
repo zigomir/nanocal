@@ -9,7 +9,7 @@ import {
 export const dayClass = (
   weekDay: IDay,
   month: MonthNumber,
-  disableOnDay: (timestamp: number) => boolean | undefined,
+  disableOnDay: ((timestamp: number) => boolean) | undefined,
   hoverDay: IDay,
   rangeStartDay: ICalendarDay,
   rangeEndDay: ICalendarDay
