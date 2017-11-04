@@ -20,7 +20,8 @@
 <script>
   import { getPreviousMonth, getNextMonth } from 'cntdys'
 
-  // Issue in Chrome 62. Test if needed for newer versions too
+  // Issue in Chrome 62 when switching between months sometimes cell is missing a part of border.
+  // Test if needed for newer versions too
   const chromeBordersFix = (tables) => {
     for (let table of tables) {
       table.style.borderSpacing = table.style.borderSpacing === '0px' ? '' : '0px'
