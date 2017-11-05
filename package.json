@@ -12,7 +12,7 @@
     "build:rp:nomodule": "tsc && rollup -c rollup.rp.config.js -f iife -o public/range_picker-nomodule.js",
     "dev:rp": "tsc -w & rollup -c rollup.rp.config.js -w -f es -o public/range_picker.js & serve  -p 4000 public",
     "format": "prettier-standard 'src/**/*.ts'",
-    "test": "npm run lint && tsc -p test/tsconfig.json && npm run tape && bundlesize",
+    "test": "bundlesize",
     "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
     "lint": "tslint --project tsconfig.json",
     "start": "serve -p 3000 public"
