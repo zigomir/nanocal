@@ -98,7 +98,10 @@ test('selectDay', assert => {
     {
       action: 'fire',
       eventName: 'selectedRange',
-      payload: [ { day: 1, month: 10, year: 2017 }, { day: 1, month: 10, year: 2017 } ]
+      payload: [
+        { day: 1, month: 10, year: 2017 },
+        { day: 1, month: 10, year: 2017 }
+      ]
     }
   ])
 

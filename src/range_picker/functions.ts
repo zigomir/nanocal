@@ -41,10 +41,10 @@ export const dayClass = (
       ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
       : hoverDay
         ? Date.UTC(
-            hoverDay.month.year,
-            hoverDay.month.month - 1,
-            hoverDay.dayInMonth
-          )
+          hoverDay.month.year,
+          hoverDay.month.month - 1,
+          hoverDay.dayInMonth
+        )
         : undefined
 
     if (
