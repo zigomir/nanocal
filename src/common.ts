@@ -55,31 +55,6 @@ export interface ICalendarDay {
   year: Year
 }
 
-interface IDatePickerState {
-  year: Year
-  month: MonthNumber
-  startOfTheWeek: number
-  selectedDay?: ICalendarDay
-}
-
-export interface IRangePickerState extends IDatePickerState {
-  hoverDay?: ICalendarDay
-  rangeStartDay?: ICalendarDay
-  rangeEndDay?: ICalendarDay
-}
-
-export interface IDatePickerComponent {
-  get(property: keyof IDatePickerState): object
-  set(property: Partial<IDatePickerState>): void
-  fire(eventName: string, payload: ICalendarDay): void
-}
-
-export interface IRangePickerComponent {
-  get(property: keyof IRangePickerState): object
-  set(property: Partial<IRangePickerState>): void
-  fire(eventName: string, payload: [ICalendarDay, ICalendarDay]): void
-}
-
 export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>
   new Date(year, month - 1).toLocaleString(locale, { month: 'long' })
 

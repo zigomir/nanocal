@@ -1,7 +1,7 @@
 import * as test from 'tape'
 import { dayClass, selectDay } from '../../src/range_picker/functions'
 import { IDay } from 'cntdys'
-import { ICalendarDay, IRangePickerComponent, IRangePickerState } from '../../src/common'
+import { ICalendarDay } from '../../src/common'
 
 test('dayClass', assert => {
   let weekDay: IDay = {
@@ -59,23 +59,67 @@ test('dayClass', assert => {
 })
 
 test('selectDay', assert => {
-  const component: IRangePickerComponent = {
-    get(property: keyof IRangePickerState) {
-      console.log(property)
-      return {}
-    },
-    set(property: Partial<IRangePickerState>) {
-      console.log(property)
-    },
-    fire(eventName, payload: [ICalendarDay, ICalendarDay]) {
-      console.log(eventName, payload)
-    }
-  }
   const day: IDay = {
     dayInWeek: 0,
     dayInMonth: 1,
     month: { month: 10, year: 2017 }
   }
-  // assert.deepEqual(selectDay(component, day), [])
+
+  assert.deepEqual(selectDay(day), [
+    {
+      action: 'set',
+      payload: {
+        rangeStartDay: {
+          day: day.dayInMonth,
+          month: day.month.month,
+          year: day.month.year
+        }
+      }
+    }
+  ])
+
+  let rangeStartDay: ICalendarDay = {
+    day: 1,
+    month: 10,
+    year: 2017
+  }
+  assert.deepEqual(selectDay(day, rangeStartDay), [
+    {
+      action: 'set',
+      payload: {
+        hoverDay: undefined,
+        rangeEndDay: {
+          day: day.dayInMonth,
+          month: day.month.month,
+          year: day.month.year
+        }
+      }
+    },
+    {
+      action: 'fire',
+      eventName: 'selectedRange',
+      payload: [ { day: 1, month: 10, year: 2017 }, { day: 1, month: 10, year: 2017 } ]
+    }
+  ])
+
+  let rangeEndDay: ICalendarDay = {
+    day: 1,
+    month: 10,
+    year: 2017
+  }
+  assert.deepEqual(selectDay(day, rangeStartDay, rangeEndDay), [
+    {
+      action: 'set',
+      payload: {
+        rangeEndDay: undefined,
+        rangeStartDay: {
+          day: day.dayInMonth,
+          month: day.month.month,
+          year: day.month.year
+        }
+      }
+    }
+  ])
+
   assert.end()
 })

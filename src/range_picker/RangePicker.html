@@ -60,7 +60,14 @@
 
     methods: {
       selectDay(day) {
-        selectDay(this, day)
+        const actions = selectDay(day, this.get('rangeStartDay'), this.get('rangeEndDay'))
+        for (const { action, payload, eventName } of actions) {
+          if (action === 'fire') {
+            this.fire(eventName, payload)
+          } else {
+            this[action](payload)
+          }
+        }
       },
       setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
         if (rangeStartDay && !rangeEndDay) {

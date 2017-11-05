@@ -2,7 +2,6 @@ import { IDay, MonthNumber } from 'cntdys'
 import {
   dayClass as datePickerDayClass,
   ICalendarDay,
-  IRangePickerComponent,
   isSelected
 } from '../common'
 
@@ -40,11 +39,13 @@ export const dayClass = (
     )
     const hoverOrRangeEndTs = rangeEndDay
       ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
-      : hoverDay ? Date.UTC(
-          hoverDay.month.year,
-          hoverDay.month.month - 1,
-          hoverDay.dayInMonth
-        ) : undefined
+      : hoverDay
+        ? Date.UTC(
+            hoverDay.month.year,
+            hoverDay.month.month - 1,
+            hoverDay.dayInMonth
+          )
+        : undefined
 
     if (
       rangeStartTs &&
@@ -59,28 +60,38 @@ export const dayClass = (
   return classes
 }
 
-export const selectDay = (component: IRangePickerComponent, day: IDay) => {
+export const selectDay = (
+  day: IDay,
+  rangeStartDay?: ICalendarDay,
+  rangeEndDay?: ICalendarDay
+) => {
   const { month, dayInMonth } = day
+  const actions = []
 
-  if (!component.get('rangeStartDay')) {
-    component.set({
-      rangeStartDay: {
-        day: dayInMonth,
-        month: month.month,
-        year: month.year
+  if (!rangeStartDay) {
+    actions.push({
+      action: 'set',
+      payload: {
+        rangeStartDay: {
+          day: dayInMonth,
+          month: month.month,
+          year: month.year
+        }
       }
     })
-  } else if (!component.get('rangeEndDay')) {
-    component.set({
-      hoverDay: undefined,
-      rangeEndDay: {
-        day: dayInMonth,
-        month: month.month,
-        year: month.year
+  } else if (!rangeEndDay) {
+    actions.push({
+      action: 'set',
+      payload: {
+        hoverDay: undefined,
+        rangeEndDay: {
+          day: dayInMonth,
+          month: month.month,
+          year: month.year
+        }
       }
     })
 
-    const rangeStartDay = component.get('rangeStartDay') as ICalendarDay
     const start = {
       day: rangeStartDay.day,
       month: rangeStartDay.month,
@@ -94,20 +105,24 @@ export const selectDay = (component: IRangePickerComponent, day: IDay) => {
     const startTs = Date.UTC(start.year, start.month - 1, start.day)
     const endTs = Date.UTC(end.year, end.month - 1, end.day)
 
-    if (startTs < endTs) {
-      component.fire('selectedRange', [start, end])
-    } else {
-      component.fire('selectedRange', [end, start])
-    }
-  } else if (component.get('rangeStartDay') && component.get('rangeEndDay')) {
-    // reset range and start from scratch
-    component.set({
-      rangeEndDay: undefined,
-      rangeStartDay: {
-        day: dayInMonth,
-        month: month.month,
-        year: month.year
+    actions.push({
+      action: 'fire',
+      eventName: 'selectedRange',
+      payload: startTs < endTs ? [start, end] : [end, start]
+    })
+  } else if (rangeStartDay && rangeEndDay) {
+    actions.push({
+      action: 'set',
+      payload: {
+        rangeEndDay: undefined,
+        rangeStartDay: {
+          day: dayInMonth,
+          month: month.month,
+          year: month.year
+        }
       }
     })
   }
+
+  return actions
 }
