@@ -21,7 +21,7 @@ export const dayClass = (
   selectedDay: ICalendarDay | undefined,
   weekDay: IDay,
   month: MonthNumber,
-  disableOnDay: (timestamp: number) => boolean | undefined
+  disableOnDay?: (timestamp: number) => boolean
 ) => {
   const classes = ['day']
   if (isWeekend(weekDay)) {
@@ -53,35 +53,6 @@ export interface ICalendarDay {
   day: number
   month: MonthNumber
   year: Year
-}
-
-interface IDatePickerState {
-  year: Year
-  month: MonthNumber
-  startOfTheWeek: number
-  selectedDay?: ICalendarDay
-}
-
-export interface IRangePickerState extends IDatePickerState {
-  hoverDay?: ICalendarDay
-  rangeStartDay?: ICalendarDay
-  rangeEndDay?: ICalendarDay
-}
-
-interface IEventPayload {
-  start?: ICalendarDay
-  end?: ICalendarDay
-}
-
-export interface ISvelteComponent {
-  get(property: keyof IDatePickerState): object
-  set(property: Partial<IDatePickerState>): void
-  fire(eventName: string, payload: IEventPayload | ICalendarDay): void
-}
-
-export interface IRPSvelteComponent extends ISvelteComponent {
-  get(property: keyof IRangePickerState): object
-  set(property: Partial<IRangePickerState>): void
 }
 
 export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>

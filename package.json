@@ -11,8 +11,9 @@
     "build:rp:module": "tsc && rollup -c rollup.rp.config.js -f es -o public/range_picker.js",
     "build:rp:nomodule": "tsc && rollup -c rollup.rp.config.js -f iife -o public/range_picker-nomodule.js",
     "dev:rp": "tsc -w & rollup -c rollup.rp.config.js -w -f es -o public/range_picker.js & serve  -p 4000 public",
-    "format": "prettier-standard 'src/**/*.ts'",
-    "test": "npm run lint && bundlesize",
+    "format": "prettier-standard '**/*.ts'",
+    "test": "bundlesize",
+    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
     "lint": "tslint --project tsconfig.json",
     "start": "serve -p 3000 public"
   },
@@ -41,6 +42,7 @@
     "cntdys": "^0.2.5"
   },
   "devDependencies": {
+    "@types/tape": "^4.2.31",
     "bundlesize": "^0.15.3",
     "prettier-standard": "^7.0.3",
     "rollup": "^0.50.0",
@@ -48,8 +50,10 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^3.1.0",
     "serve": "^6.4.0",
+    "tape": "^4.8.0",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
-    "typescript": "^2.6.1"
+    "typescript": "^2.6.1",
+    "watchify": "^3.9.0"
   }
 }

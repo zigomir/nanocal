@@ -13,7 +13,6 @@
 
 <script>
   import { calendarMonth } from 'cntdys'
-  import { selectDay } from './functions.js'
   import { dayClass } from '../common.js'
   import Wrapper from '../Wrapper.html'
   import Header from '../Header.html'
@@ -31,7 +30,23 @@
 
     methods: {
       selectDay(day) {
-        selectDay(this, day)
+        const { month, dayInMonth } = day
+
+        this.set({
+          month: month.month,
+          selectedDay: {
+            day: dayInMonth,
+            month: month.month,
+            year: month.year
+          },
+          year: month.year
+        })
+
+        this.fire('selectedDay', {
+          day: dayInMonth,
+          month: month.month,
+          year: month.year
+        })
       }
     }
   }

@@ -8,7 +8,10 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todo
 
-- add tests
+- improve dev/test/build workflow
+  - currently you can't build both modules at same time
+  - you can't compile test and dev build at same time
+  - find out if possible auto-test from command line with proper exit code
 - think about mixing of UTC and non-UTC dates
 - study defaults
   - is today best as is or better not to highlight it at all?
@@ -29,6 +32,7 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 <cntdys-calendar year="2017" month="10" day="01"></cntdys-calendar>
 ```
 
-## usage
+## decisions
 
-Don't use `bundle.css` and define all styles yourself!
+use `tape` and `browserify` to test in actual browsers - because this lib is meant for them.
+node doesn't ship with internationalization modules so you can't simply pass locales.
