@@ -10,6 +10,7 @@
     "build:rp": "npm run build:rp:module && npm run build:rp:nomodule",
     "build:rp:module": "rollup -c rollup.rp.config.js -f es -o dist/range_picker.js",
     "build:rp:nomodule": "rollup -c rollup.rp.config.js -f iife -o dist/range_picker-nomodule.js",
+    "predev": "tsc",
     "dev": "tsc -w & npm run dev:dp & npm run dev:rp",
     "dev:dp": "rollup -c rollup.dp.config.js -w -f es -o dist/date_picker.js & serve  -p 3000 dist",
     "dev:rp": "rollup -c rollup.rp.config.js -w -f es -o dist/range_picker.js & serve  -p 4000 dist",
