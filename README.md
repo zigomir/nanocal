@@ -9,16 +9,14 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 ## todo
 
 - think about mixing of UTC and non-UTC dates
-- study defaults
+- transition animation
+- responsive: `flex-direction: column;`
+- study defaults and customization
   - is today best as is or better not to highlight it at all?
+  - how good this is to customize
 - do more research on other pickers - measure sizes
   - https://www.webcomponents.org/search/date
   - https://roxus.github.io/range-datepicker/components/range-datepicker/demo/ -> nice but huge
-- transition animation
-- responsive: `flex-direction: column;`
-- research
-  - how good this is to customize
-  - two builds: one with range and one without?
 - improve dev/test/build workflow
   - find out if possible auto-test from command line with proper exit code
 
