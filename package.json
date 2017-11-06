@@ -3,38 +3,40 @@
   "version": "0.1.0",
   "description": "cntdys-ui",
   "scripts": {
+    "build": "tsc && npm run build:dp && npm run build:rp && bundlesize",
     "build:dp": "npm run build:dp:module && npm run build:dp:nomodule",
-    "build:dp:module": "tsc && rollup -c rollup.dp.config.js -f es -o public/date_picker.js",
-    "build:dp:nomodule": "tsc && rollup -c rollup.dp.config.js -f iife -o public/date_picker-nomodule.js",
-    "dev:dp": "tsc -w & rollup -c rollup.dp.config.js -w -f es -o public/date_picker.js & serve  -p 3000 public",
+    "build:dp:module": "rollup -c rollup.dp.config.js -f es -o dist/date_picker.js",
+    "build:dp:nomodule": "rollup -c rollup.dp.config.js -f iife -o dist/date_picker-nomodule.js",
     "build:rp": "npm run build:rp:module && npm run build:rp:nomodule",
-    "build:rp:module": "tsc && rollup -c rollup.rp.config.js -f es -o public/range_picker.js",
-    "build:rp:nomodule": "tsc && rollup -c rollup.rp.config.js -f iife -o public/range_picker-nomodule.js",
-    "dev:rp": "tsc -w & rollup -c rollup.rp.config.js -w -f es -o public/range_picker.js & serve  -p 4000 public",
+    "build:rp:module": "rollup -c rollup.rp.config.js -f es -o dist/range_picker.js",
+    "build:rp:nomodule": "rollup -c rollup.rp.config.js -f iife -o dist/range_picker-nomodule.js",
+    "dev": "tsc -w & npm run dev:dp & npm run dev:rp",
+    "dev:dp": "rollup -c rollup.dp.config.js -w -f es -o dist/date_picker.js & serve  -p 3000 dist",
+    "dev:rp": "rollup -c rollup.rp.config.js -w -f es -o dist/range_picker.js & serve  -p 4000 dist",
     "format": "prettier-standard '**/*.ts'",
-    "test": "bundlesize",
-    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
     "lint": "tslint --project tsconfig.json",
-    "start": "serve -p 3000 public"
+    "pretest:dev": "tsc -p test/tsconfig.json",
+    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
+    "test": "npm run lint && bundlesize"
   },
   "keywords": [],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
   "bundlesize": [
     {
-      "path": "./public/date_picker.js",
+      "path": "./dist/date_picker.js",
       "maxSize": "4.5 kB"
     },
     {
-      "path": "./public/date_picker-nomodule.js",
+      "path": "./dist/date_picker-nomodule.js",
       "maxSize": "4.5 kB"
     },
     {
-      "path": "./public/range_picker.js",
+      "path": "./dist/range_picker.js",
       "maxSize": "5.5 kB"
     },
     {
-      "path": "./public/range_picker-nomodule.js",
+      "path": "./dist/range_picker-nomodule.js",
       "maxSize": "5 kB"
     }
   ],

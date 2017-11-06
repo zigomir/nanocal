@@ -8,10 +8,6 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todo
 
-- improve dev/test/build workflow
-  - currently you can't build both modules at same time
-  - you can't compile test and dev build at same time
-  - find out if possible auto-test from command line with proper exit code
 - think about mixing of UTC and non-UTC dates
 - study defaults
   - is today best as is or better not to highlight it at all?
@@ -23,6 +19,8 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 - research
   - how good this is to customize
   - two builds: one with range and one without?
+- improve dev/test/build workflow
+  - find out if possible auto-test from command line with proper exit code
 
 ## good to haves
 

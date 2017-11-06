@@ -15,7 +15,7 @@ export default {
     svelte({
       // enable run-time checks when not in production
       dev: !production,
-      css: css => { css.write('public/date_picker.css') },
+      css: css => { css.write('dist/date_picker.css') },
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875
     }),
     production && minify({ comments: false })
