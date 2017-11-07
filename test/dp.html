@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link rel="stylesheet" href="nanocal.min.css">
+  <link rel="stylesheet" href="../dist/nanocal.min.css">
   <title>Date Picker</title>
 </head>
 <body>
-  <div id="dp"></div>
+  <div id="nanocal"></div>
 
   <script type="module">
-    import CTDatePicker from './nanocal.js'
-    const el = document.getElementById('dp')
+    import Nanocal from './../dist/nanocal.js'
+    const el = document.getElementById('nanocal')
     const dayInMilliseconds = 24 * 60 * 60 * 1000
-    const ctDatePicker = new CTDatePicker({
+    const nanocal = new Nanocal({
       target: el,
       data: {
         year: 2017,
@@ -33,7 +33,7 @@
       }
     })
 
-    ctDatePicker.on('selectedDay', (day) => console.log(day))
+    nanocal.on('selectedDay', (day) => console.log(day))
 
     // How to override styling
     // el.querySelector('.wrapper').style.setProperty('--today-box-shadow', 'none')

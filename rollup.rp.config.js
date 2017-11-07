@@ -8,7 +8,7 @@ export default {
   input: 'src/ranger/main.js',
   output: {
     sourcemap: true,
-    name: 'CDRangePicker'
+    name: 'nanocal-ranger'
   },
   plugins: [
     resolve(),

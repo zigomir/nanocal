@@ -1,11 +1,12 @@
 {
   "name": "nanocal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "nanocal",
   "main": "dist/nanocal.min.cjs.js",
   "module": "dist/nanocal.min.esm.js",
   "browser": "dist/nanocal.min.iife.js",
   "scripts": {
+    "prebuild": "rm dist/*",
     "build": "tsc && npm run build:dp && npm run build:rp && bundlesize",
     "build:dp": "npm run build:dp:cjs && npm run build:dp:module && npm run build:dp:iife",
     "build:dp:cjs": "rollup -c rollup.dp.config.js -f cjs -o dist/nanocal.min.cjs.js",
@@ -16,14 +17,15 @@
     "build:rp:module": "rollup -c rollup.rp.config.js -f es -o dist/nanocal-ranger.min.esm.js",
     "build:rp:iife": "rollup -c rollup.rp.config.js -f iife -o dist/nanocal-ranger.min.iife.js",
     "predev": "tsc",
-    "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000 dist",
+    "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000",
     "dev:dp": "rollup -c rollup.dp.config.js -w -f es -o dist/nanocal.js",
     "dev:rp": "rollup -c rollup.rp.config.js -w -f es -o dist/nanocal-ranger.js",
     "format": "prettier-standard '**/*.ts'",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
     "pretest:dev": "tsc -p test/tsconfig.json",
     "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
-    "test": "npm run lint && bundlesize"
+    "test": "npm run lint",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "keywords": [],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",

@@ -8,7 +8,7 @@ export default {
   input: 'src/nanocal/main.js',
   output: {
     sourcemap: true,
-    name: 'CDDatePicker'
+    name: 'nanocal'
   },
   plugins: [
     resolve(),
