@@ -5,7 +5,7 @@ import minify from 'rollup-plugin-babel-minify'
 const production = !process.env.ROLLUP_WATCH
 
 export default {
-  input: 'src/date_picker/main.js',
+  input: 'src/nanocal/main.js',
   output: {
     sourcemap: true,
     name: 'CDDatePicker'
@@ -15,7 +15,7 @@ export default {
     svelte({
       // enable run-time checks when not in production
       dev: !production,
-      css: css => { css.write('dist/date_picker.css') },
+      css: css => { css.write('dist/nanocal.min.css') },
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875
     }),
     production && minify({ comments: false })

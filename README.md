@@ -1,4 +1,4 @@
-# count'em days UI
+# nanocal
 
 > 4 kB date picker & 5 kB range picker
 
@@ -8,6 +8,10 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 ## todo
 
+- should work with <script src="//unpkg.com/nanocal"></script> (need to resolve to .iife by default, also prepare esm version)
+  - see https://github.com/frappe/charts/tree/master/dist and https://github.com/frappe/charts/blob/master/package.json#L5-L7
+  - use with `https://unpkg.com/nanocal?module` or `https://unpkg.com/nanocal`
+  - i should probably rename package names
 - think about mixing of UTC and non-UTC dates
 - transition animation
 - responsive: `flex-direction: column;`
@@ -18,7 +22,7 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
   - https://www.webcomponents.org/search/date
   - https://roxus.github.io/range-datepicker/components/range-datepicker/demo/ -> nice but huge
 - improve dev/test/build workflow
-  - find out if possible auto-test from command line with proper exit code
+  - find out if possible auto-test from command line with proper exit code - should use headless chrome
 
 ## good to haves
 

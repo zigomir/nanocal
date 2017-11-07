@@ -5,7 +5,7 @@ import minify from 'rollup-plugin-babel-minify'
 const production = !process.env.ROLLUP_WATCH
 
 export default {
-  input: 'src/range_picker/main.js',
+  input: 'src/ranger/main.js',
   output: {
     sourcemap: true,
     name: 'CDRangePicker'
@@ -15,7 +15,7 @@ export default {
     svelte({
       // enable run-time checks when not in production
       dev: !production,
-      css: css => { css.write('dist/range_picker.css') },
+      css: css => { css.write('dist/nanocal-ranger.min.css') },
       // customElement: true // false for firefox? – wait for https://github.com/sveltejs/svelte/issues/875
     }),
     production && minify({ comments: false })

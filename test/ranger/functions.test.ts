@@ -1,5 +1,5 @@
 import * as test from 'tape'
-import { dayClass, selectDay } from '../../src/range_picker/functions'
+import { dayClass, selectDay } from '../../src/ranger/functions'
 import { IDay } from 'cntdys'
 import { ICalendarDay } from '../../src/common'
 
