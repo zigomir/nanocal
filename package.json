@@ -51,7 +51,7 @@
     "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^3.1.0",
-    "serve": "^6.4.0",
+    "serve": "^6.4.1",
     "tape": "^4.8.0",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
