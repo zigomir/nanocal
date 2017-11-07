@@ -1,43 +1,42 @@
 {
-  "name": "cntdys-ui",
-  "version": "0.1.0",
-  "description": "cntdys-ui",
+  "name": "nanocal",
+  "version": "0.1.1",
+  "description": "nanocal",
+  "main": "dist/nanocal.min.cjs.js",
+  "module": "dist/nanocal.min.esm.js",
+  "browser": "dist/nanocal.min.iife.js",
   "scripts": {
+    "prebuild": "rm dist/*",
     "build": "tsc && npm run build:dp && npm run build:rp && bundlesize",
-    "build:dp": "npm run build:dp:module && npm run build:dp:nomodule",
-    "build:dp:module": "rollup -c rollup.dp.config.js -f es -o dist/date_picker.js",
-    "build:dp:nomodule": "rollup -c rollup.dp.config.js -f iife -o dist/date_picker-nomodule.js",
-    "build:rp": "npm run build:rp:module && npm run build:rp:nomodule",
-    "build:rp:module": "rollup -c rollup.rp.config.js -f es -o dist/range_picker.js",
-    "build:rp:nomodule": "rollup -c rollup.rp.config.js -f iife -o dist/range_picker-nomodule.js",
+    "build:dp": "npm run build:dp:cjs && npm run build:dp:module && npm run build:dp:iife",
+    "build:dp:cjs": "rollup -c rollup.dp.config.js -f cjs -o dist/nanocal.min.cjs.js",
+    "build:dp:module": "rollup -c rollup.dp.config.js -f es -o dist/nanocal.min.esm.js",
+    "build:dp:iife": "rollup -c rollup.dp.config.js -f iife -o dist/nanocal.min.iife.js",
+    "build:rp": "npm run build:rp:cjs && npm run build:rp:module && npm run build:rp:iife",
+    "build:rp:cjs": "rollup -c rollup.rp.config.js -f cjs -o dist/nanocal-ranger.min.cjs.js",
+    "build:rp:module": "rollup -c rollup.rp.config.js -f es -o dist/nanocal-ranger.min.esm.js",
+    "build:rp:iife": "rollup -c rollup.rp.config.js -f iife -o dist/nanocal-ranger.min.iife.js",
     "predev": "tsc",
-    "dev": "tsc -w & npm run dev:dp & npm run dev:rp",
-    "dev:dp": "rollup -c rollup.dp.config.js -w -f es -o dist/date_picker.js & serve  -p 3000 dist",
-    "dev:rp": "rollup -c rollup.rp.config.js -w -f es -o dist/range_picker.js & serve  -p 4000 dist",
+    "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000",
+    "dev:dp": "rollup -c rollup.dp.config.js -w -f es -o dist/nanocal.js",
+    "dev:rp": "rollup -c rollup.rp.config.js -w -f es -o dist/nanocal-ranger.js",
     "format": "prettier-standard '**/*.ts'",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
     "pretest:dev": "tsc -p test/tsconfig.json",
     "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
-    "test": "npm run lint && bundlesize"
+    "test": "npm run lint",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "keywords": [],
   "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
   "license": "MIT",
   "bundlesize": [
     {
-      "path": "./dist/date_picker.js",
+      "path": "./dist/nanocal.min.iife.js",
       "maxSize": "4.5 kB"
     },
     {
-      "path": "./dist/date_picker-nomodule.js",
-      "maxSize": "4.5 kB"
-    },
-    {
-      "path": "./dist/range_picker.js",
-      "maxSize": "5.5 kB"
-    },
-    {
-      "path": "./dist/range_picker-nomodule.js",
+      "path": "./dist/nanocal-ranger.min.iife.js",
       "maxSize": "5 kB"
     }
   ],
@@ -52,7 +51,7 @@
     "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^3.1.0",
-    "serve": "^6.4.0",
+    "serve": "^6.4.1",
     "tape": "^4.8.0",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",

@@ -1,4 +1,4 @@
-# count'em days UI
+# nanocal
 
 > 4 kB date picker & 5 kB range picker
 
@@ -6,31 +6,20 @@
 
 do not be satisfied with `moment.js` + `jquery` combo to have a simple date picker
 
-## todo
+## usage
 
-- think about mixing of UTC and non-UTC dates
-- study defaults
-  - is today best as is or better not to highlight it at all?
-- do more research on other pickers - measure sizes
-  - https://www.webcomponents.org/search/date
-  - https://roxus.github.io/range-datepicker/components/range-datepicker/demo/ -> nice but huge
-- transition animation
-- responsive: `flex-direction: column;`
-- research
-  - how good this is to customize
-  - two builds: one with range and one without?
-- improve dev/test/build workflow
-  - find out if possible auto-test from command line with proper exit code
-
-## good to haves
-
-- render to custom elements when [issue resolved](https://github.com/sveltejs/svelte/issues/875)
+Date picker
 
 ```html
-<cntdys-calendar year="2017" month="10" day="01"></cntdys-calendar>
+<link rel="stylesheet" href="//unpkg.com/nanocal/dist/nanocal.min.css">
+<script src="//unpkg.com/nanocal"></script>
+<script src="//unpkg.com/nanocal?module"></script>
 ```
 
-## decisions
+Range picker
 
-use `tape` and `browserify` to test in actual browsers - because this lib is meant for them.
-node doesn't ship with internationalization modules so you can't simply pass locales.
+```html
+<link rel="stylesheet" href="//unpkg.com/nanocal/dist/nanocal-ranger.min.css">
+<script src="//unpkg.com/nanocal-ranger"></script>
+<script src="//unpkg.com/nanocal-ranger?module"></script>
+```
