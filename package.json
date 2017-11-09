@@ -23,8 +23,9 @@
     "format": "prettier-standard '**/*.ts'",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
     "pretest:dev": "tsc -p test/tsconfig.json",
-    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test.js",
-    "test": "npm run lint",
+    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test_bundle.js & serve -p 3000 test",
+    "pretest": "tsc -p test/tsconfig.json && browserify test/main.js -o test/test_bundle.js",
+    "test": "node test/test.js",
     "prepublishOnly": "npm run build && npm run test"
   },
   "keywords": [],
@@ -46,7 +47,9 @@
   "devDependencies": {
     "@types/tape": "^4.2.31",
     "bundlesize": "^0.15.3",
+    "ecstatic": "^3.0.0",
     "prettier-standard": "^7.0.3",
+    "puppeteer": "^0.12.0",
     "rollup": "^0.50.0",
     "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
