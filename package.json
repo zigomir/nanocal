@@ -1,6 +1,6 @@
 {
   "name": "nanocal",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "nanocal",
   "main": "dist/nanocal.min.cjs.js",
   "module": "dist/nanocal.min.esm.js",
