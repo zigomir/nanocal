@@ -68,6 +68,9 @@
 
     --other-month-visibility: hidden;
 
+    --range-border-color: rgba(255,255,255,.2);
+    --range-background-color: #00a69862;
+
     font-family: var(--font-family);
     display: inline-block;
   }
@@ -127,17 +130,10 @@
     cursor: pointer;
     background-color: var(--hover-color);
   }
-  .day.current-month.in-range {
-    background-color: var(--range-background-color);
-    border-style: double;
-    border-color: var(--range-border-color);
-    color: var(--range-color);
-  }
   .day.current-month.selected {
     background-color: var(--selected-color);
     color: var(--selected-font-color);
     border-style: double;
-    border-color: var(--range-border-color);
   }
   .day.other-month {
     color: var(--other-day-color);
