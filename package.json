@@ -7,7 +7,11 @@
     "dev:dp": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
     "dev:rp": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/nanocal-ranger.js",
     "format": "prettier-standard '**/*.ts'",
-    "lint": "tslint --project tsconfig.json 'src/**/*.ts'"
+    "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
+    "pretest:dev": "tsc -p common/test/tsconfig.json",
+    "test:dev": "tsc -p common/test/tsconfig.json -w & watchify common/test/main.js -o common/test/test_bundle.js & serve -p 3000 common/test",
+    "pretest": "tsc -p common/test/tsconfig.json && browserify common/test/main.js -o common/test/test_bundle.js",
+    "test": "node common/test/test.js"
   },
   "devDependencies": {
     "@types/tape": "^4.2.31",

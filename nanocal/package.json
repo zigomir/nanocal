@@ -15,7 +15,7 @@
     "build:cjs": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f cjs -o dist/nanocal.cjs.js",
     "build:module": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal.esm.js",
     "build:iife": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/nanocal.min.iife.js",
-    "test": "echo 'TODO'",
+    "test": "npm run --prefix .. test",
     "prepublishOnly": "npm run build && npm run test"
   },
   "bundlesize": [
