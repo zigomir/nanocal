@@ -62,11 +62,11 @@ export interface ICalendarDay {
 }
 
 export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>
-  new Date(year, month - 1).toLocaleString(locale, { month: 'long' })
+  new Date(year, month - 1).toLocaleString(locale, { month: 'long' })  // must not use UTC here
 
 export const dayNames = (startOfTheWeek: number, locale = 'en-US') => {
   const days = [...Array(7).keys()].map(d =>
-    new Date(2000, 9, d + 1)
+    new Date(2017, 9, d + 1) // must not use UTC here
       .toLocaleString(locale, { weekday: 'long' })
       .slice(0, 2)
   )
