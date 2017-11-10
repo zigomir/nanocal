@@ -4,7 +4,7 @@
   <table class="weeks">
     <Header year="{{ year }}" month="{{ month }}" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
     {{#each calendarMonth as week}}
-      <tr class="week">
+      <tr class="{{weekClass(week, month).join(' ')}}">
         {{#each week as weekDay}}
           <td
             on:click="selectDay(weekDay)"
@@ -18,7 +18,7 @@
   <table class="weeks weeks-next-month">
     <Header year="{{ year }}" month="{{ month }}" nextMonth="true" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
     {{#each nextCalendarMonth as week}}
-      <tr class="week">
+      <tr class="{{weekClass(week, nextMonth.month).join(' ')}}">
         {{#each week as weekDay}}
           <td
             on:click="selectDay(weekDay)"
@@ -33,12 +33,14 @@
 <script>
   import { calendarMonth, getNextMonth } from 'cntdys'
   import { dayClass, selectDay } from './functions.js'
+  import { weekClass } from '../common.js'
   import Wrapper from '../Wrapper.html'
   import Header from '../Header.html'
 
   export default {
     helpers: {
-      dayClass
+      dayClass,
+      weekClass
     },
 
     components: { Wrapper, Header },

@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <div class="flex">
+  <div class="flex slot">
     <slot></slot>
   </div>
 </div>
@@ -63,13 +63,16 @@
 
     --other-day-color: #cacccd;
     --weekend-day-color: var(--day-color);
-    --today-box-shadow: 0 0 .2em rgba(0, 0, 0, .5);
+    /* --today-box-shadow: 0 0 .2em rgba(0, 0, 0, .5); */
     --disabled-day-color: var(--other-day-color);
 
     --other-month-visibility: hidden;
 
     --range-border-color: rgba(255,255,255,.2);
     --range-background-color: #00a69862;
+
+    /* Mobile */
+    --mobile-header-display: none;
 
     font-family: var(--font-family);
     display: inline-block;
@@ -93,6 +96,22 @@
   svg {
     fill: var(--day-color);
   }
+  /* Because we can't use calc nor variable here this is pretty fixed :/ */
+  /* Works fine with default cell-size: 37px */
+  @media (max-width: 600px) {
+    .slot {
+      flex-direction: column;
+    }
+    .weeks-next-month .header {
+      display: var(--mobile-header-display);
+    }
+    .caption {
+      margin: .5em 0;
+    }
+    .weeks-next-month {
+      margin-left: 0;
+    }
+  }
   .flex {
     display: flex;
   }
@@ -104,6 +123,7 @@
   }
   .weeks {
     border-collapse: collapse;
+    width: calc((var(--cell-size) + 3px) * 7)
   }
   .day {
     font-size: var(--day-font-size);
@@ -140,6 +160,9 @@
     visibility: var(--other-month-visibility);
     border: none;
     pointer-events: none;
+  }
+  .week.other-month {
+    display: none;
   }
   .day.disabled {
     color: var(--disabled-day-color);

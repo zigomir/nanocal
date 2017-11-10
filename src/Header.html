@@ -1,4 +1,7 @@
-<caption class="caption">{{ monthName }} {{ year }}</caption>
+<caption class="caption">
+  <span class="month-name">{{ monthName }}</span>
+  <span class="year">{{ year }}</span>
+</caption>
 <tr class="header">
   {{#each dayNames as day}}
     <th class="day-name">{{ day }}</th>
