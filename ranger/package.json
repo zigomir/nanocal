@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "main": "dist/ranger.cjs.js",
   "module": "dist/ranger.esm.js",
-  "browser": "dist/ranger.min.iife.js",
+  "unpkg": "dist/ranger.min.iife.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/ranger",
   "license": "MIT",
   "homepage": "https://nanocal.zigomir.com",
@@ -13,19 +13,19 @@
     "cntdys": "^0.2.5"
   },
   "scripts": {
-    "prebuild": "rm dist/*",
+    "prebuild": "rm -f dist/*",
     "build": "../node_modules/.bin/tsc && npm run build:cjs && npm run build:esm && npm run build:esm:min && npm run build:iife && npm run build:iife:min && ../node_modules/.bin/bundlesize",
-    "build:cjs": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f cjs -o dist/nanocal-ranger.cjs.js",
-    "build:esm": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal-ranger.esm.js",
-    "build:esm:min": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal-ranger.min.esm.js",
-    "build:iife": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/nanocal-ranger.iife.js",
-    "build:iife:min": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/nanocal-ranger.min.iife.js",
+    "build:cjs": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f cjs -o dist/ranger.cjs.js",
+    "build:esm": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/ranger.esm.js",
+    "build:esm:min": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/ranger.min.esm.js",
+    "build:iife": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/ranger.iife.js",
+    "build:iife:min": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/ranger.min.iife.js",
     "test": "npm run --prefix .. test",
     "prepublishOnly": "npm run build && npm run test"
   },
   "bundlesize": [
     {
-      "path": "./dist/nanocal-ranger.min.iife.js",
+      "path": "dist/ranger.min.iife.js",
       "maxSize": "5.5 kB"
     }
   ]

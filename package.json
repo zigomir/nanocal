@@ -2,9 +2,9 @@
   "private": true,
   "scripts": {
     "predev": "tsc",
-    "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000",
-    "dev:dp": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
-    "dev:rp": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/nanocal-ranger.js",
+    "dev": "tsc -w & npm run dev:nanocal & npm run dev:ranger & serve -p 3000",
+    "dev:nanocal": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
+    "dev:ranger": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/ranger.js",
     "format": "prettier-standard '**/*.ts'",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
     "pretest:dev": "tsc -p common/test/tsconfig.json",

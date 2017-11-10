@@ -3,22 +3,21 @@ import resolve from 'rollup-plugin-node-resolve'
 import minify from 'rollup-plugin-babel-minify'
 
 const production = !process.env.ROLLUP_WATCH
-const outputIndex = 8
-const ranger = process.argv[outputIndex].includes('nanocal-ranger')
+const outputIndex = production ? 8 : 9 // TODO: make this more robust
+const ranger = process.argv[outputIndex].includes('ranger')
 const min = process.argv[outputIndex].includes('.min')
-const cssFileName = ranger ? 'nanocal-ranger' : 'nanocal'
-const outputName = ranger ? 'NanocalRanger' : 'Nanocal'
+const name = ranger ? 'ranger' : 'nanocal'
 
 export default {
   output: {
     sourcemap: !production,
-    name: outputName
+    name
   },
   plugins: [
     resolve(),
     svelte({
       dev: !production, // enable run-time checks when not in production
-      css: css => { css.write(`dist/${cssFileName}.min.css`) }
+      css: css => { css.write(`dist/${name}.min.css`) }
     }),
     production && min && minify({ comments: false })
   ]
