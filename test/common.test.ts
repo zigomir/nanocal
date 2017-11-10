@@ -57,13 +57,13 @@ test('dayClass', assert => {
   assert.end()
 })
 
-test('dayNames', assert => {
+test('monthName', assert => {
   assert.equal(monthName(2017, 10), 'October')
   assert.equal(monthName(2017, 10, 'sl-SI'), 'oktober')
   assert.end()
 })
 
-test('monthName', assert => {
+test('dayNames', assert => {
   assert.deepEqual(dayNames(0), ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
   assert.deepEqual(dayNames(1), ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'])
   assert.deepEqual(dayNames(1, 'sl-SI'), [
