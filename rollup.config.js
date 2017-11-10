@@ -3,8 +3,9 @@ import resolve from 'rollup-plugin-node-resolve'
 import minify from 'rollup-plugin-babel-minify'
 
 const production = !process.env.ROLLUP_WATCH
-const cssFileName = process.argv[2] === 'src/nanocal/main.js' ? 'nanocal' : 'nanocal-ranger'
-const outputName = process.argv[2] === 'src/nanocal/main.js' ? 'Nanocal' : 'NanocalRanger'
+const nanocal = process.argv[2].includes('nanocal')
+const cssFileName = nanocal ? 'nanocal' : 'nanocal-ranger'
+const outputName = nanocal ? 'Nanocal' : 'NanocalRanger'
 
 export default {
   output: {
