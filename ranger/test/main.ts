@@ -1,0 +1,1 @@
+require('./functions.test')

@@ -1,5 +1,5 @@
 import * as test from 'tape'
-import { dayClass, monthName, dayNames, ICalendarDay } from '../src/common'
+import { dayClass, monthName, dayNames, ICalendarDay } from '../src'
 import { IDay } from 'cntdys'
 
 test('dayClass', assert => {

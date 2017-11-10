@@ -1,48 +1,13 @@
 {
-  "name": "nanocal",
-  "version": "0.1.5",
-  "description": "nanocal",
-  "main": "dist/nanocal.min.cjs.js",
-  "module": "dist/nanocal.min.esm.js",
-  "browser": "dist/nanocal.min.iife.js",
+  "private": true,
   "scripts": {
     "prebuild": "rm dist/*",
-    "build": "tsc && npm run build:dp && npm run build:rp && bundlesize",
-    "build:dp": "npm run build:dp:cjs && npm run build:dp:module && npm run build:dp:iife",
-    "build:dp:cjs": "rollup src/nanocal/main.js -c rollup.config.js -f cjs -o dist/nanocal.min.cjs.js",
-    "build:dp:module": "rollup src/nanocal/main.js -c rollup.config.js -f es -o dist/nanocal.min.esm.js",
-    "build:dp:iife": "rollup src/nanocal/main.js -c rollup.config.js -f iife -o dist/nanocal.min.iife.js",
-    "build:rp": "npm run build:rp:cjs && npm run build:rp:module && npm run build:rp:iife",
-    "build:rp:cjs": "rollup src/ranger/main.js -c rollup.config.js -f cjs -o dist/nanocal-ranger.min.cjs.js",
-    "build:rp:module": "rollup src/ranger/main.js -c rollup.config.js -f es -o dist/nanocal-ranger.min.esm.js",
-    "build:rp:iife": "rollup src/ranger/main.js -c rollup.config.js -f iife -o dist/nanocal-ranger.min.iife.js",
     "predev": "tsc",
     "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000",
-    "dev:dp": "rollup src/nanocal/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
-    "dev:rp": "rollup src/ranger/main.js -c rollup.config.js -w -f es -o dist/nanocal-ranger.js",
+    "dev:dp": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
+    "dev:rp": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/nanocal-ranger.js",
     "format": "prettier-standard '**/*.ts'",
-    "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "pretest:dev": "tsc -p test/tsconfig.json",
-    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/main.js -o test/test_bundle.js & serve -p 3000 test",
-    "pretest": "tsc -p test/tsconfig.json && browserify test/main.js -o test/test_bundle.js",
-    "test": "node test/test.js",
-    "prepublishOnly": "npm run build && npm run test"
-  },
-  "keywords": [],
-  "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
-  "license": "MIT",
-  "bundlesize": [
-    {
-      "path": "./dist/nanocal.min.iife.js",
-      "maxSize": "4.5 kB"
-    },
-    {
-      "path": "./dist/nanocal-ranger.min.iife.js",
-      "maxSize": "5.5 kB"
-    }
-  ],
-  "dependencies": {
-    "cntdys": "^0.2.5"
+    "lint": "tslint --project tsconfig.json 'src/**/*.ts'"
   },
   "devDependencies": {
     "@types/tape": "^4.2.31",
