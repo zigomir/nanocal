@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "prebuild": "rm dist/*",
     "predev": "tsc",
     "dev": "tsc -w & npm run dev:dp & npm run dev:rp & serve -p 3000",
     "dev:dp": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
@@ -16,6 +15,7 @@
   "devDependencies": {
     "@types/tape": "^4.2.31",
     "bundlesize": "^0.15.3",
+    "cntdys": "^0.2.5",
     "ecstatic": "^3.0.0",
     "prettier-standard": "^7.0.3",
     "puppeteer": "^0.12.0",
