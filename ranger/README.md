@@ -64,7 +64,7 @@ npm install nanocal-ranger
 ```
 
 ```js
-const NanocalRanger = require('nanocal-ranger')
+const Ranger = require('nanocal-ranger')
 // or
-import NanocalRanger from 'nanocal-ranger'
+import Ranger from 'nanocal-ranger'
 ```
