@@ -1,12 +1,12 @@
 {
-  "name": "@nanocal/nanocal",
+  "name": "nanocal",
   "version": "0.1.5",
   "main": "dist/nanocal.cjs.js",
   "module": "dist/nanocal.esm.js",
   "browser": "dist/nanocal.min.iife.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/nanocal",
   "license": "MIT",
-  "description": "TODO",
+  "description": "Minimal, AirBnb inspired, date picker",
   "dependencies": {
     "cntdys": "^0.2.5"
   },

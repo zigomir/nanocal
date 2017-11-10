@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
+// TODO: find out why won't work with simple 'nanocal' defined as main?
 import Nanocal from '../dist/nanocal.min.esm.js'
 import '../dist/nanocal.min.css'
 
