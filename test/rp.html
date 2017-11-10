@@ -9,6 +9,7 @@
   <title>Range Picker</title>
 
   <style>
+    /* TODO: this should be set as default */
     #nanocal-ranger {
       --range-border-color: rgba(255,255,255,.2);
       --range-background-color: #00a69862;
@@ -19,9 +20,9 @@
   <div id="nanocal-ranger"></div>
 
   <script type="module">
-    import Ranger from './../dist/nanocal-ranger.js'
+    import NanocalRanger from './../dist/nanocal-ranger.js'
     const el = document.getElementById('nanocal-ranger')
-    const ranger = new Ranger({
+    const ranger = new NanocalRanger({
       target: el,
       data: {
         year: 2017,
