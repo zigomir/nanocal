@@ -1,11 +1,13 @@
 {
   "name": "nanocal-ranger",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "main": "dist/ranger.cjs.js",
   "module": "dist/ranger.esm.js",
   "browser": "dist/ranger.min.iife.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/ranger",
   "license": "MIT",
+  "homepage": "https://nanocal.zigomir.com",
+  "bugs": "https://github.com/zigomir/nanocal/issues",
   "description": "Minimal, AirBnb inspired, range picker",
   "dependencies": {
     "cntdys": "^0.2.5"
