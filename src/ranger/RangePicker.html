@@ -2,7 +2,7 @@
 
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <Header year="{{ year }}" month="{{ month }}" locale="{{ locale }}"></Header>
+    <Header year="{{ year }}" month="{{ month }}" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
     {{#each calendarMonth as week}}
       <tr class="week">
         {{#each week as weekDay}}
@@ -16,7 +16,7 @@
   </table>
 
   <table class="weeks weeks-next-month">
-    <Header year="{{ year }}" month="{{ month }}" nextMonth="true" locale="{{ locale }}"></Header>
+    <Header year="{{ year }}" month="{{ month }}" nextMonth="true" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
     {{#each nextCalendarMonth as week}}
       <tr class="week">
         {{#each week as weekDay}}
