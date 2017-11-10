@@ -1,0 +1,16 @@
+{
+  "name": "nanocal-examples",
+  "version": "1.0.1",
+  "description": "Examples of nanocal in frameworks or plain JS",
+  "devDependencies": {
+    "poi": "^9.5.1",
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0"
+  },
+  "scripts": {
+    "vue": "poi vue.js",
+    "react": "poi react.js"
+  },
+  "author": "Ziga Vidic <zigomir@gmail.com> (https://zigomir.com/)",
+  "license": "MIT"
+}
