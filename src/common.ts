@@ -49,6 +49,10 @@ export const dayClass = (
   return classes
 }
 
+export const weekClass = (week: IDay[], month: MonthNumber) => {
+  return week.every(weekDay => !isCurrentMonth(weekDay, month)) ? ['week', 'other-month'] : ['week']
+}
+
 export interface ICalendarDay {
   day: number
   month: MonthNumber
