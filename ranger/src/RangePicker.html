@@ -8,8 +8,8 @@
         {{#each week as weekDay}}
           <td
             on:click="selectDay(weekDay)"
-            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(weekDay, month, hoverDay, rangeStartDay, rangeEndDay, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+            on:mouseover="setHoverDay(rangeStart, rangeEnd, weekDay)"
+            class="{{dayClass(weekDay, month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
         {{/each}}
       </tr>
     {{/each}}
@@ -22,8 +22,8 @@
         {{#each week as weekDay}}
           <td
             on:click="selectDay(weekDay)"
-            on:mouseover="setHoverDay(rangeStartDay, rangeEndDay, weekDay)"
-            class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStartDay, rangeEndDay, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
+            on:mouseover="setHoverDay(rangeStart, rangeEnd, weekDay)"
+            class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
         {{/each}}
       </tr>
     {{/each}}
@@ -65,7 +65,7 @@
 
     methods: {
       selectDay(day) {
-        const actions = selectDay(day, this.get('rangeStartDay'), this.get('rangeEndDay'))
+        const actions = selectDay(day, this.get('rangeStart'), this.get('rangeEnd'))
         for (const { action, payload, eventName } of actions) {
           if (action === 'fire') {
             this.fire(eventName, payload)
@@ -74,16 +74,16 @@
           }
         }
       },
-      setHoverDay(rangeStartDay, rangeEndDay, hoverDay) {
-        if (rangeStartDay && !rangeEndDay) {
+      setHoverDay(rangeStart, rangeEnd, hoverDay) {
+        if (rangeStart && !rangeEnd) {
           this.set({ hoverDay })
         }
       },
       keydown(event) {
         if (event.key === 'Escape') {
           this.set({
-            rangeStartDay: undefined,
-            rangeEndDay: undefined,
+            rangeStart: undefined,
+            rangeEnd: undefined,
             hoverDay: undefined
           })
         }

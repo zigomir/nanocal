@@ -11,33 +11,36 @@ test('dayClass', assert => {
   }
   assert.deepEqual(dayClass(weekDay, 10), ['day', 'weekend', 'current-month'])
 
-  let rangeStartDay: ICalendarDay = {
+  let rangeStart: ICalendarDay = {
     day: weekDay.dayInMonth,
     month: weekDay.month.month,
     year: weekDay.month.year
   }
-  assert.deepEqual(dayClass(weekDay, 10, undefined, rangeStartDay), [
+  assert.deepEqual(dayClass(weekDay, 10, undefined, rangeStart), [
     'day',
     'weekend',
     'current-month',
     'selected'
   ])
 
-  rangeStartDay = { day: 1, month: 10, year: 2017 }
-  let rangeEndDay: ICalendarDay = rangeStartDay
-  assert.deepEqual(
-    dayClass(weekDay, 10, undefined, rangeStartDay, rangeEndDay),
-    ['day', 'weekend', 'current-month', 'selected', 'in-range']
-  )
+  rangeStart = { day: 1, month: 10, year: 2017 }
+  let rangeEnd: ICalendarDay = rangeStart
+  assert.deepEqual(dayClass(weekDay, 10, undefined, rangeStart, rangeEnd), [
+    'day',
+    'weekend',
+    'current-month',
+    'selected',
+    'in-range'
+  ])
 
-  rangeStartDay = { day: 1, month: 10, year: 2017 }
+  rangeStart = { day: 1, month: 10, year: 2017 }
   let hoverDay: IDay = {
     dayInWeek: 0,
     dayInMonth: 1,
     month: { month: 10, year: 2017 }
   }
   assert.deepEqual(
-    dayClass(weekDay, 10, hoverDay, rangeStartDay),
+    dayClass(weekDay, 10, hoverDay, rangeStart),
     ['day', 'weekend', 'current-month', 'selected', 'in-range'],
     'Should be in range because of hover day.'
   )
@@ -47,10 +50,10 @@ test('dayClass', assert => {
     dayInMonth: 17,
     month: { month: 10, year: 2017 }
   }
-  rangeStartDay = { day: 1, month: 10, year: 2017 }
-  rangeEndDay = { day: 10, month: 10, year: 2017 }
+  rangeStart = { day: 1, month: 10, year: 2017 }
+  rangeEnd = { day: 10, month: 10, year: 2017 }
   assert.deepEqual(
-    dayClass(weekDay, 10, undefined, rangeStartDay, rangeEndDay),
+    dayClass(weekDay, 10, undefined, rangeStart, rangeEnd),
     ['day', 'current-month'],
     'Should not be in range because week day is not between the range.'
   )
@@ -69,7 +72,7 @@ test('selectDay', assert => {
     {
       action: 'set',
       payload: {
-        rangeStartDay: {
+        rangeStart: {
           day: day.dayInMonth,
           month: day.month.month,
           year: day.month.year
@@ -78,17 +81,17 @@ test('selectDay', assert => {
     }
   ])
 
-  let rangeStartDay: ICalendarDay = {
+  let rangeStart: ICalendarDay = {
     day: 1,
     month: 10,
     year: 2017
   }
-  assert.deepEqual(selectDay(day, rangeStartDay), [
+  assert.deepEqual(selectDay(day, rangeStart), [
     {
       action: 'set',
       payload: {
         hoverDay: undefined,
-        rangeEndDay: {
+        rangeEnd: {
           day: day.dayInMonth,
           month: day.month.month,
           year: day.month.year
@@ -105,17 +108,17 @@ test('selectDay', assert => {
     }
   ])
 
-  let rangeEndDay: ICalendarDay = {
+  let rangeEnd: ICalendarDay = {
     day: 1,
     month: 10,
     year: 2017
   }
-  assert.deepEqual(selectDay(day, rangeStartDay, rangeEndDay), [
+  assert.deepEqual(selectDay(day, rangeStart, rangeEnd), [
     {
       action: 'set',
       payload: {
-        rangeEndDay: undefined,
-        rangeStartDay: {
+        rangeEnd: undefined,
+        rangeStart: {
           day: day.dayInMonth,
           month: day.month.month,
           year: day.month.year

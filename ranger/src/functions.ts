@@ -9,36 +9,36 @@ export const dayClass = (
   weekDay: IDay,
   month: MonthNumber,
   hoverDay?: IDay,
-  rangeStartDay?: ICalendarDay,
-  rangeEndDay?: ICalendarDay,
+  rangeStart?: ICalendarDay,
+  rangeEnd?: ICalendarDay,
   disableOnDay?: (timestamp: number) => boolean
 ) => {
   const classes = datePickerDayClass(undefined, weekDay, month, disableOnDay)
 
-  if (!rangeStartDay) {
+  if (!rangeStart) {
     return classes
   }
 
   if (
-    isSelected(weekDay, rangeStartDay) ||
-    (rangeEndDay && isSelected(weekDay, rangeEndDay))
+    isSelected(weekDay, rangeStart) ||
+    (rangeEnd && isSelected(weekDay, rangeEnd))
   ) {
     classes.push('selected')
   }
 
-  if (hoverDay || rangeEndDay) {
+  if (hoverDay || rangeEnd) {
     const thisDayTs = Date.UTC(
       weekDay.month.year,
       weekDay.month.month - 1,
       weekDay.dayInMonth
     )
     const rangeStartTs = Date.UTC(
-      rangeStartDay.year,
-      rangeStartDay.month - 1,
-      rangeStartDay.day
+      rangeStart.year,
+      rangeStart.month - 1,
+      rangeStart.day
     )
-    const hoverOrRangeEndTs = rangeEndDay
-      ? Date.UTC(rangeEndDay.year, rangeEndDay.month - 1, rangeEndDay.day)
+    const hoverOrRangeEndTs = rangeEnd
+      ? Date.UTC(rangeEnd.year, rangeEnd.month - 1, rangeEnd.day)
       : hoverDay
         ? Date.UTC(
           hoverDay.month.year,
@@ -62,29 +62,29 @@ export const dayClass = (
 
 export const selectDay = (
   day: IDay,
-  rangeStartDay?: ICalendarDay,
-  rangeEndDay?: ICalendarDay
+  rangeStart?: ICalendarDay,
+  rangeEnd?: ICalendarDay
 ) => {
   const { month, dayInMonth } = day
   const actions = []
 
-  if (!rangeStartDay) {
+  if (!rangeStart) {
     actions.push({
       action: 'set',
       payload: {
-        rangeStartDay: {
+        rangeStart: {
           day: dayInMonth,
           month: month.month,
           year: month.year
         }
       }
     })
-  } else if (!rangeEndDay) {
+  } else if (!rangeEnd) {
     actions.push({
       action: 'set',
       payload: {
         hoverDay: undefined,
-        rangeEndDay: {
+        rangeEnd: {
           day: dayInMonth,
           month: month.month,
           year: month.year
@@ -93,9 +93,9 @@ export const selectDay = (
     })
 
     const start = {
-      day: rangeStartDay.day,
-      month: rangeStartDay.month,
-      year: rangeStartDay.year
+      day: rangeStart.day,
+      month: rangeStart.month,
+      year: rangeStart.year
     }
     const end = {
       day: dayInMonth,
@@ -110,12 +110,12 @@ export const selectDay = (
       eventName: 'selectedRange',
       payload: startTs < endTs ? [start, end] : [end, start]
     })
-  } else if (rangeStartDay && rangeEndDay) {
+  } else if (rangeStart && rangeEnd) {
     actions.push({
       action: 'set',
       payload: {
-        rangeEndDay: undefined,
-        rangeStartDay: {
+        rangeEnd: undefined,
+        rangeStart: {
           day: dayInMonth,
           month: month.month,
           year: month.year

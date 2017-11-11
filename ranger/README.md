@@ -41,12 +41,12 @@ add as module (not yet supported in Firefox)
         return dayTimestamp < after || dayTimestamp > before
       },
       // pre-selection
-      rangeStartDay: {
+      rangeStart: {
         day: 10,
         month: 11,
         year: 2017
       },
-      rangeEndDay: {
+      rangeEnd: {
         day: 17,
         month: 11,
         year: 2017
