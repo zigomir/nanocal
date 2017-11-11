@@ -1,8 +1,8 @@
 {
   "name": "nanocal-ranger",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "dist/ranger.cjs.js",
-  "module": "dist/ranger.esm.js",
+  "module": "dist/ranger.min.esm.js",
   "unpkg": "dist/ranger.min.iife.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/ranger",
   "license": "MIT",
