@@ -3,7 +3,7 @@ import {
   dayClass as datePickerDayClass,
   ICalendarDay,
   isSelected
-} from '../common'
+} from '../../common/src'
 
 export const dayClass = (
   weekDay: IDay,

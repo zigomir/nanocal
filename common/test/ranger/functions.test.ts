@@ -1,7 +1,7 @@
 import * as test from 'tape'
-import { dayClass, selectDay } from '../../src/ranger/functions'
+import { dayClass, selectDay } from '../../../ranger/src/functions'
 import { IDay } from 'cntdys'
-import { ICalendarDay } from '../../src/common'
+import { ICalendarDay } from '../../../common/src'
 
 test('dayClass', assert => {
   let weekDay: IDay = {

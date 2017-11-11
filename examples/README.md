@@ -11,9 +11,15 @@ open ranger.html
 
 ### with frameworks
 
+make sure to update `jsx` in `poi.config.js`
+
 ```sh
 npm install
-npm run vue # make sure to update poi.config.js
+npm run vue:nanocal
 # or
-npm run react # make sure to update poi.config.js
+npm run vue:ranger
+# or
+npm run react:nanocal
+# or
+npm run react:ranger
 ```

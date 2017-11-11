@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://unpkg.com/nanocal/dist/nanocal-ranger.min.css">
+  <link rel="stylesheet" href="../dist/ranger.min.css">
   <title>Ranger</title>
 </head>
 <body>
-  <div id="nanocal-ranger"></div>
-  <script src="https://unpkg.com/nanocal/dist/nanocal-ranger.min.iife.js"></script>
+  <div id="ranger"></div>
   <script type="module">
-    import NanocalRanger from 'https://unpkg.com/nanocal/dist/nanocal-ranger.min.esm.js'
-    const el = document.getElementById('nanocal-ranger')
-    const ranger = new NanocalRanger({
+    import Ranger from '../dist/ranger.js'
+    const el = document.getElementById('ranger')
+    const ranger = new Ranger({
       target: el,
       data: {
         year: 2017,         // required
