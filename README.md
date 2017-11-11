@@ -10,3 +10,7 @@ do not be satisfied with `moment.js` + `jquery` combo to have a simple date pick
 
 - [nanocal (date picker)](nanocal/README.md)
 - [nanocal-ranger (range picker)](ranger/README.md)
+
+## how
+
+shout-outs to [svelte](https://svelte.technology/)
