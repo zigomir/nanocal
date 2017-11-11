@@ -26,20 +26,21 @@ add as module (not yet supported in Firefox)
   import Ranger from 'https://unpkg.com/nanocal-ranger?module'
   const el = document.getElementById('ranger')
   const ranger = new Ranger({
-    target: el,
+    target: el, // required
+    // options
     data: {
-      year: 2017,         // required
-      month: 10,          // required, month where calendar is opened
-      locale: 'en-US',    // optional, defaults to en-US
-      startOfTheWeek: 0,  // optional, defaults to 0 which is Sunday
-      disableOnDay: (dayTimestamp) => { // optional
+      year: 2017,
+      month: 11,          // month where calendar is opened, defaults to current month/year
+      locale: 'sl-SI',    // defaults to en-US
+      startOfTheWeek: 1,  // defaults to 0 which is Sunday
+      disableOnDay: (dayTimestamp) => {
         // define these outside of this function to create them only once
         const dayInMilliseconds = 24 * 60 * 60 * 1000
         const after = new Date(2017, 10 - 1, 14).getTime()
         const before = new Date(2017, 11 - 1, 23).getTime()
         return dayTimestamp < after || dayTimestamp > before
       },
-      // optional, pre-selection
+      // pre-selection
       rangeStartDay: {
         day: 10,
         month: 11,
