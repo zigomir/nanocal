@@ -4,17 +4,17 @@
 
 add link to head for styles
 ```html
-<link rel="stylesheet" href="https://unpkg.com/nanocal/dist/nanocal-ranger.min.css">
+<link rel="stylesheet" href="https://unpkg.com/nanocal-ranger/dist/ranger.min.css">
 ```
 
 add div to body (yes I'm thinking about custom-elements, hopefully soon)
 ```html
-<div id="nanocal-ranger"></div>
+<div id="ranger"></div>
 ```
 
 add as script: IIFE and global NanocalRanger
 ```html
-<script src="https://unpkg.com/nanocal/dist/nanocal-ranger.min.iife.js"></script>
+<script src="https://unpkg.com/nanocal-ranger"></script>
 <script>
   // same as below except without import statement
 </script>
@@ -23,8 +23,8 @@ add as script: IIFE and global NanocalRanger
 add as module (not yet supported in Firefox)
 ```html
 <script type="module">
-  import NanocalRanger from 'https://unpkg.com/nanocal/dist/nanocal-ranger.min.esm.js'
-  const el = document.getElementById('nanocal-ranger')
+  import NanocalRanger from 'https://unpkg.com/nanocal-ranger?module'
+  const el = document.getElementById('ranger')
   const ranger = new NanocalRanger({
     target: el,
     data: {
