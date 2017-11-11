@@ -12,7 +12,7 @@ add div to body (yes I'm thinking about custom-elements, hopefully soon)
 <div id="nanocal"></div>
 ```
 
-add as script: IIFE and global NanocalRanger
+add as iife script and get globally available `Nanocal` constructor
 ```html
 <script src="https://unpkg.com/nanocal"></script>
 <script>
@@ -63,3 +63,5 @@ const Nanocal = require('nanocal')
 // or
 import Nanocal from 'nanocal'
 ```
+
+For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples/README.md).

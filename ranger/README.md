@@ -1,4 +1,4 @@
-# nanocal-ranger (range picker)
+# ranger (range picker)
 
 ## usage in browser
 
@@ -12,7 +12,7 @@ add div to body (yes I'm thinking about custom-elements, hopefully soon)
 <div id="ranger"></div>
 ```
 
-add as script: IIFE and global NanocalRanger
+add as iife script and get globally available `Ranger` constructor
 ```html
 <script src="https://unpkg.com/nanocal-ranger"></script>
 <script>
@@ -23,9 +23,9 @@ add as script: IIFE and global NanocalRanger
 add as module (not yet supported in Firefox)
 ```html
 <script type="module">
-  import NanocalRanger from 'https://unpkg.com/nanocal-ranger?module'
+  import Ranger from 'https://unpkg.com/nanocal-ranger?module'
   const el = document.getElementById('ranger')
-  const ranger = new NanocalRanger({
+  const ranger = new Ranger({
     target: el,
     data: {
       year: 2017,         // required
@@ -68,3 +68,5 @@ const Ranger = require('nanocal-ranger')
 // or
 import Ranger from 'nanocal-ranger'
 ```
+
+For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples/README.md).
