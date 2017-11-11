@@ -25,6 +25,14 @@
 
     components: { Wrapper, Header },
 
+    data () {
+      const today = new Date()
+      return {
+        year: today.getFullYear(),
+        month: today.getMonth() + 1
+      }
+    },
+
     computed: {
       calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek)
     },

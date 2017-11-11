@@ -46,8 +46,11 @@
     components: { Wrapper, Header },
 
     data() {
+      const today = new Date()
       return {
-        hoverDay: undefined,
+        year: today.getFullYear(),
+        month: today.getMonth() + 1,
+        hoverDay: undefined
       }
     },
 
