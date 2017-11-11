@@ -1,6 +1,6 @@
 {
   "name": "nanocal-ranger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/ranger.cjs.js",
   "module": "dist/ranger.esm.js",
   "unpkg": "dist/ranger.min.iife.js",
