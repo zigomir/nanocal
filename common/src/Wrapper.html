@@ -44,7 +44,9 @@
 
 <style>
   .wrapper {
+    /* exposed CSS vars */
     --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --today-box-shadow: none;
 
     --border-color: #e4e7e7;
     --border-width: 1px;
@@ -58,21 +60,25 @@
 
     --hover-color: #e4e7e7;
 
-    --selected-color: #00a699;
-    --selected-font-color: #ffffff;
+    --selected-background-color: #00a699;
+    --selected-color: #ffffff;
+
+    --today-color: var(--day-color);
+    --today-after-content: '';
 
     --other-day-color: #cacccd;
     --weekend-day-color: var(--day-color);
-    /* --today-box-shadow: 0 0 .2em rgba(0, 0, 0, .5); */
     --disabled-day-color: var(--other-day-color);
 
     --other-month-visibility: hidden;
 
     --range-border-color: rgba(255,255,255,.2);
     --range-background-color: #00a69862;
+    --range-color: var(--day-color);
 
     /* Mobile */
     --mobile-header-display: none;
+    /* /exposed CSS vars */
 
     font-family: var(--font-family);
     display: inline-block;
@@ -147,15 +153,27 @@
     color: var(--weekend-day-color);
   }
   .day.today {
-    box-shadow: var(--today-box-shadow);
+    position: relative;
+    color: var(--today-color);
+  }
+  .day.today::after {
+    content: var(--today-after-content);
+    z-index: -1;
+    position: absolute;
+    width: calc(var(--cell-size) / 2);
+    height: calc(var(--cell-size) / 2);
+    left: calc(50% - (var(--cell-size) / 4));
+    top: calc(50% - (var(--cell-size) / 4));
+    background-color: lightgray;
+    border-radius: 50%;
   }
   .day.current-month:hover {
     cursor: pointer;
     background-color: var(--hover-color);
   }
   .day.current-month.selected {
-    background-color: var(--selected-color);
-    color: var(--selected-font-color);
+    background-color: var(--selected-background-color);
+    color: var(--selected-color);
     border-style: double;
   }
   .day.other-month {

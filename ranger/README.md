@@ -16,35 +16,7 @@
 ```html
 <script src="https://unpkg.com/nanocal-ranger"></script>
 <script>
-  const ranger = new Ranger({
-    target: document.getElementById('ranger'), // required
-    // options
-    data: {
-      year: 2017,
-      month: 11,          // month where calendar is opened, defaults to current month/year
-      locale: 'sl-SI',    // defaults to en-US
-      startOfTheWeek: 1,  // defaults to 0 which is Sunday
-      disableOnDay: (dayTimestamp) => {
-        // define these outside of this function to create them only once
-        const dayInMilliseconds = 24 * 60 * 60 * 1000
-        const after = new Date(2017, 10 - 1, 14).getTime()
-        const before = new Date(2017, 11 - 1, 23).getTime()
-        return dayTimestamp < after || dayTimestamp > before
-      },
-      // pre-selection
-      rangeStart: {
-        day: 10,
-        month: 11,
-        year: 2017
-      },
-      rangeEnd: {
-        day: 17,
-        month: 11,
-        year: 2017
-      }
-    }
-  })
-  ranger.on('selectedRange', ([start, end]) => console.log(start, end))
+  const ranger = new Ranger({ target: document.querySelector('#ranger') })
 </script>
 ```
 
@@ -55,6 +27,8 @@
   // same as above with IIFE
 </script>
 ```
+
+see [doc/options](../doc/options.md)
 
 ## usage with npm and your own build pipeline
 
@@ -69,3 +43,7 @@ import Ranger from 'nanocal-ranger'
 ```
 
 For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples/README.md).
+
+## customize styles
+
+see [doc/styles](../doc/styles.md)
