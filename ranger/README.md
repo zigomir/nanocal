@@ -12,7 +12,9 @@
 <div id="ranger"></div>
 ```
 
-3. a) add as iife script and get globally available `Ranger` constructor
+3. add script
+
+a) as iife script and get globally available `Ranger` constructor
 ```html
 <script src="https://unpkg.com/nanocal-ranger"></script>
 <script>
@@ -20,11 +22,13 @@
 </script>
 ```
 
-3. b) add as module (not yet supported in Firefox by default)
+or
+
+b) as module (not yet supported in Firefox by default)
 ```html
 <script type="module">
   import Ranger from 'https://unpkg.com/nanocal-ranger?module'
-  // same as above with IIFE
+  const ranger = new Ranger({ target: document.querySelector('#ranger') })
 </script>
 ```
 
@@ -42,7 +46,7 @@ const Ranger = require('nanocal-ranger')
 import Ranger from 'nanocal-ranger'
 ```
 
-For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples/README.md).
+For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples).
 
 ## customize styles
 

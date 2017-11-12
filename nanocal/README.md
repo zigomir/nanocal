@@ -12,7 +12,9 @@
 <div id="nanocal"></div>
 ```
 
-3. a) add as iife script and get globally available `Nanocal` constructor
+3. add script
+
+a) as iife script and get globally available `Nanocal` constructor
 ```html
 <script src="https://unpkg.com/nanocal"></script>
 <script>
@@ -20,11 +22,13 @@
 </script>
 ```
 
-3. b) add as module (not yet supported in Firefox by default)
+or
+
+b) as module (not yet supported in Firefox by default)
 ```html
 <script type="module">
   import Nanocal from 'https://unpkg.com/nanocal?module'
-  // same as above with IIFE
+  const nanocal = new Nanocal({ target: document.querySelector('#nanocal') })
 </script>
 ```
 
@@ -42,7 +46,7 @@ const Nanocal = require('nanocal')
 import Nanocal from 'nanocal'
 ```
 
-For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples/README.md).
+For more detailed examples how to use `nanocal` with `vue` or `react`, see [examples](../examples).
 
 ## customize styles
 

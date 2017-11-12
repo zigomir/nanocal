@@ -4,7 +4,7 @@
 
 ## what
 
-[date](nanocal/README.md) and [range picker](ranger/README.md) that work with or without build tools and with or without frameworks
+[date](nanocal/README.md) and [range picker](ranger/README.md) that work *with or without* build tools and *with or without* frameworks
 
 ## why
 
