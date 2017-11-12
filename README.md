@@ -6,6 +6,11 @@
 
 do not be satisfied with `moment.js` + `jquery` combo to have a simple date picker
 
+## works
+
+- with or without build tools
+- with or without frameworks
+
 ## what
 
 - [nanocal (date picker)](nanocal/README.md)
