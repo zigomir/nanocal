@@ -1,6 +1,6 @@
 # nanocal works with out of the box with frameworks
 
-## plain html
+## plain html with ES modules
 
 ```sh
 open nanocal.html

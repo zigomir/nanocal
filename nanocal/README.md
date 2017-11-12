@@ -1,32 +1,23 @@
 # nanocal (date picker)
 
-## usage in browser
+## usage in three steps
 
-add link to head for styles
+1. add link to head for styles
 ```html
 <link rel="stylesheet" href="https://unpkg.com/nanocal/dist/nanocal.min.css">
 ```
 
-add div to body (yes I'm thinking about custom-elements, hopefully soon)
+2. add div to body (yes I'm thinking about custom-elements, hopefully soon)
 ```html
 <div id="nanocal"></div>
 ```
 
-add as iife script and get globally available `Nanocal` constructor
+3. a) add as iife script and get globally available `Nanocal` constructor
 ```html
 <script src="https://unpkg.com/nanocal"></script>
 <script>
-  // same as below except without import statement
-</script>
-```
-
-add as module (not yet supported in Firefox)
-```html
-<script type="module">
-  import Nanocal from 'https://unpkg.com/nanocal?module'
-  const el = document.getElementById('nanocal')
   const nanocal = new Nanocal({
-    target: el, // required
+    target: document.getElementById('nanocal'), // required
     // options
     data: {
       year: 2017,
@@ -48,8 +39,15 @@ add as module (not yet supported in Firefox)
       }
     }
   })
-
   nanocal.on('selectedDay', (day) => console.log(day))
+</script>
+```
+
+3. b) add as module (not yet supported in Firefox by default)
+```html
+<script type="module">
+  import Nanocal from 'https://unpkg.com/nanocal?module'
+  // same as above with IIFE
 </script>
 ```
 

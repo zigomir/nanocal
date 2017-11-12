@@ -1,32 +1,23 @@
 # ranger (range picker)
 
-## usage in browser
+## usage in three steps
 
-add link to head for styles
+1. add link to head for styles
 ```html
 <link rel="stylesheet" href="https://unpkg.com/nanocal-ranger/dist/ranger.min.css">
 ```
 
-add div to body (yes I'm thinking about custom-elements, hopefully soon)
+2. add div to body (yes I'm thinking about custom-elements, hopefully soon)
 ```html
 <div id="ranger"></div>
 ```
 
-add as iife script and get globally available `Ranger` constructor
+3. a) add as iife script and get globally available `Ranger` constructor
 ```html
 <script src="https://unpkg.com/nanocal-ranger"></script>
 <script>
-  // same as below except without import statement
-</script>
-```
-
-add as module (not yet supported in Firefox)
-```html
-<script type="module">
-  import Ranger from 'https://unpkg.com/nanocal-ranger?module'
-  const el = document.getElementById('ranger')
   const ranger = new Ranger({
-    target: el, // required
+    target: document.getElementById('ranger'), // required
     // options
     data: {
       year: 2017,
@@ -53,8 +44,15 @@ add as module (not yet supported in Firefox)
       }
     }
   })
-
   ranger.on('selectedRange', ([start, end]) => console.log(start, end))
+</script>
+```
+
+3. b) add as module (not yet supported in Firefox by default)
+```html
+<script type="module">
+  import Ranger from 'https://unpkg.com/nanocal-ranger?module'
+  // same as above with IIFE
 </script>
 ```
 
