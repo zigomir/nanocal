@@ -1,14 +1,8 @@
 const puppeteer = require('puppeteer')
 const http = require('http')
-const ecstatic = require('ecstatic')(__dirname)
-const server = http.createServer(ecstatic)
+const server = http.createServer(require('ecstatic')(__dirname))
 const PORT = 3100
 server.listen(PORT)
-
-interface ConsoleMessage {
-  type: 'log' | 'error' | 'warn' | 'debug'
-  text: string
-}
 
 ;(async () => {
   const browser = await puppeteer.launch()
@@ -16,8 +10,8 @@ interface ConsoleMessage {
   await page.goto(`http://localhost:${PORT}/`)
 
   let exitCode = 1
-  page.on('console', (msg: ConsoleMessage) => {
-    if (msg.text === '# ok') {
+  page.on('console', (msg: { text: string }) => {
+    if (msg.text === '# ok') { // hackish but works
       exitCode = 0
     }
   })

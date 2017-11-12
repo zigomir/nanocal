@@ -7,10 +7,10 @@
     "dev:ranger": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/ranger.js",
     "format": "prettier-standard '**/*.ts'",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "pretest:dev": "tsc -p common/test/tsconfig.json",
-    "test:dev": "tsc -p common/test/tsconfig.json -w & watchify common/test/main.js -o common/test/test_bundle.js & serve -p 3000 common/test",
-    "pretest": "tsc -p common/test/tsconfig.json && browserify common/test/main.js -o common/test/test_bundle.js",
-    "test": "node common/test/test.js"
+    "pretest:dev": "tsc -p test/tsconfig.json",
+    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/entry.js -o test/test_bundle.js & serve -p 3000 test",
+    "pretest": "tsc -p test/tsconfig.json && browserify test/entry.js -o test/test_bundle.js",
+    "test": "node test/index.js"
   },
   "devDependencies": {
     "@types/tape": "^4.2.31",
@@ -18,8 +18,8 @@
     "cntdys": "^0.2.5",
     "ecstatic": "^3.0.0",
     "prettier-standard": "^7.0.3",
-    "puppeteer": "^0.12.0",
-    "rollup": "^0.51.3",
+    "puppeteer": "^0.13.0",
+    "rollup": "^0.51.5",
     "rollup-plugin-babel-minify": "^3.1.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^3.1.0",
