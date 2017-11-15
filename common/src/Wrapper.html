@@ -46,7 +46,6 @@
   .wrapper {
     /* exposed CSS vars */
     --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    --today-box-shadow: none;
 
     --border-color: #e4e7e7;
     --border-width: 1px;
@@ -66,18 +65,18 @@
     --today-color: var(--day-color);
     --today-after-content: '';
 
+    --other-month-visibility: hidden;
     --other-day-color: #cacccd;
+
     --weekend-day-color: var(--day-color);
     --disabled-day-color: var(--other-day-color);
-
-    --other-month-visibility: hidden;
 
     --range-border-color: rgba(255,255,255,.2);
     --range-background-color: var(--selected-background-color);
     --range-color: var(--day-color);
 
     /* Mobile */
-    --mobile-header-display: none;
+    --column-header-display: none;
     /* /exposed CSS vars */
 
     font-family: var(--font-family);
@@ -112,7 +111,7 @@
       flex-direction: column;
     }
     .weeks-next-month .header {
-      display: var(--mobile-header-display);
+      display: var(--column-header-display);
     }
     .caption {
       margin: .5em 0;

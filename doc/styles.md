@@ -18,7 +18,6 @@ getComputedStyle(nanocalWrapper).getPropertyValue('--selected-color')
 ```css
 .wrapper {
   --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  --today-box-shadow: none;
 
   --border-color: #e4e7e7;
   --border-width: 1px;
@@ -38,11 +37,11 @@ getComputedStyle(nanocalWrapper).getPropertyValue('--selected-color')
   --today-color: var(--day-color);
   --today-after-content: '';
 
+  --other-month-visibility: hidden; /* hidden or visible */
   --other-day-color: #cacccd;
+
   --weekend-day-color: var(--day-color);
   --disabled-day-color: var(--other-day-color);
-
-  --other-month-visibility: hidden;
 
   /* ranger specific variables */
   --range-border-color: rgba(255,255,255,.2);
@@ -50,6 +49,6 @@ getComputedStyle(nanocalWrapper).getPropertyValue('--selected-color')
   --range-color: var(--day-color);
 
   /* Mobile */
-  --mobile-header-display: none;
+  --column-header-display: none; /* none or table-row */
 }
 ```
