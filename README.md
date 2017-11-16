@@ -6,6 +6,8 @@
 
 [date](nanocal/README.md) and [range picker](ranger/README.md) that work *with or without* build tools and *with or without* frameworks
 
+for more detailed examples how to use it with frameworks, see [examples](./examples).
+
 ## why
 
 don't be satisfied with `moment.js` + `jquery` combo to have a simple date or range picker
@@ -13,6 +15,14 @@ don't be satisfied with `moment.js` + `jquery` combo to have a simple date or ra
 ## how
 
 shout-outs to [svelte](https://svelte.technology/)
+
+### examples on codepen.io
+
+- [nanocal with ES modules](https://codepen.io/zigomir/pen/YEZjgO?editors=1000)
+- [ranger with ES modules](https://codepen.io/zigomir/pen/vWxaPV?editors=1000)
+
+- [nanocal with iife](https://codepen.io/zigomir/pen/WXpama?editors=1000)
+- [ranger with iife](https://codepen.io/zigomir/pen/dZvgLN?editors=1000)
 
 ## browser compatibility / known issues
 

@@ -19,11 +19,3 @@ npm run react:nanocal
 # or
 npm run react:ranger
 ```
-
-## already set up on codepen.io
-
-- [nanocal with ES modules](https://codepen.io/zigomir/pen/YEZjgO?editors=1000)
-- [ranger with ES modules](https://codepen.io/zigomir/pen/vWxaPV?editors=1000)
-
-- [nanocal with iife](https://codepen.io/zigomir/pen/WXpama?editors=1000)
-- [ranger with iife](https://codepen.io/zigomir/pen/dZvgLN?editors=1000)
