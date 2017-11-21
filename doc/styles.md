@@ -6,7 +6,7 @@
 // Grab wrapping element that defines all customizable styles:
 const nanocalWrapper = document.querySelector('#nanocal .wrapper')
 // modify CSS variables
-nanocalWrapper.style.setProperty('--today-after-content', 'unset') // don't highlight today
+nanocalWrapper.style.setProperty('--hover-color', 'pink') // change hover color
 // read variable's value if needed
 getComputedStyle(nanocalWrapper).getPropertyValue('--selected-color')
 ```
@@ -35,7 +35,6 @@ getComputedStyle(nanocalWrapper).getPropertyValue('--selected-color')
   --selected-color: #ffffff;
 
   --today-color: var(--day-color);
-  --today-after-content: '';
 
   --other-month-visibility: hidden; /* hidden or visible */
   --other-day-color: #cacccd;

@@ -62,8 +62,7 @@
     --selected-background-color: #00a699;
     --selected-color: #ffffff;
 
-    --today-color: var(--day-color);
-    --today-after-content: '';
+    --today-color: var(--day-name-color);
 
     --other-month-visibility: hidden;
     --other-day-color: #cacccd;
@@ -152,25 +151,13 @@
     color: var(--weekend-day-color);
   }
   .day.today {
-    position: relative;
     color: var(--today-color);
   }
-  .day.today::after {
-    content: var(--today-after-content);
-    z-index: -1;
-    position: absolute;
-    width: calc(var(--cell-size) / 2);
-    height: calc(var(--cell-size) / 2);
-    left: calc(50% - (var(--cell-size) / 4));
-    top: calc(50% - (var(--cell-size) / 4));
-    background-color: lightgray;
-    border-radius: 50%;
-  }
-  .day.current-month:hover {
+  .day:hover {
     cursor: pointer;
     background-color: var(--hover-color);
   }
-  .day.current-month.selected {
+  .day.selected {
     background-color: var(--selected-background-color);
     color: var(--selected-color);
     border-style: double;
