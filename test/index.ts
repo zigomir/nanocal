@@ -10,8 +10,8 @@ server.listen(PORT)
   await page.goto(`http://localhost:${PORT}/`)
 
   let exitCode = 1
-  page.on('console', (msg: { text: string }) => {
-    if (msg.text === '# ok') { // hackish but works
+  page.on('console', (msg: { _text: string }) => {
+    if (msg._text === '# ok') { // hackish but works
       exitCode = 0
     }
   })
