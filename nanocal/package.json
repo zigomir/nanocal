@@ -10,7 +10,7 @@
   "bugs": "https://github.com/zigomir/nanocal/issues",
   "description": "Minimal, AirBnb inspired, date picker",
   "dependencies": {
-    "cntdys": "^0.2.5"
+    "cntdys": "^0.2.6"
   },
   "scripts": {
     "prebuild": "rm -f dist/*",

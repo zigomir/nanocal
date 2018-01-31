@@ -15,19 +15,20 @@
   "devDependencies": {
     "@types/tape": "^4.2.31",
     "bundlesize": "^0.15.3",
-    "cntdys": "^0.2.5",
-    "ecstatic": "^3.0.0",
-    "prettier-standard": "^7.0.3",
-    "puppeteer": "^0.13.0",
-    "rollup": "^0.51.5",
+    "cntdys": "^0.2.6",
+    "ecstatic": "^3.1.1",
+    "prettier-standard": "^8.0.0",
+    "puppeteer": "^1.0.0",
+    "rollup": "^0.55.1",
     "rollup-plugin-babel-minify": "^3.1.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-svelte": "^3.1.0",
-    "serve": "^6.4.1",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-svelte": "^4.0.0",
+    "serve": "^6.4.9",
+    "svelte": "^1.54.0",
     "tape": "^4.8.0",
-    "tslint": "^5.8.0",
+    "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.6.0",
-    "typescript": "^2.6.1",
-    "watchify": "^3.9.0"
+    "typescript": "^2.6.2",
+    "watchify": "^3.10.0"
   }
 }

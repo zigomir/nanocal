@@ -54,6 +54,7 @@ export const dayClass = (
         (thisDayTs <= rangeStartTs && thisDayTs >= hoverOrRangeEndTs))
     ) {
       classes.push('in-range')
+      classes.push('override')
     }
   }
 

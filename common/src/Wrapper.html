@@ -32,11 +32,11 @@
     methods: {
       back(year, month) {
         this.set(getPreviousMonth(year, month))
-        chromeBordersFix(this._root.options.target.getElementsByClassName('weeks'))
+        chromeBordersFix(this.root.options.target.getElementsByClassName('weeks'))
       },
       forward(year, month) {
         this.set(getNextMonth(year, month))
-        chromeBordersFix(this._root.options.target.getElementsByClassName('weeks'))
+        chromeBordersFix(this.root.options.target.getElementsByClassName('weeks'))
       }
     }
   }
@@ -72,7 +72,7 @@
 
     --range-border-color: rgba(255,255,255,.2);
     --range-background-color: var(--selected-background-color);
-    --range-color: var(--day-color);
+    --range-color: var(--selected-color);
 
     /* Mobile */
     --column-header-display: none;

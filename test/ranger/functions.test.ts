@@ -30,7 +30,8 @@ test('dayClass', assert => {
     'weekend',
     'current-month',
     'selected',
-    'in-range'
+    'in-range',
+    'override'
   ])
 
   rangeStart = { day: 1, month: 10, year: 2017 }
@@ -41,7 +42,7 @@ test('dayClass', assert => {
   }
   assert.deepEqual(
     dayClass(weekDay, 10, hoverDay, rangeStart),
-    ['day', 'weekend', 'current-month', 'selected', 'in-range'],
+    ['day', 'weekend', 'current-month', 'selected', 'in-range', 'override'],
     'Should be in range because of hover day.'
   )
 
