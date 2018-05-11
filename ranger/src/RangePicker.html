@@ -1,32 +1,32 @@
-<:Window on:keydown="keydown(event)" />
+<svelte:window on:keydown="keydown(event)" />
 
 <Wrapper bind:year="year" bind:month="month">
   <table class="weeks">
-    <Header year="{{ year }}" month="{{ month }}" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
-    {{#each calendarMonth as week}}
-      <tr class="{{weekClass(week, month).join(' ')}}">
-        {{#each week as weekDay}}
+    <Header year="{ year }" month="{ month }" locale="{ locale }" startOfTheWeek="{ startOfTheWeek }"></Header>
+    {#each calendarMonth as week}
+      <tr class="{weekClass(week, month).join(' ')}">
+        {#each week as weekDay}
           <td
             on:click="selectDay(weekDay)"
             on:mouseover="setHoverDay(rangeStart, rangeEnd, weekDay)"
-            class="{{dayClass(weekDay, month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
-        {{/each}}
+            class="{dayClass(weekDay, month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}">{weekDay.dayInMonth}</td>
+        {/each}
       </tr>
-    {{/each}}
+    {/each}
   </table>
 
   <table class="weeks weeks-next-month">
-    <Header year="{{ year }}" month="{{ month }}" nextMonth="true" locale="{{ locale }}" startOfTheWeek="{{ startOfTheWeek }}"></Header>
-    {{#each nextCalendarMonth as week}}
-      <tr class="{{weekClass(week, nextMonth.month).join(' ')}}">
-        {{#each week as weekDay}}
+    <Header year="{ year }" month="{ month }" nextMonth="true" locale="{ locale }" startOfTheWeek="{ startOfTheWeek }"></Header>
+    {#each nextCalendarMonth as week}
+      <tr class="{weekClass(week, nextMonth.month).join(' ')}">
+        {#each week as weekDay}
           <td
             on:click="selectDay(weekDay)"
             on:mouseover="setHoverDay(rangeStart, rangeEnd, weekDay)"
-            class="{{dayClass(weekDay, nextMonth.month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}}">{{weekDay.dayInMonth}}</td>
-        {{/each}}
+            class="{dayClass(weekDay, nextMonth.month, hoverDay, rangeStart, rangeEnd, disableOnDay).join(' ')}">{weekDay.dayInMonth}</td>
+        {/each}
       </tr>
-    {{/each}}
+    {/each}
   </table>
 </Wrapper>
 
@@ -55,9 +55,9 @@
     },
 
     computed: {
-      nextMonth: (year, month) => getNextMonth(year, month),
-      calendarMonth: (year, month, startOfTheWeek) => calendarMonth(year, month, startOfTheWeek),
-      nextCalendarMonth: (year, month, startOfTheWeek) => {
+      nextMonth: ({ year, month }) => getNextMonth(year, month),
+      calendarMonth: ({ year, month, startOfTheWeek }) => calendarMonth(year, month, startOfTheWeek),
+      nextCalendarMonth: ({ year, month, startOfTheWeek }) => {
         const nextMonth = getNextMonth(year, month)
         return calendarMonth(nextMonth.year, nextMonth.month, startOfTheWeek)
       }
@@ -65,7 +65,7 @@
 
     methods: {
       selectDay(day) {
-        const actions = selectDay(day, this.get('rangeStart'), this.get('rangeEnd'))
+        const actions = selectDay(day, this.get().rangeStart, this.get().rangeEnd)
         for (const { action, payload, eventName } of actions) {
           if (action === 'fire') {
             this.fire(eventName, payload)

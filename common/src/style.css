@@ -1,0 +1,132 @@
+.wrapper {
+  /* exposed CSS vars */
+  --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  --border-color: #e4e7e7;
+  --border-width: 1px;
+  --day-color: #575757;
+
+  --cell-size: 37px;
+  --caption-font-size: 1em;
+  --day-font-size: .9em;
+  --day-name-font-size: .7em;
+  --day-name-color: #9e9c9c;
+
+  --hover-color: #e4e7e7;
+
+  --selected-background-color: #00a699;
+  --selected-color: #ffffff;
+
+  --today-color: var(--day-name-color);
+
+  --other-month-visibility: hidden;
+  --other-day-color: #cacccd;
+
+  --weekend-day-color: var(--day-color);
+  --disabled-day-color: var(--other-day-color);
+
+  --range-border-color: rgba(255,255,255,.2);
+  --range-background-color: var(--selected-background-color);
+  --range-color: var(--selected-color);
+
+  /* Mobile */
+  --column-header-display: none;
+  /* /exposed CSS vars */
+
+  font-family: var(--font-family);
+  display: inline-block;
+}
+.pointer {
+  cursor: pointer;
+}
+.button {
+  outline: none;
+  color: transparent;
+  background-color: transparent;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: unset;
+  padding: 0 0.5em;
+  height: var(--cell-size);
+  width: var(--cell-size);
+}
+.button:active {
+  border-style: inset;
+}
+svg {
+  fill: var(--day-color);
+}
+/* Because we can't use calc nor variable here this is pretty fixed :/ */
+/* Works fine with default cell-size: 37px */
+@media (max-width: 600px) {
+  .wrapper {
+    --cell-size: 43px;
+  }
+  .slot {
+    flex-direction: column;
+  }
+  .weeks-next-month .header {
+    display: var(--column-header-display);
+  }
+  .caption {
+    margin: .5em 0;
+  }
+  .weeks-next-month {
+    margin-left: 0;
+  }
+}
+.flex {
+  display: flex;
+}
+.flex.between {
+  justify-content: space-between;
+}
+.header {
+  height: 1.5em;
+}
+.weeks {
+  border-collapse: collapse;
+  width: calc((var(--cell-size) + 3px) * 7)
+}
+.day {
+  font-size: var(--day-font-size);
+  color: var(--day-color);
+  width: var(--cell-size);
+  height: var(--cell-size);
+  text-align: center;
+  border: var(--border-width) solid var(--border-color);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.day-name {
+  font-weight: normal;
+  font-size: var(--day-name-font-size);
+  color: var(--day-name-color);
+}
+.day.weekend {
+  color: var(--weekend-day-color);
+}
+.day.today {
+  color: var(--today-color);
+}
+.day:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+}
+.day.selected {
+  background-color: var(--selected-background-color);
+  color: var(--selected-color);
+  border-style: double;
+}
+.day.other-month {
+  color: var(--other-day-color);
+  visibility: var(--other-month-visibility);
+  border: none;
+  pointer-events: none;
+}
+.week.other-month {
+  display: none;
+}
+.day.disabled {
+  color: var(--disabled-day-color);
+  pointer-events: none;
+}
