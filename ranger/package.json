@@ -9,9 +9,6 @@
   "homepage": "https://github.com/zigomir/nanocal",
   "bugs": "https://github.com/zigomir/nanocal/issues",
   "description": "Minimal, AirBnb inspired, range picker",
-  "dependencies": {
-    "cntdys": "^0.2.6"
-  },
   "scripts": {
     "prebuild": "rm -f dist/*",
     "build": "../node_modules/.bin/tsc && npm run build:cjs && npm run build:esm && npm run build:esm:min && npm run build:iife && npm run build:iife:min && ../node_modules/.bin/bundlesize",
@@ -28,5 +25,6 @@
       "path": "dist/ranger.min.iife.js",
       "maxSize": "5.5 kB"
     }
-  ]
+  ],
+  "dependencies": {}
 }
