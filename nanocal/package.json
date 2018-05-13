@@ -1,6 +1,6 @@
 {
   "name": "nanocal",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "module": "dist/nanocal.min.esm.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/nanocal",
   "license": "MIT",
