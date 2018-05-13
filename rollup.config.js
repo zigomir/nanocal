@@ -18,7 +18,7 @@ export default {
     resolve(),
     svelte({
       dev: !production, // enable run-time checks when not in production
-      css: css => { css.write(`build/${cssName}.min.css`) }
+      css: css => { css.write(`${production ? 'dist' : 'build'}/${cssName}.min.css`) }
     }),
     production && min && minify({ comments: false })
   ]
