@@ -100,25 +100,6 @@
   :global(svg) {
     fill: var(--day-color);
   }
-  /* Because we can't use calc nor variable here this is pretty fixed :/ */
-  /* Works fine with default cell-size: 37px */
-  @media (max-width: 600px) {
-    :global(.wrapper) {
-      --cell-size: 43px;
-    }
-    :global(.slot) {
-      flex-direction: column;
-    }
-    :global(.weeks-next-month .header) {
-      display: var(--column-header-display);
-    }
-    :global(.caption) {
-      margin: .5em 0;
-    }
-    :global(.weeks-next-month) {
-      margin-left: 0;
-    }
-  }
   :global(.flex) {
     display: flex;
   }
@@ -160,7 +141,6 @@
   :global(.day.selected) {
     background-color: var(--selected-background-color);
     color: var(--selected-color);
-    border-style: double;
   }
   :global(.day.other-month) {
     color: var(--other-day-color);
