@@ -14,17 +14,6 @@
 
 3. add script
 
-a) as iife script and get globally available `Nanocal` constructor
-```html
-<script src="https://unpkg.com/nanocal"></script>
-<script>
-  const nanocal = new Nanocal({ target: document.querySelector('#nanocal') })
-</script>
-```
-
-or
-
-b) as module (not yet supported in Firefox by default)
 ```html
 <script type="module">
   import Nanocal from 'https://unpkg.com/nanocal?module'

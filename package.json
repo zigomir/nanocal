@@ -3,8 +3,8 @@
   "scripts": {
     "predev": "tsc",
     "dev": "tsc -w & npm run dev:nanocal & npm run dev:ranger & serve -p 3000",
-    "dev:nanocal": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
-    "dev:ranger": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o dist/ranger.js",
+    "dev:nanocal": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o build/nanocal.js",
+    "dev:ranger": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o build/ranger.js",
     "format": "prettier-standard '**/*.ts'",
     "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
     "pretest:dev": "tsc -p test/tsconfig.json",

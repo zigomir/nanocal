@@ -14,17 +14,6 @@
 
 3. add script
 
-a) as iife script and get globally available `Ranger` constructor
-```html
-<script src="https://unpkg.com/nanocal-ranger"></script>
-<script>
-  const ranger = new Ranger({ target: document.querySelector('#ranger') })
-</script>
-```
-
-or
-
-b) as module (not yet supported in Firefox by default)
 ```html
 <script type="module">
   import Ranger from 'https://unpkg.com/nanocal-ranger?module'

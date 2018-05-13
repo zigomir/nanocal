@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../dist/ranger.min.css">
-  <link rel="stylesheet" href="../common/src/style.css">
+  <link rel="stylesheet" href="../build/ranger.min.css">
   <title>Ranger</title>
 </head>
 <body>
   <div id="ranger"></div>
   <script type="module">
-    import Ranger from '../dist/ranger.js'
+    import Ranger from '../build/ranger.js'
     const ranger = new Ranger({ target: document.querySelector('#ranger') })
     ranger.on('selectedRange', ([start, end]) => console.log(start, end))
   </script>
