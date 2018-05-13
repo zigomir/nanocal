@@ -5,7 +5,6 @@ import minify from 'rollup-plugin-babel-minify'
 const production = !process.env.ROLLUP_WATCH
 const outputIndex = production ? 8 : 9 // TODO: make this more robust
 const ranger = process.argv[outputIndex].includes('ranger')
-const min = process.argv[outputIndex].includes('.min')
 const name = ranger ? 'Ranger' : 'Nanocal'
 const cssName = ranger ? 'ranger' : 'nanocal'
 
@@ -20,6 +19,6 @@ export default {
       dev: !production, // enable run-time checks when not in production
       css: css => { css.write(`${production ? 'dist' : 'build'}/${cssName}.min.css`) }
     }),
-    production && min && minify({ comments: false })
+    production && minify({ comments: false })
   ]
 }

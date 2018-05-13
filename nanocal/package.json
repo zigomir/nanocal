@@ -1,7 +1,9 @@
 {
   "name": "nanocal",
-  "version": "0.3.0",
-  "module": "dist/nanocal.min.esm.js",
+  "version": "0.3.1",
+  "module": "dist/nanocal.min.js",
+  "main": "dist/nanocal.min.js",
+  "unpkg": "dist/nanocal.min.js",
   "repository": "https://github.com/zigomir/nanocal/tree/master/nanocal",
   "license": "MIT",
   "homepage": "https://github.com/zigomir/nanocal",
@@ -9,15 +11,14 @@
   "description": "Minimal, AirBnb inspired, date picker",
   "scripts": {
     "prebuild": "rm -f dist/*",
-    "build": "../node_modules/.bin/tsc && npm run build:esm && npm run build:esm:min && ../node_modules/.bin/bundlesize",
-    "build:esm": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal.esm.js",
-    "build:esm:min": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal.min.esm.js",
+    "build": "../node_modules/.bin/tsc && npm run build:svelte && ../node_modules/.bin/bundlesize",
+    "build:svelte": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal.min.js",
     "test": "npm run --prefix .. test",
     "prepublishOnly": "npm run build && npm run test"
   },
   "bundlesize": [
     {
-      "path": "dist/nanocal.min.esm.js",
+      "path": "dist/nanocal.min.js",
       "maxSize": "4.5 kB"
     }
   ],
