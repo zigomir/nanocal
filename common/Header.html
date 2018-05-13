@@ -1,11 +1,11 @@
 <caption class="caption">
-  <span class="month-name">{{ monthName }}</span>
-  <span class="year">{{ year }}</span>
+  <span class="month-name">{ monthName }</span>
+  <span class="year">{ year }</span>
 </caption>
 <tr class="header">
-  {{#each dayNames as day}}
-    <th class="day-name">{{ day }}</th>
-  {{/each}}
+  {#each dayNames as day}
+    <th class="day-name">{ day }</th>
+  {/each}
 </tr>
 
 <script>
@@ -14,7 +14,7 @@
 
   export default {
     computed: {
-      monthName: (year, month, locale, nextMonth) => {
+      monthName: ({ year, month, locale, nextMonth }) => {
         if (nextMonth) {
           const nextMonth = getNextMonth(year, month)
           return monthName(nextMonth.year, nextMonth.month, locale)
@@ -22,7 +22,7 @@
           return monthName(year, month, locale)
         }
       },
-      dayNames: (startOfTheWeek, locale) => dayNames(startOfTheWeek, locale)
+      dayNames: ({ startOfTheWeek, locale }) => dayNames(startOfTheWeek, locale)
     }
   }
 </script>

@@ -21,9 +21,6 @@ shout-outs to [svelte](https://svelte.technology/)
 - [nanocal with ES modules](https://codepen.io/zigomir/pen/YEZjgO?editors=1000)
 - [ranger with ES modules](https://codepen.io/zigomir/pen/vWxaPV?editors=1000)
 
-- [nanocal with iife](https://codepen.io/zigomir/pen/WXpama?editors=1000)
-- [ranger with iife](https://codepen.io/zigomir/pen/dZvgLN?editors=1000)
-
 ## browser compatibility / known issues
 
 tested on mostly modern browsers
