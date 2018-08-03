@@ -21,7 +21,7 @@
 </script>
 ```
 
-see [doc/options](../doc/options.md)
+see [docs/options](../docs/options.md)
 
 ## usage with npm and your own build pipeline
 
@@ -39,4 +39,4 @@ For more detailed examples how to use `nanocal` with `vue` or `react`, see [exam
 
 ## customize styles
 
-see [doc/styles](../doc/styles.md)
+see [docs/styles](../docs/styles.md)
