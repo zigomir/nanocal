@@ -4,15 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../build/nanocal.min.css">
+  <script src="../build/nanocal.js"></script>
+  <!-- <script src="../nanocal/dist/nanocal.min.js"></script> -->
   <title>Nanocal</title>
 </head>
 <body>
-  <div id="nanocal"></div>
-  <script type="module">
-    import Nanocal from '../build/nanocal.js'
-    const nanocal = new Nanocal({ target: document.querySelector('#nanocal') })
-    nanocal.on('selectedDay', (day) => console.log(day))
+  <!-- This won't work becaus year and month are strings :/ -->
+  <!-- <date-picker year="2015" month="2" /> -->
+
+  <date-picker />
+  <script>
+    const el = document.querySelector('date-picker')
+    // el.year = 2015
+    // el.month = 2
+    el.on('selectedDay', (day) => console.log(day))
   </script>
 </body>
 </html>

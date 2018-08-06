@@ -12,9 +12,7 @@
     </button>
   </div>
 
-  <div class="flex slot">
-    <slot></slot>
-  </div>
+  <slot></slot>
 </div>
 
 <script>
@@ -29,21 +27,22 @@
   }
 
   export default {
+    tag: 'date-picker-wrapper',
     methods: {
       back(year, month) {
         this.set(getPreviousMonth(year, month))
-        chromeBordersFix(this.root.options.target.getElementsByClassName('weeks'))
+        chromeBordersFix(this.getElementsByClassName('weeks'))
       },
       forward(year, month) {
         this.set(getNextMonth(year, month))
-        chromeBordersFix(this.root.options.target.getElementsByClassName('weeks'))
+        chromeBordersFix(this.getElementsByClassName('weeks'))
       }
     }
   }
 </script>
 
 <style>
-  :global(.wrapper) {
+  .wrapper {
     /* exposed CSS vars */
     --font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
 
@@ -81,10 +80,10 @@
     font-family: var(--font-family);
     display: inline-block;
   }
-  :global(.pointer) {
+  .pointer {
     cursor: pointer;
   }
-  :global(.button) {
+  .button {
     outline: none;
     color: transparent;
     background-color: transparent;
@@ -94,65 +93,16 @@
     height: var(--cell-size);
     width: var(--cell-size);
   }
-  :global(.button:active) {
+  .button:active {
     border-style: inset;
   }
-  :global(svg) {
+  svg {
     fill: var(--day-color);
   }
-  :global(.flex) {
+  .flex {
     display: flex;
   }
-  :global(.flex.between) {
+  .flex.between {
     justify-content: space-between;
-  }
-  :global(.header) {
-    height: 1.5em;
-  }
-  :global(.weeks) {
-    border-collapse: collapse;
-    width: calc((var(--cell-size) + 3px) * 7)
-  }
-  :global(.day) {
-    font-size: var(--day-font-size);
-    color: var(--day-color);
-    width: var(--cell-size);
-    height: var(--cell-size);
-    text-align: center;
-    border: var(--border-width) solid var(--border-color);
-    -webkit-user-select: none;
-    user-select: none;
-  }
-  :global(.day-name) {
-    font-weight: normal;
-    font-size: var(--day-name-font-size);
-    color: var(--day-name-color);
-  }
-  :global(.day.weekend) {
-    color: var(--weekend-day-color);
-  }
-  :global(.day.today) {
-    color: var(--today-color);
-  }
-  :global(.day:hover) {
-    cursor: pointer;
-    background-color: var(--hover-color);
-  }
-  :global(.day.selected) {
-    background-color: var(--selected-background-color);
-    color: var(--selected-color);
-  }
-  :global(.day.other-month) {
-    color: var(--other-day-color);
-    visibility: var(--other-month-visibility);
-    border: none;
-    pointer-events: none;
-  }
-  :global(.week.other-month) {
-    display: none;
-  }
-  :global(.day.disabled) {
-    color: var(--disabled-day-color);
-    pointer-events: none;
   }
 </style>

@@ -1,18 +1,24 @@
-<caption class="caption">
-  <span class="month-name">{ monthName }</span>
-  <span class="year">{ year }</span>
-</caption>
-<tr class="header">
-  {#each dayNames as day}
-    <th class="day-name">{ day }</th>
-  {/each}
-</tr>
+<div class="caption full-width">
+  <span class="month-name">{monthName}</span>
+  <span class="year">{year}</span>
+</div>
+<table class="full-width">
+  <thead>
+    <tr class="header">
+      {#each dayNames as day}
+        <th class="day-name">{day}</th>
+      {/each}
+    </tr>
+  </thead>
+</table>
 
 <script>
   import { monthName, dayNames } from './index.js'
   import { getNextMonth } from 'cntdys'
 
   export default {
+    tag: 'date-picker-header',
+
     computed: {
       monthName: ({ year, month, locale, nextMonth }) => {
         if (nextMonth) {
@@ -28,7 +34,16 @@
 </script>
 
 <style>
+  .full-width {
+    width: 100%;
+  }
   .caption {
     font-size: var(--caption-font-size);
+    text-align: center;
+  }
+  .day-name {
+    font-weight: normal;
+    font-size: var(--day-name-font-size);
+    color: var(--day-name-color);
   }
 </style>

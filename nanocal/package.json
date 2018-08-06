@@ -12,14 +12,14 @@
   "scripts": {
     "prebuild": "rm -f dist/*",
     "build": "../node_modules/.bin/tsc && npm run build:svelte && ../node_modules/.bin/bundlesize",
-    "build:svelte": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f es -o dist/nanocal.min.js",
+    "build:svelte": "../node_modules/.bin/rollup src/main.js -c ../rollup.config.js -f iife -o dist/nanocal.min.js",
     "test": "npm run --prefix .. test",
     "prepublishOnly": "npm run build && npm run test"
   },
   "bundlesize": [
     {
       "path": "dist/nanocal.min.js",
-      "maxSize": "4.5 kB"
+      "maxSize": "4.8 kB"
     }
   ],
   "dependencies": {}
