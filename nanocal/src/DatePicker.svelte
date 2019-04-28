@@ -31,12 +31,14 @@
 
 <Wrapper bind:year="{year}" bind:month="{month}">
   <table class="weeks">
-    <Header year="{ year }" month="{ month }" locale="{ locale }" startOfTheWeek="{ startOfTheWeek }"></Header>
+    <Header year="{year}" month="{month}" locale="{locale}" startOfTheWeek="{startOfTheWeek}"></Header>
     {#each calendarMonth(year, month, startOfTheWeek) as week}
       <tr class="{weekClass(week, month).join(' ')}">
         {#each week as weekDay}
-          <td on:click="{() => selectDay(weekDay)}"
-            class="{dayClass(selectedDay, weekDay, month).join(' ')}">{weekDay.dayInMonth}</td>
+          <td
+            on:click="{() => selectDay(weekDay)}"
+            class="{dayClass(selectedDay, weekDay, month).join(' ')}"
+          >{weekDay.dayInMonth}</td>
         {/each}
       </tr>
     {/each}
