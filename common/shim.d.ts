@@ -1,4 +1,4 @@
-declare module '*.html' {
+declare module '*.svelte' {
   const defaultExport: object
   export default defaultExport
 }

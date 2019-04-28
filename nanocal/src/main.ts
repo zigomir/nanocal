@@ -1,2 +1,2 @@
-import DatePicker from './DatePicker.html'
+import DatePicker from './DatePicker.svelte'
 export default DatePicker

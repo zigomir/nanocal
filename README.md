@@ -14,7 +14,7 @@ don't be satisfied with `moment.js` + `jquery` combo to have a simple date or ra
 
 ## how
 
-shout-outs to [svelte](https://svelte.technology/)
+shout-outs to [svelte](https://svelte.dev)
 
 ### examples on codepen.io
 
