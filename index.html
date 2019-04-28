@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./dist/nanocal.min.css">
+  <title>Nanocal</title>
+</head>
+<body>
+  <div id="nanocal"></div>
+  <script type="module">
+    import Nanocal from './dist/nanocal.js'
+    const nanocal = new Nanocal({
+      target: document.querySelector('#nanocal'),
+      props: {
+        // startOfTheWeek: 1
+        disableOnDay: (dayTimestamp) => {
+          // define these outside of this function to create them only once
+          const dayInMilliseconds = 24 * 60 * 60 * 1000
+          const today = new Date().getTime() - dayInMilliseconds
+          const deadline = new Date(2019, 4 - 1, 6).getTime()
+          // return dayTimestamp < today || dayTimestamp > deadline
+          return dayTimestamp > deadline
+        }
+      }
+    })
+    nanocal.$on('selectedDay', ({ detail: day }) => console.log(day))
+  </script>
+</body>
+</html>

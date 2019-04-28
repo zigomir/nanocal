@@ -1,3 +1,4 @@
+
 import { IDay, MonthNumber, Year } from 'cntdys'
 
 const isCurrentMonth = (day: IDay, month: number) => day.month.month === month

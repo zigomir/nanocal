@@ -1,6 +1,3 @@
 node_modules
 dist
 build
-**/*.js
-!examples/**/*.js
-!rollup.config.js

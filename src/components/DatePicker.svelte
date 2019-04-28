@@ -1,8 +1,8 @@
 <script>
-  import Wrapper from '../../common/Wrapper.svelte'
-  import Header from '../../common/Header.svelte'
+  import Wrapper from './Wrapper.svelte'
+  import Header from './Header.svelte'
   import { calendarMonth } from 'cntdys'
-  import { dayClass, weekClass } from '../../common/index.js'
+  import { dayClass, weekClass } from '../util.js'
   import { createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()
@@ -12,6 +12,7 @@
   export let month = today.getMonth() + 1
   export let locale = navigator.language
   export let startOfTheWeek = 0
+  export let disableOnDay
 
   export let selectedDay = {
     day: today.getDate(),
@@ -37,7 +38,7 @@
         {#each week as weekDay}
           <td
             on:click="{() => selectDay(weekDay)}"
-            class="{dayClass(selectedDay, weekDay, month).join(' ')}"
+            class="{dayClass(selectedDay, weekDay, month, disableOnDay).join(' ')}"
           >{weekDay.dayInMonth}</td>
         {/each}
       </tr>

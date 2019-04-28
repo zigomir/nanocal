@@ -1,5 +1,5 @@
 <script>
-  import { monthName, dayNames } from './index.js'
+  import { monthName, dayNames } from '../util.js'
   export let year
   export let month
   export let locale
