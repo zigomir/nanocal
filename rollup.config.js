@@ -7,12 +7,14 @@ const production = !process.env.ROLLUP_WATCH
 export default {
   output: {
     sourcemap: true,
-    name: 'Nanocal'
+    name: 'Nanocal',
+    format: 'es',
+    file: `dist/nanocal${production ? '.min' : ''}.js`
   },
   plugins: [
     svelte({
       dev: !production, // enable run-time checks when not in production
-      css: css => { css.write(`${production ? 'dist' : 'build'}/nanocal.min.css`) }
+      css: css => { css.write('dist/nanocal.css') }
     }),
     resolve(),
     production && terser()

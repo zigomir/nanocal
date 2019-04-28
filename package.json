@@ -4,17 +4,16 @@
   "module": "dist/nanocal.min.js",
   "main": "dist/nanocal.min.js",
   "unpkg": "dist/nanocal.min.js",
-  "repository": "https://github.com/zigomir/nanocal/tree/master/nanocal",
+  "repository": "https://github.com/zigomir/nanocal",
   "license": "MIT",
   "homepage": "https://github.com/zigomir/nanocal",
   "bugs": "https://github.com/zigomir/nanocal/issues",
   "description": "Minimal, AirBnb inspired, date picker",
   "scripts": {
-    "dev": "tsc -w & npm run dev:nanocal & servor . index.html --no-browser --no-reload",
-    "dev:nanocal": "rollup src/main.js -c rollup.config.js -w -f es -o dist/nanocal.js",
-    "prebuild": "rm -f dist/*",
-    "build": "tsc && npm run build:svelte && bundlesize",
-    "build:svelte": "rollup src/main.js -c rollup.config.js -f es -o dist/nanocal.min.js",
+    "dev": "tsc -w & npm run dev:rollup & servor . index.html --no-browser --no-reload",
+    "dev:rollup": "rollup src/main.js -c -w",
+    "build": "rm -f dist/* && tsc && npm run build:rollup && bundlesize",
+    "build:rollup": "rollup src/main.js -c",
     "prepublishOnly": "npm run build"
   },
   "bundlesize": [
