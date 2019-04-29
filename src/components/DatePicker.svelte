@@ -38,7 +38,7 @@
         {#each week as weekDay}
           <td
             on:click="{() => selectDay(weekDay)}"
-            class="{dayClass(selectedDay, weekDay, month, disableOnDay).join(' ')}"
+            class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
           >{weekDay.dayInMonth}</td>
         {/each}
       </tr>

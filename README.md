@@ -49,7 +49,7 @@ import Nanocal from 'nanocal'
 - `selectedDay` - object with `year`, `month` and `day` number properties
 - `year` - number: year of month where calendar is opened, defaults to current year
 - `month` - number: month where calendar is opened, defaults to current month
-- `locale` - string: defaults to en-US
+- `locale` - string: defaults to `navigator.language`
 - `startOfTheWeek` - number: defaults to 0 which is Sunday
 - `disableOnDay` - function: define custom function to specify which days should be disabled for selection
 
