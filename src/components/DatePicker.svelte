@@ -13,12 +13,7 @@
   export let locale = navigator.language
   export let startOfTheWeek = 0
   export let disableOnDay
-
-  export let selectedDay = {
-    day: today.getDate(),
-    month,
-    year
-  }
+  export let selectedDay
 
   function selectDay(day) {
     selectedDay = {
