@@ -1,8 +1,7 @@
 <script>
-  import Wrapper from './Wrapper.svelte'
-  import Header from './Header.svelte'
   import { calendarMonth } from 'cntdys'
-  import { dayClass, weekClass } from '../util.js'
+  import Wrapper from './Wrapper.svelte'
+  import { dayClass, weekClass, monthName, dayNames } from '../util.js'
   import { createEventDispatcher } from 'svelte'
 
   const dispatch = createEventDispatcher()
@@ -27,7 +26,15 @@
 
 <Wrapper bind:year="{year}" bind:month="{month}">
   <table class="weeks">
-    <Header year="{year}" month="{month}" locale="{locale}" startOfTheWeek="{startOfTheWeek}"></Header>
+    <caption class="caption">
+      <span class="month-name">{monthName(year, month, locale)}</span>
+      <span class="year">{year}</span>
+    </caption>
+    <tr class="header">
+      {#each dayNames(startOfTheWeek, locale) as day}
+        <th class="day-name">{day}</th>
+      {/each}
+    </tr>
     {#each calendarMonth(year, month, startOfTheWeek) as week}
       <tr class="{weekClass(week, month).join(' ')}">
         {#each week as weekDay}
