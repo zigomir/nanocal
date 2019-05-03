@@ -1,6 +1,7 @@
 <script>
   import { calendarMonth } from 'cntdys'
   import Week from './Week.svelte'
+  import { weekClass } from '../util.js'
 
   export let year
   export let month
@@ -10,5 +11,9 @@
 </script>
 
 {#each calendarMonth(year, month, startOfTheWeek) as week}
-  <Week {month} {week} {disableOnDay} {selectedDay} on:selectedDay />
+  <slot name="week" {week}>
+    <tr class="{weekClass(week, month).join(' ')}">
+      <Week {month} {week} {disableOnDay} {selectedDay} on:selectedDay />
+    </tr>
+  </slot>
 {/each}

@@ -2,8 +2,8 @@
   import DatePicker from '../src/components/DatePicker.svelte'
   import DayNames from '../src/components/DayNames.svelte'
   import Month from '../src/components/Month.svelte'
-  // TODO: how to avoid importing this?
-  import { monthName } from '../src/util.js'
+  import Week from '../src/components/Week.svelte'
+  import Day from '../src/components/Day.svelte'
 
   const datePickerProps = {
 		year: 2017,
@@ -33,6 +33,7 @@
 <!-- <DatePicker {...datePickerProps} on:selectedDay={handleSelectedDay} /> -->
 
 <!-- Custom -->
+<!-- Almost total control over markup and styling 💆🏽‍♀️ -->
 <DatePicker {...datePickerProps}
   let:year
   let:month
@@ -49,7 +50,7 @@
     <button on:click="{forward}">FW</button>
   </div>
 
-  <div slot="month">
+  <div slot="month" let:monthName>
     <div>{monthName(year, month, locale)}</div>
     <div>{year}</div>
   </div>
@@ -60,9 +61,15 @@
     </DayNames>
   </div>
 
-  <table>
-    <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay={handleSelectedDay} />
-  </table>
+  <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay}>
+    <div class="flex" slot="week" let:week>
+      <Week {month} {week} {disableOnDay} {selectedDay}>
+        <div slot="weekDay" let:weekDay>
+          <Day {weekDay} {disableOnDay} {selectedDay} {month} on:selectedDay={handleSelectedDay} />
+        </div>
+      </Week>
+    </div>
+  </Month>
 </DatePicker>
 
 <style>

@@ -31,7 +31,7 @@
   <button on:click="{forward}"></button>
 </slot>
 
-<slot name="month">
+<slot name="month" monthName="{() => monthName(year, month, locale)}">
   <div>{monthName(year, month, locale)}</div>
   <div>{year}</div>
 </slot>
@@ -41,7 +41,6 @@
   {month}
   {startOfTheWeek}
   {selectedDay}
-  {selectDay}
   {disableOnDay}
   {back}
   {forward}

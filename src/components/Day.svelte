@@ -19,7 +19,7 @@
   }
 </script>
 
-<td
+<div
   class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
   on:click="{() => selectDay(weekDay)}"
->{weekDay.dayInMonth}</td>
+>{weekDay.dayInMonth}</div>

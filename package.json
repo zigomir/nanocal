@@ -19,7 +19,7 @@
   "bundlesize": [
     {
       "path": "dist/nanocal.min.js",
-      "maxSize": "3.7 kB"
+      "maxSize": "4.75 kB"
     }
   ],
   "dependencies": {
