@@ -1,26 +1,17 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
-  import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
-  import { dayClass, weekClass, monthName, dayNames } from '../util.js'
+  import { getPreviousMonth, getNextMonth } from 'cntdys'
+  import { monthName } from '../util.js'
+  import DayNames from './DayNames.svelte'
+  import Month from './Month.svelte'
 
-  const dispatch = createEventDispatcher()
   const today = new Date()
-
   export let year = today.getFullYear()
   export let month = today.getMonth() + 1
   export let locale = navigator.language
   export let startOfTheWeek = 0
+  // required props
   export let disableOnDay
   export let selectedDay
-
-  function selectDay(day) {
-    selectedDay = {
-      day: day.dayInMonth,
-      month: day.month.month,
-      year: day.month.year
-    }
-    dispatch('selectedDay', day)
-  }
 
   function back() {
     const prevMonth = getPreviousMonth(year, month)
@@ -57,22 +48,7 @@
   {locale}
 >
   <table>
-    <tr>
-      {#each dayNames(startOfTheWeek, locale) as day}
-        <slot name="dayOfWeek" day="{day}">
-          <th>{day}</th>
-        </slot>
-      {/each}
-    </tr>
-    {#each calendarMonth(year, month, startOfTheWeek) as week}
-      <tr class="{weekClass(week, month).join(' ')}">
-        {#each week as weekDay}
-          <td
-            class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
-            on:click="{() => selectDay(weekDay)}"
-          >{weekDay.dayInMonth}</td>
-        {/each}
-      </tr>
-    {/each}
+    <DayNames {startOfTheWeek} {locale} />
+    <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay />
   </table>
 </slot>

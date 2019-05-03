@@ -1,8 +1,9 @@
 <script>
   import DatePicker from '../src/components/DatePicker.svelte'
+  import DayNames from '../src/components/DayNames.svelte'
+  import Month from '../src/components/Month.svelte'
   // TODO: how to avoid importing this?
-  import { dayClass, weekClass, monthName, dayNames } from '../src/util.js'
-  import { calendarMonth } from 'cntdys'
+  import { monthName } from '../src/util.js'
 
   const datePickerProps = {
 		year: 2017,
@@ -28,6 +29,10 @@
   }
 </script>
 
+<!-- Default -->
+<!-- <DatePicker {...datePickerProps} on:selectedDay={handleSelectedDay} /> -->
+
+<!-- Custom -->
 <DatePicker {...datePickerProps}
   let:year
   let:month
@@ -38,7 +43,6 @@
   let:disableOnDay
   let:back
   let:forward
-  on:selectedDay={handleSelectedDay}
 >
   <div slot="navigation">
     <button on:click="{back}">Back</button>
@@ -51,22 +55,7 @@
   </div>
 
   <table>
-    <tr>
-      <!-- <th slot="dayOfWeek" let:day={day}>{day}</th> -->
-      {#each dayNames(startOfTheWeek, locale) as day}
-        <th>{day}</th>
-      {/each}
-    </tr>
-    {#each calendarMonth(year, month, startOfTheWeek) as week}
-      <tr class="{weekClass(week, month).join(' ')}">
-        <!-- <td slot="day" let:weekDay={weekDay}>{weekDay.dayInMonth}</td> -->
-        {#each week as weekDay}
-          <td
-            class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
-            on:click="{() => selectDay(weekDay)}"
-          >{weekDay.dayInMonth}</td>
-        {/each}
-      </tr>
-    {/each}
+    <DayNames {startOfTheWeek} {locale} />
+    <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay={handleSelectedDay} />
   </table>
 </DatePicker>
