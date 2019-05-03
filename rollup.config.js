@@ -14,7 +14,6 @@ export default {
   plugins: [
     svelte({
       dev: !production, // enable run-time checks when not in production
-      css: css => { css.write('dist/nanocal.css') }
     }),
     resolve(),
     production && terser()

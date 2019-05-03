@@ -45,11 +45,23 @@
   <div>{year}</div>
 </slot>
 
-<slot>
+<slot
+  {year}
+  {month}
+  {startOfTheWeek}
+  {selectedDay}
+  {selectDay}
+  {disableOnDay}
+  {back}
+  {forward}
+  {locale}
+>
   <table>
     <tr>
       {#each dayNames(startOfTheWeek, locale) as day}
-        <th>{day}</th>
+        <slot name="dayOfWeek" day="{day}">
+          <th>{day}</th>
+        </slot>
       {/each}
     </tr>
     {#each calendarMonth(year, month, startOfTheWeek) as week}

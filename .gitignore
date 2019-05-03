@@ -1,4 +1,4 @@
 node_modules
 dist
-build
+test/build
 src/*.js
