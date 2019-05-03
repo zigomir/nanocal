@@ -48,7 +48,9 @@
   {locale}
 >
   <table>
-    <DayNames {startOfTheWeek} {locale} />
+    <tr>
+      <DayNames {startOfTheWeek} {locale} />
+    </tr>
     <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay />
   </table>
 </slot>

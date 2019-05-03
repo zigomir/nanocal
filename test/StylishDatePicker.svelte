@@ -54,8 +54,19 @@
     <div>{year}</div>
   </div>
 
+  <div class="flex">
+    <DayNames {startOfTheWeek} {locale}>
+      <div slot="day" let:day>{day}</div>
+    </DayNames>
+  </div>
+
   <table>
-    <DayNames {startOfTheWeek} {locale} />
     <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay={handleSelectedDay} />
   </table>
 </DatePicker>
+
+<style>
+  .flex {
+    display: flex;
+  }
+</style>
