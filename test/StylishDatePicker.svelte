@@ -6,22 +6,22 @@
   import Day from '../src/components/Day.svelte'
 
   const datePickerProps = {
-		year: 2017,
-		month: 11,
-		locale: 'sl-SI',
-		startOfTheWeek: 1,
-		selectedDay: {
-			year: 2017,
-			month: 11,
-			day: 1
-		},
-		disableOnDay: (dayTimestamp) => {
-			// define these outside of this function to create them only once
-			const dayInMilliseconds = 24 * 60 * 60 * 1000
-			const today = new Date().getTime() - dayInMilliseconds
-			const deadline = new Date(2019, 4 - 1, 6).getTime()
-			return dayTimestamp > deadline // || dayTimestamp < today
-		}
+    year: 2017,
+    month: 11,
+    locale: 'sl-SI',
+    startOfTheWeek: 1,
+    selectedDay: {
+      year: 2017,
+      month: 11,
+      day: 1
+    },
+    disableOnDay: (dayTimestamp) => {
+      // define these outside of this function to create them only once
+      const dayInMilliseconds = 24 * 60 * 60 * 1000
+      const today = new Date().getTime() - dayInMilliseconds
+      const deadline = new Date(2019, 4 - 1, 6).getTime()
+      return dayTimestamp > deadline // || dayTimestamp < today
+    }
   }
 
   function handleSelectedDay({ detail: day }) {
