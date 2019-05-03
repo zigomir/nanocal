@@ -1,8 +1,7 @@
 <script>
-  import { calendarMonth } from 'cntdys'
-  import Wrapper from './Wrapper.svelte'
-  import { dayClass, weekClass, monthName, dayNames } from '../util.js'
   import { createEventDispatcher } from 'svelte'
+  import { calendarMonth, getPreviousMonth, getNextMonth } from 'cntdys'
+  import { dayClass, weekClass, monthName, dayNames } from '../util.js'
 
   const dispatch = createEventDispatcher()
   const today = new Date()
@@ -22,28 +21,46 @@
     }
     dispatch('selectedDay', day)
   }
+
+  function back() {
+    const prevMonth = getPreviousMonth(year, month)
+    year = prevMonth.year
+    month = prevMonth.month
+  }
+
+  function forward() {
+    const nextMonth = getNextMonth(year, month)
+    year = nextMonth.year
+    month = nextMonth.month
+  }
 </script>
 
-<Wrapper bind:year="{year}" bind:month="{month}">
-  <table class="weeks">
-    <caption class="caption">
-      <span class="month-name">{monthName(year, month, locale)}</span>
-      <span class="year">{year}</span>
-    </caption>
-    <tr class="header">
+<slot name="navigation">
+  <button on:click="{back}"></button>
+  <button on:click="{forward}"></button>
+</slot>
+
+<slot name="month">
+  <div>{monthName(year, month, locale)}</div>
+  <div>{year}</div>
+</slot>
+
+<slot>
+  <table>
+    <tr>
       {#each dayNames(startOfTheWeek, locale) as day}
-        <th class="day-name">{day}</th>
+        <th>{day}</th>
       {/each}
     </tr>
     {#each calendarMonth(year, month, startOfTheWeek) as week}
       <tr class="{weekClass(week, month).join(' ')}">
         {#each week as weekDay}
           <td
-            on:click="{() => selectDay(weekDay)}"
             class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
+            on:click="{() => selectDay(weekDay)}"
           >{weekDay.dayInMonth}</td>
         {/each}
       </tr>
     {/each}
   </table>
-</Wrapper>
+</slot>
