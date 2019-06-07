@@ -19,7 +19,7 @@
     "@types/tape": "^4.2.32",
     "bundlesize": "^0.17.0",
     "cntdys": "^0.2.8",
-    "ecstatic": "^3.2.1",
+    "ecstatic": "^3.3.2",
     "prettier-standard": "^8.0.1",
     "puppeteer": "^1.6.2",
     "rollup": "^0.63.5",
