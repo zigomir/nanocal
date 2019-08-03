@@ -19,20 +19,20 @@
   "bundlesize": [
     {
       "path": "dist/nanocal.min.js",
-      "maxSize": "4.76 kB"
+      "maxSize": "5 kB"
     }
   ],
   "dependencies": {
     "cntdys": "^0.2.8"
   },
   "devDependencies": {
-    "bundlesize": "^0.17.1",
-    "rollup": "^1.12.3",
-    "rollup-plugin-node-resolve": "^5.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^4.0.4",
+    "bundlesize": "^0.18.0",
+    "rollup": "^1.18.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-svelte": "^5.1.0",
+    "rollup-plugin-terser": "^5.1.1",
     "servor": "^2.2.1",
-    "svelte": "^3.4.1",
-    "typescript": "^3.4.5"
+    "svelte": "^3.6.11",
+    "typescript": "^3.5.3"
   }
 }
