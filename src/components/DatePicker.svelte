@@ -10,24 +10,37 @@
   export let locale = navigator.language
   export let startOfTheWeek = 0
   // required props
-  export let disableOnDay
-  export let selectedDay
+  export let disableOnDay = () => false
+  export let selectedDay = {
+    year: 2019,
+    month: 8,
+    day: 9
+  }
 
-  function back() {
+  function backward () {
     const prevMonth = getPreviousMonth(year, month)
     year = prevMonth.year
     month = prevMonth.month
   }
 
-  function forward() {
+  function forward () {
     const nextMonth = getNextMonth(year, month)
     year = nextMonth.year
     month = nextMonth.month
   }
+
+  function handleSelectedDay (day) {
+    selectedDay = {
+      day: day.dayInMonth,
+      month: day.month.month,
+      year: day.month.year
+    }
+    console.log(day)
+  }
 </script>
 
-<slot name="navigation">
-  <button on:click="{back}"></button>
+<slot name="navigation" backward="{() => backward()}" forward="{() => forward()}">
+  <button on:click="{backward}"></button>
   <button on:click="{forward}"></button>
 </slot>
 
@@ -39,17 +52,17 @@
 <slot
   {year}
   {month}
-  {startOfTheWeek}
   {selectedDay}
-  {disableOnDay}
-  {back}
+  {backward}
   {forward}
+  {startOfTheWeek}
   {locale}
+  handleSelectedDay="{(weekDay) => handleSelectedDay(weekDay)}"
 >
   <table>
     <tr>
       <DayNames {startOfTheWeek} {locale} />
     </tr>
-    <Month {year} {month} {startOfTheWeek} {disableOnDay} {selectedDay} on:selectedDay />
+    <Month {year} {month} {selectedDay} {startOfTheWeek} />
   </table>
 </slot>
