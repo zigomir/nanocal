@@ -4,9 +4,16 @@
     "dev": "npm run dev:rollup & servor . test.html --no-browser --no-reload",
     "dev:rollup": "rollup stylish-calendar.js -c -w",
     "purgecss": "purgecss --css build/stylish-calendar.min.css --content *.svelte --out build",
-    "build": "rm -rf build && rollup stylish-calendar.js -c && npm run purgecss && cleancss -o build/stylish-calendar.min.css build/stylish-calendar.min.css"
+    "build": "rm -rf build && rollup stylish-calendar.js -c && npm run purgecss && cleancss -o build/stylish-calendar.min.css build/stylish-calendar.min.css && bundlesize"
   },
+  "bundlesize": [
+    {
+      "path": "build/stylish-calendar.min.js",
+      "maxSize": "6.5 kB"
+    }
+  ],
   "devDependencies": {
+    "bundlesize": "^0.18.0",
     "clean-css-cli": "^4.3.0",
     "purgecss": "^1.3.0",
     "rollup": "^1.19.2",
