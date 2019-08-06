@@ -4,7 +4,7 @@
 
 ## why
 
-don't be satisfied with `moment.js` + `jquery` combo to have a simple date or range picker
+don't be satisfied with `moment.js` + `jquery` combo to have a simple date picker
 
 ## how
 

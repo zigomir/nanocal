@@ -10,6 +10,9 @@ const isToday = (day: IDay, today: Date) =>
   day.month.month === today.getMonth() + 1 &&
   day.month.year === today.getFullYear()
 
+const isInThePast = (day: IDay, today: Date) =>
+  new Date(day.month.year, day.month.month - 1, day.dayInMonth).getTime() < today.getTime()
+
 export const isSelected = (
   weekDay: IDay,
   { day, year, month }: { day: number; year: Year; month: MonthNumber }
@@ -35,6 +38,9 @@ export const dayClass = ({
   }
   if (isToday(weekDay, new Date())) {
     classes.push('today')
+  }
+  if (isInThePast(weekDay, new Date())) {
+    classes.push('past')
   }
   classes.push(isCurrentMonth(weekDay, month) ? 'current-month' : 'other-month')
   if (selectedDay && isSelected(weekDay, selectedDay)) {

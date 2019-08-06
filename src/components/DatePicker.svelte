@@ -1,42 +1,64 @@
 <script>
-  import Wrapper from './Wrapper.svelte'
-  import Header from './Header.svelte'
-  import { calendarMonth } from 'cntdys'
-  import { dayClass, weekClass } from '../util.js'
-  import { createEventDispatcher } from 'svelte'
+  import { getPreviousMonth, getNextMonth } from 'cntdys'
+  import { monthName } from '../util.js'
+  import DayNames from './DayNames.svelte'
+  import Month from './Month.svelte'
 
-  const dispatch = createEventDispatcher()
   const today = new Date()
-
   export let year = today.getFullYear()
   export let month = today.getMonth() + 1
   export let locale = navigator.language
   export let startOfTheWeek = 0
+  // required props
   export let disableOnDay
   export let selectedDay
 
-  function selectDay(day) {
+  function backward () {
+    const prevMonth = getPreviousMonth(year, month)
+    year = prevMonth.year
+    month = prevMonth.month
+  }
+
+  function forward () {
+    const nextMonth = getNextMonth(year, month)
+    year = nextMonth.year
+    month = nextMonth.month
+  }
+
+  function handleSelectedDay (day) {
     selectedDay = {
       day: day.dayInMonth,
       month: day.month.month,
       year: day.month.year
     }
-    dispatch('selectedDay', day)
   }
 </script>
 
-<Wrapper bind:year="{year}" bind:month="{month}">
-  <table class="weeks">
-    <Header year="{year}" month="{month}" locale="{locale}" startOfTheWeek="{startOfTheWeek}"></Header>
-    {#each calendarMonth(year, month, startOfTheWeek) as week}
-      <tr class="{weekClass(week, month).join(' ')}">
-        {#each week as weekDay}
-          <td
-            on:click="{() => selectDay(weekDay)}"
-            class="{dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
-          >{weekDay.dayInMonth}</td>
-        {/each}
-      </tr>
-    {/each}
+<slot name="navigation" backward="{() => backward()}" forward="{() => forward()}">
+  <button on:click="{backward}"></button>
+  <button on:click="{forward}"></button>
+</slot>
+
+<slot name="month" monthName="{() => monthName(year, month, locale)}">
+  <div>{monthName(year, month, locale)}</div>
+  <div>{year}</div>
+</slot>
+
+<slot
+  {year}
+  {month}
+  {selectedDay}
+  {disableOnDay}
+  {backward}
+  {forward}
+  {startOfTheWeek}
+  {locale}
+  handleSelectedDay="{(weekDay) => handleSelectedDay(weekDay)}"
+>
+  <table>
+    <tr>
+      <DayNames {startOfTheWeek} {locale} />
+    </tr>
+    <Month {year} {month} {selectedDay} {disableOnDay} {startOfTheWeek} />
   </table>
-</Wrapper>
+</slot>
