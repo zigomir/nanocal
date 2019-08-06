@@ -3,34 +3,26 @@
   import DayNames from '../src/components/DayNames.svelte'
   import Month from '../src/components/Month.svelte'
   import Week from '../src/components/Week.svelte'
-
   import { dayClass } from '../src/util.js'
 
-  // let selectedDay = {
-  //   year: 2019,
-  //   month: 8,
-  //   day: 8
-  // }
-
-  // let datePickerProps = {
-  //   year: 2019,
-  //   month: 8,
-  //   // locale: 'sl-SI',
-  //   // startOfTheWeek: 1,
-  //   selectedDay: {
-  //     year: 2019,
-  //     month: 8,
-  //     day: 8
-  //   },
-  //   disableOnDay: (dayTimestamp) => {
-  //     // define these outside of this function to create them only once
-  //     // const dayInMilliseconds = 24 * 60 * 60 * 1000
-  //     // const today = new Date().getTime() - dayInMilliseconds
-  //     // const deadline = new Date(2019, 4 - 1, 6).getTime()
-  //     // return dayTimestamp > deadline // || dayTimestamp < today
-  //     return false
-  //   }
-  // }
+  const datePickerProps = {
+    year: 2019,
+    month: 8,
+    // locale: 'sl-SI',
+    // startOfTheWeek: 1,
+    selectedDay: {
+      year: 2019,
+      month: 8,
+      day: 8
+    },
+    disableOnDay: (dayTimestamp) => {
+      // define these outside of this function to create them only once
+      const dayInMilliseconds = 24 * 60 * 60 * 1000
+      const today = new Date().getTime() - dayInMilliseconds
+      const deadline = new Date(2019, 8 - 1, 15).getTime()
+      return dayTimestamp >= deadline // || dayTimestamp < today
+    }
+  }
 </script>
 
 <!-- Default -->
@@ -41,6 +33,7 @@
 <!-- <DatePicker {...datePickerProps} -->
 
 <DatePicker
+  {...datePickerProps}
   let:year
   let:month
   let:startOfTheWeek
@@ -65,9 +58,9 @@
   </div>
 
   <table>
-    <Month {year} {month} {startOfTheWeek} {selectedDay} let:week let:month let:selectedDay>
+    <Month {year} {month} {startOfTheWeek} {selectedDay} {disableOnDay} let:week let:month let:selectedDay let:disableOnDay>
       <tr class="week">
-        <Week {year} {month} {week} {selectedDay} let:weekDay let:week let:month let:selectedDay>
+        <Week {year} {month} {week} {selectedDay} {disableOnDay} let:weekDay let:week let:month let:selectedDay let:disableOnDay>
           <td
             class="day w-8 hover:bg-gray-300 cursor-pointer {dayClass({ selectedDay, weekDay, month, disableOnDay }).join(' ')}"
             on:click="{() => handleSelectedDay(weekDay)}"
@@ -90,6 +83,10 @@
 }
 :global(.past) {
   color: gray;
+  pointer-events: none;
+}
+:global(.disabled) {
+  color: gainsboro;
   pointer-events: none;
 }
 :global(.week) {

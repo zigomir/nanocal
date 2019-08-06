@@ -7,13 +7,14 @@
   export let month
   export let selectedDay
   export let startOfTheWeek
+  export let disableOnDay
 </script>
 
 {#each calendarMonth(year, month, startOfTheWeek) as week}
   <!-- Gotta pass all props back to prop to be consumed with `let:month` -->
-  <slot {year} {month} {week} {selectedDay}>
+  <slot {year} {month} {week} {selectedDay} {disableOnDay}>
     <tr class="{weekClass(week, month).join(' ')}">
-      <Week {year} {month} {week} {selectedDay} />
+      <Week {year} {month} {week} {selectedDay} {disableOnDay} />
     </tr>
   </slot>
 {/each}

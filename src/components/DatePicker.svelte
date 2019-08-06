@@ -10,12 +10,8 @@
   export let locale = navigator.language
   export let startOfTheWeek = 0
   // required props
-  export let disableOnDay = () => false
-  export let selectedDay = {
-    year: 2019,
-    month: 8,
-    day: 9
-  }
+  export let disableOnDay
+  export let selectedDay
 
   function backward () {
     const prevMonth = getPreviousMonth(year, month)
@@ -35,7 +31,6 @@
       month: day.month.month,
       year: day.month.year
     }
-    console.log(day)
   }
 </script>
 
@@ -53,6 +48,7 @@
   {year}
   {month}
   {selectedDay}
+  {disableOnDay}
   {backward}
   {forward}
   {startOfTheWeek}
@@ -63,6 +59,6 @@
     <tr>
       <DayNames {startOfTheWeek} {locale} />
     </tr>
-    <Month {year} {month} {selectedDay} {startOfTheWeek} />
+    <Month {year} {month} {selectedDay} {disableOnDay} {startOfTheWeek} />
   </table>
 </slot>
