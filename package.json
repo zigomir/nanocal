@@ -21,7 +21,7 @@
     "cntdys": "^0.2.8",
     "ecstatic": "^3.2.1",
     "prettier-standard": "^8.0.1",
-    "puppeteer": "^1.6.2",
+    "puppeteer": "^1.13.0",
     "rollup": "^0.63.5",
     "rollup-plugin-babel-minify": "^5.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
