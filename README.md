@@ -1,3 +1,6 @@
+# 🏚 deprecated – plese see / use [caly](https://github.com/zigomir/caly)
+
+
 # nanocal
 
 > 4 kB date picker & 5 kB range picker
