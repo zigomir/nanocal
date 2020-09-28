@@ -25,8 +25,8 @@ class App extends React.Component {
     const ranger = new Ranger({
       target: el,
       data: {
-        rangeStartDay: this.state.start,
-        rangeEndDay: this.state.end
+        rangeStart: this.state.start,
+        rangeEnd: this.state.end
       }
     })
 
