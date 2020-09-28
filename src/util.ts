@@ -1,3 +1,4 @@
+
 import { IDay, MonthNumber, Year } from 'cntdys'
 
 const isCurrentMonth = (day: IDay, month: number) => day.month.month === month
@@ -17,12 +18,17 @@ export const isSelected = (
   month === weekDay.month.month &&
   year === weekDay.month.year
 
-export const dayClass = (
-  selectedDay: ICalendarDay | undefined,
+export const dayClass = ({
+  selectedDay,
+  weekDay,
+  month,
+  disableOnDay
+}: {
+  selectedDay?: ICalendarDay,
   weekDay: IDay,
   month: MonthNumber,
   disableOnDay?: (timestamp: number) => boolean
-) => {
+}) => {
   const classes = ['day']
   if (isWeekend(weekDay)) {
     classes.push('weekend')
@@ -61,10 +67,10 @@ export interface ICalendarDay {
   year: Year
 }
 
-export const monthName = (year: Year, month: MonthNumber, locale = 'en-US') =>
+export const monthName = (year: Year, month: MonthNumber, locale = navigator.language) =>
   new Date(year, month - 1).toLocaleString(locale, { month: 'long' }) // must not use UTC here
 
-export const dayNames = (startOfTheWeek: number, locale = 'en-US') => {
+export const dayNames = (startOfTheWeek: number, locale = navigator.language) => {
   const days = [...Array(7).keys()].map(d =>
     new Date(2017, 9, d + 1) // must not use UTC here
       .toLocaleString(locale, { weekday: 'long' })

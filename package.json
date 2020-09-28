@@ -1,37 +1,38 @@
 {
-  "private": true,
+  "name": "nanocal",
+  "version": "0.4.0",
+  "module": "dist/nanocal.min.js",
+  "main": "dist/nanocal.min.js",
+  "unpkg": "dist/nanocal.min.js",
+  "repository": "https://github.com/zigomir/nanocal",
+  "license": "MIT",
+  "homepage": "https://github.com/zigomir/nanocal",
+  "bugs": "https://github.com/zigomir/nanocal/issues",
+  "description": "Minimal, AirBnb inspired, date picker",
   "scripts": {
-    "predev": "tsc",
-    "dev": "tsc -w & npm run dev:nanocal & npm run dev:ranger & serve -p 3000",
-    "dev:nanocal": "rollup nanocal/src/main.js -c rollup.config.js -w -f es -o build/nanocal.js",
-    "dev:ranger": "rollup ranger/src/main.js -c rollup.config.js -w -f es -o build/ranger.js",
-    "format": "prettier-standard '**/*.ts'",
-    "lint": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "pretest:dev": "tsc -p test/tsconfig.json",
-    "test:dev": "tsc -p test/tsconfig.json -w & watchify test/entry.js -o test/test_bundle.js & serve -p 3000 test",
-    "pretest": "tsc -p test/tsconfig.json && browserify test/entry.js -o test/test_bundle.js",
-    "test": "node test/index.js"
+    "dev": "tsc -w & npm run dev:rollup & servor . index.html --no-browser --no-reload",
+    "dev:rollup": "rollup src/main.js -c -w",
+    "build": "rm -f dist/* && tsc && npm run build:rollup && bundlesize",
+    "build:rollup": "rollup src/main.js -c",
+    "prepublishOnly": "npm run build"
   },
+  "bundlesize": [
+    {
+      "path": "dist/nanocal.min.js",
+      "maxSize": "4.5 kB"
+    }
+  ],
   "dependencies": {
     "cntdys": "^0.2.8"
   },
   "devDependencies": {
-    "@types/tape": "^4.2.32",
-    "bundlesize": "^0.17.0",
-    "cntdys": "^0.2.8",
-    "ecstatic": "^3.2.1",
-    "prettier-standard": "^8.0.1",
-    "puppeteer": "^1.6.2",
-    "rollup": "^0.63.5",
-    "rollup-plugin-babel-minify": "^5.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-svelte": "^4.2.1",
-    "serve": "^9.4.0",
-    "svelte": "^2.9.9",
-    "tape": "^4.9.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.14.0",
-    "typescript": "^3.0.1",
-    "watchify": "^3.11.0"
+    "bundlesize": "^0.17.1",
+    "rollup": "^1.10.1",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "servor": "^2.2.1",
+    "svelte": "^3.1.0",
+    "typescript": "^3.4.5"
   }
 }
